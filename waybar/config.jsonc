@@ -1,0 +1,277 @@
+// -*- mode: jsonc -*-
+{
+    // "layer": "top", // Waybar at top layer
+    // "position": "bottom", // Waybar position (top|bottom|left|right)
+    "height": 20, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    "spacing": 4, // Gaps between modules (4px)
+    // Choose the order of the modules
+    "modules-left": [
+        "group/logo",
+        "hyprland/workspaces",
+        //"custom/countdown",
+        //"group/hardware",
+        // "cpu",
+        // "memory",
+        // "temperature",
+        // "disk",
+        //"mpd",
+        "custom/media"
+    ],
+    "modules-center": [
+        "clock"
+	],
+    "modules-right": [
+        "user",
+        "hyprland/language",
+        "tray",
+        "group/connection",
+        "group/g",
+    ],
+    "group/logo": {
+		"orientation": "horizontal",
+        "modules": [
+            "custom/logo",
+            "custom/power",
+            "custom/reboot",
+            "custom/suspend",
+            "power-profiles-daemon",
+        ],
+        "drawer": {
+            "transition-duration": 500,
+            "children-class": "not-power",
+            "transition-left-to-right": true
+        }
+    },
+	"group/hardware": {
+		"orientation": "horizontal",
+		"modules": [
+            "custom/hardware",
+			"cpu",
+			"memory",
+			"temperature",
+            "disk"
+		],
+        "drawer": {
+            "transition-duration": 500,
+            "children-class": "not-power",
+            "transition-left-to-right": true
+        }
+	},
+    "group/g": {
+        "orientation": "inherit",
+        "modules": [
+            "pulseaudio",    
+            "backlight",
+            "battery",
+            "battery#bat2"
+        ]
+    },
+    "group/connection": {
+        "orientation": "inherit",
+        "modules": [
+            "network",
+            "bluetooth"
+        ]
+    },
+    "custom/hardware": {
+        "format" : "󱕎 Hardware"
+    },
+	"user": {
+		"format": " {work_H}:{work_M}:{work_S} 󰇧",
+		//"format": "󰣑 {work_H}:{work_M}:{work_S} 󰣎",
+		"interval": 1,
+        "open-on-click": false
+	},
+     //Modules configuration
+     "hyprland/workspaces": {
+         "disable-scroll": true,
+         "all-outputs": true,
+         "warp-on-scroll": false,
+         "format": " {name} ",
+         "format-icons": {
+             //"1": "",
+             //"2": "",
+             //"3": "",
+             //"4": "",
+             //"5": "",
+             "urgent": "",
+             "focused": "",
+			 "default": "",
+			 "active": ""
+         }
+     },
+	"hyprland/window": {
+		"format": "{title}",
+		"tooltip": true,
+		"all-outputs": true		
+	},
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 10
+    },
+    "clock": {
+		"interval": 1,
+		"format": "{:%c}",
+		"max-length": 25,
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+		"format-alt": " {:%d.%m.%Y   %H:%M:%S}",
+    },
+    "cpu": {
+        "format": " {usage}%" ,
+        "tooltip": false
+    },
+    "memory": {
+        "format": " {}%"
+    },
+    "temperature": {
+        // "thermal-zone": 2,
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        // "format-critical": "{temperatureC}°C {icon}",
+        "format": "{icon} {temperatureC}°C" ,
+        "format-icons": ["", "", ""]
+    },
+    "disk": {
+        "interval": 30,
+        "format": "󰋊 {percentage_used}%",
+        "path": "/",
+        "tooltip-format": "Used: {percentage_used}%\nFree: {percentage_free}%"
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
+        "tooltip-format": "Display: {percent}%"
+    },
+	"hyprland/language": {
+		"format": "{short}",
+		"format-alt": "{long}",
+        //"format-en": "EN",
+	},
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+		"interval": 1,
+        "format": "{capacity}% {icon}",
+        "format-full": "{capacity}% {icon}",
+        "format-charging": "{capacity}% 󰂄",
+        "format-plugged": "{capacity}% 󱐋",
+        "format-alt": "{time} {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    },
+    "battery#bat2": {
+        "bat": "BAT2"
+    },
+    "power-profiles-daemon": {
+      "format": "{icon}",
+      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+      "tooltip": true,
+      "format-icons": {
+        "default": "󱐋",
+        "performance": "󰠠",
+        "balanced": "",
+        "power-saver": ""
+      }
+    },
+    "network": {
+        //"interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "",
+        //"format-ethernet": "{ipaddr}/{cidr} 󰈀",
+		"format-ethernet": "",
+        "tooltip-format": "SSID: {essid} ({signalStrength}%)\nGateway: {gwaddr}\nIP: {ipaddr}",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected  ",
+        //"format-alt": "{ifname}: {ipaddr}/{cidr}",
+		"on-click": "kitty nmtui"
+    },
+    "bluetooth": {
+	// "controller": "controller1", // specify the alias of the controller if there are more than 1 on the system
+	// "format": " {status}",
+	"format-on": " {status}",
+	"format-off": "󰂲 {status}",
+	"format-disabled": "sss", // an empty format will hide the module
+	"format-connected": " {num_connections}",
+	"tooltip-format": "{controller_alias}\t{controller_address}",
+	"tooltip-format-connected": "󰥈{device_battery_percentage} | {controller_alias}\t{controller_address}\n\n{device_enumerate}",
+	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "on-click-right": "kitty bluetui"
+},
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{icon} {volume}%",
+        "format-bluetooth": " {icon} {volume}%",
+        "format-bluetooth-muted": " {icon}",
+        "format-muted": "{icon} {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "kitty pulsemixer",
+        "on-click-right": "pavucontrol"
+    },
+    "custom/media": {
+        "exec": "~/.config/waybar/customs/spotify-track.sh",
+        "format": " {}",
+        "tooltip-format": "{}",
+        "interval": 1,  // Обновлять каждую секунду
+        "on-click": "playerctl -p spotify play-pause",
+        "on-scroll-up" : "playerctl -p spotify next",
+        "on-scroll-down" : "playerctl -p spotify previous",
+        //"max-length": 30
+        //"return-type": "json"
+    },
+    "custom/countdown": {
+        "format": "󱎫 {}",
+        "interval": 1, // Обновлять каждую секунду
+        "exec": "~/.config/waybar/customs/countdown.py", // Путь к вашему скрипту
+        "return-type": "json" // Указываем, что скрипт возвращает JSON
+    },
+    "custom/logo": {
+        "format": "",
+        "on-click": "rofi -show run",
+        "tooltip-format": " I use Arch, btw\n GitHub: yerza06"
+    },
+    "custom/power": {
+        "interval": 1,
+        "format": "⏻",
+        "on-click": "shutdown -h now",
+        "on-click-right": "shutdown -c",
+    },
+    "custom/reboot": {
+        "interval": 1,
+        "format": "󰑓",
+        "on-click": "shutdown -r now",
+        "on-click-right": "shutdown -c",
+    },
+    "custom/suspend": {
+        "interval": 1,
+        "format": "󰖔",
+        "on-click-middle": "systemctl suspend",
+    }
+    // "custom/power": {
+		// "interval": 1,
+        // "format" : "⏻",
+		// "tooltip": false,
+		// "menu": "on-click",
+		// "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
+		// "menu-actions": {
+			// "shutdown": "shutdown",
+			// "reboot": "reboot",
+			// "suspend": "systemctl suspend",
+			// "hibernate": "systemctl hibernate"
+		// }
+    }
+}

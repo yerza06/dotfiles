@@ -1,0 +1,257 @@
+/* :root {
+    --background: #171A1D;
+    --color-widget: #2C3034;
+} */
+
+* {
+    /* `otf-font-awesome` is required to be installed for icons */
+	font-family: JetBrainsMonoNerdFontPropo;
+    font-size: 20px;
+    margin: 0;
+    color: #fff;
+    /* background: #2C3034; */
+}
+
+window {
+	margin: 10px;
+}
+
+window#waybar {
+    /* background: #171A1D; */
+    background: rgba(255, 255, 255, 0);
+	margin: 20px 30px;
+    color: #fff;
+    transition-property: background-color;
+    transition-duration: .5s;
+	padding: 10px;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+
+window#waybar.termite {
+    background-color: #3F3F3F;
+}
+
+window#waybar.chromium {
+    background-color: #000000;
+    border: none;
+}
+
+button {
+    /* Use box-shadow instead of border so the text isn't offset */
+    box-shadow: inset 0 -3px transparent;
+    /* Avoid rounded borders under each button name */
+    border: none;
+    border-radius: 0;
+}
+
+
+
+#workspaces {
+    background: #0d0f10;
+	border: 0;
+    border-radius: 27px;
+    padding: 0 3px;
+}
+
+#workspaces button {
+    padding: 0 1px;
+	margin: 3px;
+    color: #ffffff;
+}
+
+#workspaces button:hover {
+    color: #FFF;
+    background: #3F3F3F;
+    border-radius: 30px;
+}
+
+#workspaces button.active {
+	font-weight: 700;
+    background: #202326;
+    border-radius: 30px;
+    border: 1px solid #202326;
+}
+
+#workspaces button.urgent {
+    background-color: #eb4d4b;
+    border-radius: 30px;
+}
+
+
+#language.us {
+    color: #eb4d4b;
+}
+
+#clock,
+#user,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#custom-hardware,
+#backlight,
+#network,
+#bluetooth,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#custom-logo,
+#custom-power,
+#custom-reboot,
+#custom-suspend,
+#tray,
+#mode,
+#idle_inhibitor,
+#language,
+#scratchpad,
+#power-profiles-daemon,
+#custom-countdown,
+#mpd {
+    padding: 0 15px;
+    color: #ffffff;
+    background: #0d0f10;
+    border: #0d0f10 2px solid;
+    border-radius: 30px;
+}
+
+#network {
+    border-radius: 30px 0 0 30px;
+}
+
+#bluetooth {
+    border-radius: 0 30px 30px 0;
+}
+
+#group_hardware, #group_g, #group_gg {
+    background: #171A1D;
+    border: 2px #ffffff solid;
+}
+
+#pulseaudio {
+    transition: 3ms;
+}
+
+#pulseaudio {
+    border-radius: 30px 0 0 30px;
+}
+
+#backlight {
+    border-radius: 0;
+}
+
+#battery {
+    border-radius: 0 30px 30px 0;
+}
+
+/* you can set a style on hover for any module like this */
+
+#window,
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+
+#battery.charging, #battery.plugged {
+    color: #26A65B;
+	font-weight: 900;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+    color: #ffffff;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#power-profiles-daemon.performance {
+    color: #f53c3c;
+}
+
+#power-profiles-daemon.balanced {
+    color: #3b7cff;
+}
+
+#power-profiles-daemon.power-saver {
+    color: #2ecc71;
+}
+
+label:focus {
+    background-color: #000000;
+}
+
+
+#network.disconnected {
+    background-color: #f53c3c;
+}
+
+#pulseaudio.muted {
+    background-color: #90b1b1;
+    color: #2a5c45;
+}
+
+#wireplumber {
+    background-color: #fff0f5;
+    color: #000000;
+}
+
+#wireplumber.muted {
+    background-color: #f53c3c;
+}
+
+
+#custom-media.custom-spotify {
+    color: #1ED760;
+}
+/*
+#custom-media.custom-vlc {
+    background-color: #ffa000;
+}
+*/
+
+#temperature.critical {
+    background-color: #eb4d4b;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #eb4d4b;
+}
+
+#language {
+    /* font-variant-caps: all-small-caps; */
+    font-weight: 600;
+    /* text-transform: uppercase; */
+}
+
+
+#custom-power {
+    background: #0d0f10;
+}
+
+/*=================================*/

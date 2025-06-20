@@ -1,0 +1,39 @@
+[general]
+import = [
+    #"colors/arcoiris.toml"
+    #"colors/Argonaut.toml"
+    #"colors/ayu.toml"
+    #"colors/Blue_Matrix.toml"
+#"colors/Hyper.toml",
+    "colors/my-themes.toml"
+]
+
+[window]
+padding.x = 10
+padding.y = 10
+#opacity = 0.95
+#blur = true
+
+
+[font]
+normal.family = "VictorMonoNerdFont"
+normal.style = "Medium"
+
+bold.family = "VictorMonoNerdFont"
+bold.style = "Bold"
+
+italic.family = "VictorMonoNerdFont"
+
+italic.style = "italic"
+
+bold_italic.family = "VictorMonoNerdFont"
+bold_italic.style = "Bold Italic"
+
+size = 22
+
+
+[cursor]
+style.shape = "Block"
+style.blinking = "On"
+
+blink_interval = 500
