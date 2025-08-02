@@ -3,7 +3,6 @@
 !kitty/*
 !qtile/*
 !hypr/*
-!ngrok/*
 !btop/*
 !htop/*
 !nemo/*
@@ -12,3 +11,4 @@
 !tmux/*
 !user-dirs.dirs
 !waybar/*
+!git/*
