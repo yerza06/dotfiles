@@ -1,24 +1,27 @@
 * {
-    font: "JetBrainsMonoNerdFont 15";
+    font: "IosevkaTermNerdFont 20";
+    font-weight: 700;
     g-spacing: 10px;
     g-margin: 0;
     b-color: #000000FF;
-    fg-color: #FFFFFFFF;
+    fg-color: #DCD7BA;
     fgp-color: #888888FF;
-    b-radius: 8px;
+    b-radius: 0;
     g-padding: 8px;
-    hl-color: #FFFFFFFF;
-    hlt-color: #000000FF;
-    alt-color: #111111FF;
-    wbg-color: #000000CC;
+    hl-color: #F0EBDD;
+    hlt-color: #1F1F28;
+    alt-color: #2A2A37;
+    wbg-color: #1F1F28;
+    wfg-color: #DCD7BA;
     w-border: 2px solid;
-    w-border-color: #FFFFFFFF;
+    w-border-color: #DCD7BA;
     w-padding: 12px;
 }
 
 configuration {
     modi: "drun";
     show-icons: true;
+    display-drun: "";
 }
 
 listview {
@@ -33,9 +36,10 @@ listview {
 
 window {
     transparency: "real";
-    width: 600px;
+    width: 800px;
     border-radius: @b-radius;
     background-color: @wbg-color;
+    color: @wfg-color;
     border: @w-border;
     border-color: @w-border-color;
     padding: @w-padding;

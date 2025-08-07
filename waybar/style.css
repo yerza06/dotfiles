@@ -5,11 +5,14 @@
 
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-	font-family: JetBrainsMonoNerdFontPropo;
-    font-size: 20px;
+	/* font-family: JetBrainsMonoNerdFontPropo; */
+	font-family: IosevkaTermNerdFontPropo;
+	/* font-family: VictorMonoNerdFontPropo; */
+    font-weight: 500;
+    font-size: 26px;
     margin: 0;
-    color: #fff;
-    /* background: #2C3034; */
+    /* color: #1F1F28; */
+    /* background: #DCD7BA; */
 }
 
 window {
@@ -51,43 +54,39 @@ button {
 
 
 #workspaces {
-    background: #0d0f10;
+    background-color: #DCD7BA;
 	border: 0;
-    border-radius: 27px;
+    border-radius: 0px;
     padding: 0 3px;
 }
 
 #workspaces button {
     padding: 0 1px;
 	margin: 3px;
-    color: #ffffff;
+    color: #1F1F28;
 }
 
 #workspaces button:hover {
-    color: #FFF;
-    background: #3F3F3F;
-    border-radius: 30px;
+    color: #1F1F28;
+    background: #F0EBDD;
+    border-radius: 5px;
 }
 
 #workspaces button.active {
-	font-weight: 700;
-    background: #202326;
-    border-radius: 30px;
-    border: 1px solid #202326;
+	font-weight: 900;
+    background: #1F1F28;
+    color: #F0EBDD;
+    border-radius: 5px;
+    border: 1px solid #1F1F28;
 }
 
 #workspaces button.urgent {
-    background-color: #eb4d4b;
-    border-radius: 30px;
+    background-color: #FF5D62;
+    border-radius: 5px;
 }
 
-
-#language.us {
-    color: #eb4d4b;
-}
 
 #clock,
-#user,
 #battery,
 #cpu,
 #memory,
@@ -100,36 +99,86 @@ button {
 #pulseaudio,
 #wireplumber,
 #custom-media,
-#custom-logo,
-#custom-power,
-#custom-reboot,
-#custom-suspend,
 #tray,
 #mode,
 #idle_inhibitor,
 #language,
 #scratchpad,
-#power-profiles-daemon,
-#custom-countdown,
+#mpris,
 #mpd {
     padding: 0 15px;
-    color: #ffffff;
-    background: #0d0f10;
-    border: #0d0f10 2px solid;
-    border-radius: 30px;
+    color: #1F1F28;
+    background: #DCD7BA;
+    border: #DCD7BA 2px solid;
+    border-radius: 5px;
+}
+
+#custom-logo,
+#user,
+#custom-power,
+#custom-reboot,
+#custom-suspend,
+#power-profiles-daemon,
+#custom-countdown {
+    padding: 0 15px;
+    color: #1F1F28;
+    background: #DCD7BA;
+    border: #DCD7BA 2px solid;
+    border-radius: 0px;
+}
+
+#custom-logo {
+    color: #1F1F28;
+    transition: .5s;
+}
+
+#custom-logo:hover {
+    background: #1F1F28;
+    color: #DCD7BA;
+}
+
+#custom-power {
+    color: #E82424;
+    transition: .5s;
+}
+
+#custom-power:hover {
+    background: #FF5D62;
+    color: #1F1F28;
+}
+
+#custom-reboot {
+    color: #FF9E3B;
+    transition: .5s;
+}
+
+#custom-reboot:hover {
+    background: #E6C384;
+    color: #1F1F28;
+}
+
+#custom-suspend {
+    color: #658594;
+    transition: .5s;
+}
+
+#custom-suspend:hover {
+    background: #7FB4CA;
+    color: #1F1F28;
 }
 
 #network {
-    border-radius: 30px 0 0 30px;
+    border-radius: 5px 0 0 5px;
 }
 
 #bluetooth {
-    border-radius: 0 30px 30px 0;
+    border-radius: 0 5px 5px 0;
 }
 
-#group_hardware, #group_g, #group_gg {
-    background: #171A1D;
-    border: 2px #ffffff solid;
+#group_hardware, #group_g, #group_gg, #group_logo {
+    background: #DCD7BA;
+    border: 0px #DCD7BA solid;
+    border-radius: 0px;
 }
 
 #pulseaudio {
@@ -137,7 +186,7 @@ button {
 }
 
 #pulseaudio {
-    border-radius: 30px 0 0 30px;
+    border-radius: 5px 0 0 5px;
 }
 
 #backlight {
@@ -145,7 +194,7 @@ button {
 }
 
 #battery {
-    border-radius: 0 30px 30px 0;
+    border-radius: 0 5px 5px 0;
 }
 
 /* you can set a style on hover for any module like this */
@@ -164,20 +213,20 @@ button {
 
 
 #battery.charging, #battery.plugged {
-    color: #26A65B;
-	font-weight: 900;
+    background: #98BB6C;
+	font-weight: 800;
 }
 
 @keyframes blink {
     to {
-        background-color: #ffffff;
-        color: #000000;
+        background-color: #FF5D62;
+        color: #1F1F28;
     }
 }
 
 /* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
-    color: #ffffff;
+    color: #FF5D62;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: steps(12);
@@ -186,15 +235,15 @@ button {
 }
 
 #power-profiles-daemon.performance {
-    color: #f53c3c;
+    background: #FF5D62;
 }
 
 #power-profiles-daemon.balanced {
-    color: #3b7cff;
+    background: #7FB4CA;
 }
 
 #power-profiles-daemon.power-saver {
-    color: #2ecc71;
+    background: #98BB6C;
 }
 
 label:focus {
@@ -203,32 +252,46 @@ label:focus {
 
 
 #network.disconnected {
-    background-color: #f53c3c;
+    background-color: #FF5D62;
 }
 
 #pulseaudio.muted {
-    background-color: #90b1b1;
-    color: #2a5c45;
-}
-
-#wireplumber {
-    background-color: #fff0f5;
-    color: #000000;
+    background-color: #A3D4D5;
+    color: #2A2A37;
 }
 
 #wireplumber.muted {
-    background-color: #f53c3c;
+    background-color: #FF5D62;
 }
 
 
-#custom-media.custom-spotify {
-    color: #1ED760;
+#mpris.spotify {
+    color: #1F1F28;
+    background-color: #1ED760;
+    border: #1ED760 2px solid;
 }
-/*
-#custom-media.custom-vlc {
-    background-color: #ffa000;
+
+#mpris.chromium {
+    color: #1F1F28;
+    background-color: #4285F4;
+    border: #4285F4 2px solid;
 }
-*/
+
+#mpris.firefox {
+    color: #1F1F28;
+    background-color: #FF7139;
+    border: #FF7139 2px solid;
+}
+
+#mpris.vlc {
+    color: #1F1F28;
+    background-color: #FF8800;
+    border: #FF8800 2px solid;
+}
+
+/* #mpris.playing { */
+/*     border: #DCD7BA 2px solid; */
+/* } */
 
 #temperature.critical {
     background-color: #eb4d4b;
@@ -242,16 +305,3 @@ label:focus {
     -gtk-icon-effect: highlight;
     background-color: #eb4d4b;
 }
-
-#language {
-    /* font-variant-caps: all-small-caps; */
-    font-weight: 600;
-    /* text-transform: uppercase; */
-}
-
-
-#custom-power {
-    background: #0d0f10;
-}
-
-/*=================================*/

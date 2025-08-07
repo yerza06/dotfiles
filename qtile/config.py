@@ -49,7 +49,7 @@ keys = [
     # Switch between windows
     Key([mod], "q", lazy.spawn("obsidian")),
     Key([mod], "t", lazy.spawn("Telegram")),
-    Key([mod], "d", lazy.spawn("discord")),
+    Key([mod], "d", lazy.spawn("Discord")),
     Key([mod], "e", lazy.spawn("nemo")),
     Key([mod], "b", lazy.spawn("google-chrome-stable")),
     Key([mod], "s", lazy.spawn("spotify-launcher")),

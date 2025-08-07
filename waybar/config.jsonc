@@ -16,7 +16,7 @@
         // "temperature",
         // "disk",
         //"mpd",
-        "custom/media"
+        "mpris"
     ],
     "modules-center": [
         "clock"
@@ -78,7 +78,7 @@
         "format" : "󱕎 Hardware"
     },
 	"user": {
-		"format": " {work_H}:{work_M}:{work_S} 󰇧",
+		"format": "󱎫 {work_H}:{work_M}:{work_S} 󰌢",
 		//"format": "󰣑 {work_H}:{work_M}:{work_S} 󰣎",
 		"interval": 1,
         "open-on-click": false
@@ -88,18 +88,41 @@
          "disable-scroll": true,
          "all-outputs": true,
          "warp-on-scroll": false,
-         "format": " {name} ",
+         // "format": " {icon} ",
+         "format": " {} ",
          "format-icons": {
-             //"1": "",
-             //"2": "",
-             //"3": "",
-             //"4": "",
-             //"5": "",
+             "1": "",
+             "2": "",
+             "3": "",
+             "4": "",
+             // "5": "",
+             "10": "",
              "urgent": "",
              "focused": "",
 			 "default": "",
-			 "active": ""
+			 // "active": ""
          }
+     },
+     "mpris": {
+         "format": "{player_icon} {artist} -> {title}",
+         "format-paused": "{player_icon} {artist} -> {title}",
+         "player-icons": {
+             "default": "",
+             "mpv": "󰎇",
+             "spotify": "",
+             "chromium": "",
+             "firefox": "󰈹",
+             "vlc": "󰕼",
+         },
+         "dynamic-order": ["title", "artist"],
+         "status-icons": {
+             "playing": "󰐊",
+             "paused": "󰏤",
+         },
+         // "ignored-players": ["firefox", "chromium"],
+         // "ignored-players": ["firefox"],
+         "interval": 1,
+         "max-length": 50,
      },
 	"hyprland/window": {
 		"format": "{title}",
@@ -113,7 +136,7 @@
     "clock": {
 		"interval": 1,
 		"format": "{:%c}",
-		"max-length": 25,
+		"max-length": 30,
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
 		"format-alt": " {:%d.%m.%Y   %H:%M:%S}",
     },
@@ -223,13 +246,18 @@
         "on-click-right": "pavucontrol"
     },
     "custom/media": {
-        "exec": "~/.config/waybar/customs/spotify-track.sh",
-        "format": " {}",
-        "tooltip-format": "{}",
+        "exec": "~/.config/waybar/customs/custom-media.sh",
+        "format": "{icon} {text}",
+        "tooltip-format": "{text}",
         "interval": 1,  // Обновлять каждую секунду
-        "on-click": "playerctl -p spotify play-pause",
-        "on-scroll-up" : "playerctl -p spotify next",
-        "on-scroll-down" : "playerctl -p spotify previous",
+        "on-click": "playerctl -p %all,spotify,chromium,vlc play-pause",
+        "on-scroll-up" : "playerctl -p %all,spotify,chromium,vlc next",
+        "on-scroll-down" : "playerctl -p %all,spotify,chromium,vlc previous",
+        "format-icons": {
+            "spotify": "󰓇 ",
+            "chromium": " ",
+            "vlc": "󰕼 ",
+        },
         //"max-length": 30
         //"return-type": "json"
     },
