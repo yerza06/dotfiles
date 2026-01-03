@@ -1,0 +1,16 @@
+[
+    {
+        "label": "r/python",
+        "command": "uv run",
+        "args": ["$ZED_FILE"],
+        "use_new_terminal": false,
+        "allow_concurrent_runs": true
+    },
+    {
+        "label": "r/python/main",
+        "command": "uv run",
+        "args": ["main.py"],
+        "use_new_terminal": false,
+        "allow_concurrent_runs": true
+    }
+]

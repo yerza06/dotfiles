@@ -1,0 +1,60 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+      "ctrl-alt-g": ["agent::NewExternalAgentThread", { "agent": "gemini" }],
+      "alt-g j": "git::Pull",
+      "alt-g k": "git::Push",
+      "alt-g s": "git::Switch",
+    },
+  },
+  {
+    "context": "GitPanel",
+    "bindings": {
+      "ctrl-g s": "git::Switch",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "ctrl-n": "menu::SelectNext",
+      "ctrl-p": "menu::SelectPrevious",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "ctrl-j": "workspace::ToggleBottomDock",
+      "ctrl-b": "workspace::ToggleLeftDock",
+      "ctrl-alt-b": "workspace::ToggleRightDock",
+      "ctrl-alt-t": "workspace::OpenInTerminal",
+      "ctrl-shift-t": "terminal_panel::Toggle",
+      "ctrl-]": "pane::ActivateNextItem",
+      "ctrl-[": "pane::ActivatePreviousItem",
+      "alt-g up": "git::Push",
+      "alt-g down": "git::Pull",
+      "alt-g k": "git::Push",
+      "alt-g j": "git::Pull",
+      "alt-g s": "git::Switch",
+      "alt-g d": "git::Diff",
+      "alt-g r": "git::Restore",
+      "ctrl-shift-alt-enter": ["task::Spawn", { "task_name": "r/python/main" }],
+    },
+  },
+  {
+    "bindings": {},
+  },
+  {
+    "bindings": {
+      "f8": "debugger::FocusTerminal",
+    },
+  },
+]

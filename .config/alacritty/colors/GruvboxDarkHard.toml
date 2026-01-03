@@ -1,0 +1,30 @@
+[colors.normal]
+black = "#1b1b1b"
+red = "#cc241d"
+green = "#98971a"
+yellow = "#d79921"
+blue = "#458588"
+magenta = "#b16286"  # Заменяем purple на magenta
+cyan = "#689d6a"
+white = "#a89984"
+
+[colors.bright]
+black = "#928374"
+red = "#fb4934"
+green = "#b8bb26"
+yellow = "#fabd2f"
+blue = "#83a598"
+magenta = "#d3869b"  # Заменяем purple на magenta
+cyan = "#8ec07c"
+white = "#ebdbb2"
+
+[colors.primary]
+background = "#1b1b1b"
+foreground = "#ebdbb2"
+
+[colors.selection]
+text = "#ffffff"  # Цвет текста выделения (можно настроить по желанию)
+background = "#665c54"
+
+[colors.cursor]
+cursor = "#ebdbb2"  # Цвет курсора

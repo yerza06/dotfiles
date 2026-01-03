@@ -1,0 +1,29 @@
+[colors] # Цвет выделения и курсора
+selection.text = "#7a1c1c"
+selection.background = "#25524a"
+
+[colors.primary] # Фон и передний план
+background = "#201f1e"
+foreground = "#eee4d9"
+
+
+[colors.normal] # Основные цвета
+black = "#333333"
+red = "#da2700"
+green = "#12c258"
+yellow = "#ffc656"
+blue = "#518bfc"
+magenta = "#e37bd9"
+cyan = "#63fad5"
+white = "#bab2b2"
+
+
+[colors.bright] # Яркие цвета
+black = "#777777"
+red = "#ffb9b9"
+green = "#e3f6aa"
+yellow = "#ffddaa"
+blue = "#b3e8f3"
+magenta = "#cbbaf9"
+cyan = "#bcffc7"
+white = "#efefef"
