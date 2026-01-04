@@ -20,31 +20,18 @@ font=IosevkaTerm Nerd Font 12
 
 background-color=#131313
 text-color=#FCFCFA
-border-color=#FCFCFA
-
-[app-name=spotify]
-background-color=#1ed760
-text-color=#ffffff
-border-color=#ff085e
-default-timeout=8000
 
 [urgency=low]
-background-color=#2b3b39
-border-color=#64727D
+background-color=#1A1E0C
+border-color=#879A39
 default-timeout=3000
 
 [urgency=normal]
-background-color=#131313
-border-color=#FDFFF1
-default-timeout=4000
+background-color=#100F0F
+border-color=#282726
+default-timeout=5000
 
-[urgency=high]
-background-color=#ff085e
-text-color=#000000
-border-color=#ff085e
+[urgency=critical]
+background-color=#261312
+border-color=#D14D41
 default-timeout=0
-
-[category=mpd]
-default-timeout=2000
-group-by=category
-
