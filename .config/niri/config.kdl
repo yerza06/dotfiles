@@ -278,6 +278,11 @@ spawn-at-startup "wl-paste --type image --watch cliphist store &"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
+spawn-sh-at-startup "notify-send 'Hello World'"
+spawn-sh-at-startup "wl-paste --type text --watch cliphist store &"
+spawn-sh-at-startup "wl-paste --type image --watch cliphist store &"
+spawn-sh-at-startup "swww-daemon"
+spawn-sh-at-startup "swww img --transition-step 15 ~/.config/wallpapers/flexoki-dark-orb.png"
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
