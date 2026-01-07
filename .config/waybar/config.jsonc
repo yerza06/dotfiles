@@ -9,24 +9,20 @@
     "modules-left": [
         "group/logo",
         "niri/workspaces",
-        //"custom/countdown",
-        //"group/hardware",
-        // "cpu",
-        // "memory",
-        // "temperature",
-        // "disk"
-        // "mpd"
         "mpris"
     ],
     "modules-center": [
         "clock"
 	],
     "modules-right": [
-        "keyboard-state",
+        "group/info",
         "niri/language",
         "tray",
         "group/connection",
-        "group/g",
+        "pulseaudio",
+        "battery",
+        "battery#bat2",
+        
     ],
     "group/logo": {
 		"orientation": "horizontal",
@@ -44,29 +40,20 @@
             "transition-left-to-right": true
         }
     },
-	"group/hardware": {
-		"orientation": "horizontal",
-		"modules": [
-            "custom/hardware",
+    "group/info": {
+        "orientation": "inherit",
+        "modules": [
+            "backlight",
 			"cpu",
 			"memory",
 			"temperature",
             "disk"
-		],
+        ],
         "drawer": {
             "transition-duration": 500,
-            "children-class": "not-power",
-            "transition-left-to-right": true
+            "children-class": "drawer-child",
+            "transition-left-to-right": false
         }
-	},
-    "group/g": {
-        "orientation": "inherit",
-        "modules": [
-            "pulseaudio",    
-            "backlight",
-            "battery",
-            "battery#bat2"
-        ]
     },
     "group/connection": {
         "orientation": "inherit",
@@ -74,9 +61,6 @@
             "network",
             "bluetooth"
         ]
-    },
-    "custom/hardware": {
-        "format" : "󱕎 Hardware"
     },
 	"user": {
 		"format": "󱎫 {work_H}:{work_M}:{work_S} 󰌢",
@@ -175,15 +159,6 @@
         "format-ru": "<span color=\"#4385BE\">󰌌 RU</span>",
         "format-kk": "<span color=\"#D0A215\">󰌌 KZ</span>"
 	},
-    "keyboard-state": {
-        // "numlock": true,
-        "capslock": true,
-        "format": "  {name} {icon}  ",
-        "format-icons": {
-            "locked": "",
-            "unlocked": ""
-        }
-    },
     "battery": {
         "states": {
             "good": 70,
@@ -196,9 +171,8 @@
         "format-charging": "{capacity}% 󰂄",
         "format-plugged": "{capacity}% 󱐋",
         "format-alt": "{time} {icon}",
-        // "format-good": "󱈑", // An empty format will hide the module
-        // "format-warning": "󰂃",
-        // "format-full": "",
+        "format-warning": "󰂃",
+        "format-full": "󱈑",
         "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
     "battery#bat2": {
@@ -241,7 +215,7 @@
     "on-click-right": "kitty bluetui"
 },
     "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
+        "scroll-step": 1, // %, can be a float
         "format": "{icon} {volume}% {format_source}",
         "format-bluetooth": " {icon} {volume}% {format_source}",
         "format-bluetooth-muted": " {icon}",
@@ -258,7 +232,9 @@
             "default": ["", "", ""]
         },
         "on-click": "kitty pulsemixer",
-        "on-click-right": "pavucontrol"
+        "on-click-right": "pavucontrol",
+        "tooltip": true,
+        "tooltip-format": "{desc}"
     },
     "custom/logo": {
         "format": "",
@@ -282,17 +258,5 @@
         "format": "󰖔",
         "on-click-middle": "systemctl suspend",
     }
-    // "custom/power": {
-		// "interval": 1,
-        // "format" : "⏻",
-		// "tooltip": false,
-		// "menu": "on-click",
-		// "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
-		// "menu-actions": {
-			// "shutdown": "shutdown",
-			// "reboot": "reboot",
-			// "suspend": "systemctl suspend",
-			// "hibernate": "systemctl hibernate"
-		// }
     }
 }

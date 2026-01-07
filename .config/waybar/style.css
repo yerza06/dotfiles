@@ -1,8 +1,3 @@
-/* :root { */
-/*     --background-color: #171A1D; */
-/*     --foreground-color: #2C3034; */
-/* } */
-
 * {
 	/* font-family: JetBrainsMonoNerdFontPropo; */
 	font-family: "IosevkaTerm Nerd Font Propo";
@@ -113,19 +108,6 @@ button {
     border-radius: 5px;
 }
 
-#keyboard-state {
-    color: #FFFCF0;
-    background: #100F0F;
-    border-radius: 5px;
-}
-
-#keyboard-state label.locked {
-    background: #D14D41;
-    color: #3E1715;
-    border-radius: 5px;
-}
-
-
 #custom-logo,
 #user,
 #custom-power,
@@ -189,16 +171,6 @@ button {
     border-radius: 0 5px 5px 0;
 }
 
-/* #group_hardware, #group_g, #group_gg, #group_logo { */
-/*     background: red; */
-/*     border: 0px #100F0F solid; */
-/*     border-radius: 0px; */
-/* } */
-
-#pulseaudio {
-    transition: 3ms;
-}
-
 #pulseaudio {
     border-radius: 5px 0 0 5px;
 }
@@ -240,6 +212,15 @@ button {
 }
 
 /* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+    color: #DA702C;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
 #battery.critical:not(.charging) {
     color: #D14D41;
     animation-name: blink;
