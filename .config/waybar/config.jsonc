@@ -43,10 +43,10 @@
     "group/info": {
         "orientation": "inherit",
         "modules": [
+			"temperature",
             "backlight",
 			"cpu",
 			"memory",
-			"temperature",
             "disk"
         ],
         "drawer": {
@@ -127,13 +127,16 @@
 		"format-alt": "{:%c}"
     },
     "cpu": {
+        "interval": 1,
         "format": " {usage}%" ,
-        "tooltip": false
+        "tooltip": "{load}"
     },
     "memory": {
+        "interval": 1,
         "format": " {}%"
     },
     "temperature": {
+        "interval": 1,
         // "thermal-zone": 2,
         // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
         "critical-threshold": 80,
@@ -145,7 +148,7 @@
         "interval": 30,
         "format": "󰋊 {percentage_used}%",
         "path": "/",
-        "tooltip-format": "Used: {percentage_used}%\nFree: {percentage_free}%"
+        "tooltip-format": "Used: {percentage_used}% | {used}\nFree: {percentage_free}% | {free}"
     },
     "backlight": {
         // "device": "acpi_video1",
@@ -160,8 +163,8 @@
         "format-kk": "<span color=\"#D0A215\">󰌌 KZ</span>"
 	},
     "battery": {
+        // "bat": "BAT2",
         "states": {
-            "good": 70,
             "warning": 30,
             "critical": 15
         },
@@ -171,8 +174,9 @@
         "format-charging": "{capacity}% 󰂄",
         "format-plugged": "{capacity}% 󱐋",
         "format-alt": "{time} {icon}",
-        "format-warning": "󰂃",
-        "format-full": "󱈑",
+        "format-warning": "{capacity}% 󰂃",
+        // "format-critical": "{capacity}% 󰂃",
+        "format-full": "{capacity}% 󱈑",
         "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
     "battery#bat2": {

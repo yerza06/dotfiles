@@ -9,17 +9,14 @@
   {
     "context": "Workspace",
     "bindings": {
-      // "shift shift": "file_finder::Toggle"
       "ctrl-alt-g": ["agent::NewExternalAgentThread", { "agent": "gemini" }],
+      "ctrl-shift-t": "terminal_panel::Toggle",
       "alt-g j": "git::Pull",
       "alt-g k": "git::Push",
+      "alt-g up": "git::Push",
+      "alt-g down": "git::Pull",
       "alt-g s": "git::Switch",
-    },
-  },
-  {
-    "context": "GitPanel",
-    "bindings": {
-      "ctrl-g s": "git::Switch",
+      "alt-g d": "git::Diff",
     },
   },
   {
@@ -37,20 +34,14 @@
       "ctrl-alt-b": "workspace::ToggleRightDock",
       "ctrl-alt-t": "workspace::OpenInTerminal",
       "ctrl-shift-t": "terminal_panel::Toggle",
-      "ctrl-]": "pane::ActivateNextItem",
-      "ctrl-[": "pane::ActivatePreviousItem",
-      "alt-g up": "git::Push",
-      "alt-g down": "git::Pull",
-      "alt-g k": "git::Push",
-      "alt-g j": "git::Pull",
-      "alt-g s": "git::Switch",
-      "alt-g d": "git::Diff",
-      "alt-g r": "git::Restore",
+      // "ctrl-]": "pane::ActivateNextItem",
+      // "ctrl-[": "pane::ActivatePreviousItem",
+      "ctrl-alt-n": "pane::ActivateNextItem",
+      "ctrl-alt-p": "pane::ActivatePreviousItem",
+      "alt-j": "editor::MoveLineDown",
+      "alt-k": "editor::MoveLineUp",
       "ctrl-shift-alt-enter": ["task::Spawn", { "task_name": "r/python/main" }],
     },
-  },
-  {
-    "bindings": {},
   },
   {
     "bindings": {

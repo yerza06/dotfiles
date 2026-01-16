@@ -128,3 +128,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # opencode
 export PATH=/home/yerza/.opencode/bin:$PATH
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)

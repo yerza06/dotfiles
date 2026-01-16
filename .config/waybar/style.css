@@ -204,26 +204,34 @@ button {
 	font-weight: 800;
 }
 
-@keyframes blink {
+@keyframes blink-critical {
     to {
-        background-color:#D14D41;
+        background-color: #D14D41;
+        color: #100F0F;
+    }
+}
+
+@keyframes blink-warning {
+    to {
+        background-color: #DA702C;
         color: #100F0F;
     }
 }
 
 /* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
-    color: #DA702C;
-    animation-name: blink;
-    animation-duration: 0.5s;
+    color: #D14D41;
+    animation-name: blink-critical;
+    animation-duration: 0.3s;
     animation-timing-function: steps(12);
     animation-iteration-count: infinite;
     animation-direction: alternate;
 }
 
-#battery.critical:not(.charging) {
-    color: #D14D41;
-    animation-name: blink;
+
+#battery.warning:not(.charging) {
+    color: #DA702C;
+    animation-name: blink-warning;
     animation-duration: 0.5s;
     animation-timing-function: steps(12);
     animation-iteration-count: infinite;
