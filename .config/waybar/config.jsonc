@@ -145,7 +145,7 @@
         "format-icons": ["", "", ""]
     },
     "disk": {
-        "interval": 30,
+        "interval": 1,
         "format": "󰋊 {percentage_used}%",
         "path": "/",
         "tooltip-format": "Used: {percentage_used}% | {used}\nFree: {percentage_free}% | {free}"

@@ -180,10 +180,10 @@ layout {
         // pixels and match the CSS box-shadow properties.
 
         // Softness controls the shadow blur radius.
-        softness 30
+        softness 20
 
         // Spread expands the shadow.
-        spread 5
+        spread 10
 
         // Offset moves the shadow relative to the window.
         offset x=0 y=5
@@ -313,10 +313,10 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
-    Mod+Shift+Return { spawn "kitty" "tmux a"; }
+    Mod+Return hotkey-overlay-title="Open a Terminal: Alacritty" { spawn "alacritty"; }
+    Mod+Shift+Return { spawn "alacritty" "-e tmux a"; }
     // Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-    Mod+S hotkey-overlay-title="Run an Application: rofi" { spawn "rofi" "-show"; }
+    Mod+S hotkey-overlay-title="Run an Application: rofi" { spawn "rofi" "-show" "drun"; }
     Mod+Z { spawn "zeditor"; }
     Mod+B { spawn "firefox"; }
     Mod+N { spawn "obsidian"; }

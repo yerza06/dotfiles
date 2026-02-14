@@ -9,7 +9,7 @@
   {
     "context": "Workspace",
     "bindings": {
-      "ctrl-alt-g": ["agent::NewExternalAgentThread", { "agent": "gemini" }],
+      // "ctrl-alt-g": ["agent::NewExternalAgentThread", { "agent": "gemini" }],
       "ctrl-shift-t": "terminal_panel::Toggle",
       "alt-g j": "git::Pull",
       "alt-g k": "git::Push",
@@ -20,10 +20,24 @@
     },
   },
   {
-    "context": "Editor && vim_mode == insert",
+    "context": "vim_mode == insert",
     "bindings": {
       "ctrl-n": "menu::SelectNext",
       "ctrl-p": "menu::SelectPrevious",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
+    "bindings": {
+      "g y": ["workspace::SendKeystrokes", "\" + y enter"],
+      "g p": ["workspace::SendKeystrokes", "\" + p enter"],
+    },
+  },
+  {
+    "context": "Editor && vim_mode == visual && !VimWaiting && !menu",
+    "bindings": {
+      "g y": ["workspace::SendKeystrokes", "\" + y enter"],
+      "g p": ["workspace::SendKeystrokes", "\" + p enter"],
     },
   },
   {
@@ -34,13 +48,19 @@
       "ctrl-alt-b": "workspace::ToggleRightDock",
       "ctrl-alt-t": "workspace::OpenInTerminal",
       "ctrl-shift-t": "terminal_panel::Toggle",
-      // "ctrl-]": "pane::ActivateNextItem",
-      // "ctrl-[": "pane::ActivatePreviousItem",
       "ctrl-alt-n": "pane::ActivateNextItem",
       "ctrl-alt-p": "pane::ActivatePreviousItem",
       "alt-j": "editor::MoveLineDown",
       "alt-k": "editor::MoveLineUp",
       "ctrl-shift-alt-enter": ["task::Spawn", { "task_name": "r/python/main" }],
+    },
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-alt-n": "pane::ActivateNextItem",
+      "ctrl-alt-p": "pane::ActivatePreviousItem",
+      "ctrl-n": "workspace::NewTerminal",
     },
   },
   {

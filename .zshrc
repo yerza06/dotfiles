@@ -116,6 +116,9 @@ alias cat="bat"
 alias nvimr="nvim README.md"
 alias zed="zeditor"
 
+alias tmux-new "tmux new-session -s"
+alias tmux-att "tmux attach -t"
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -129,6 +132,21 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # opencode
 export PATH=/home/yerza/.opencode/bin:$PATH
 
+# custom commands
+export PATH="$HOME/.local/bin:$PATH"
+
 
 # Load Angular CLI autocompletion.
-source <(ng completion script)
+# source <(ng completion script)
+# source <(ng completion script 2>/dev/null)
+# source <(NODE_OPTIONS="" node --disable-warnings $(which ng) completion script 2>/dev/null)
+eval "$(fzf --zsh)"
+# export POWERLEVEL9K_INSTANT_PROMPT=off
+# export PATH="$HOME/.npm-global/bin:$PATH"
+
+# OpenClaw Completion
+# source <(openclaw completion --shell zsh)
+
+# export NODE_OPTIONS="--disable-warnings"
+# typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+# typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
