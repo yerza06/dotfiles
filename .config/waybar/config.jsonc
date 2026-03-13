@@ -243,6 +243,7 @@
     "custom/logo": {
         "format": "",
         "on-click": "rofi -show run",
+        "on-click-right": "systemctl --user restart waybar.service",
         "tooltip-format": " Yernaz Kenesbekov\n GitHub: yerza06\n GitLab: yerza06\n Telegram: yerza06"
     },
     "custom/power": {

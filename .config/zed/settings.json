@@ -11,6 +11,12 @@
   //   "allowed": true
   // },
   "agent_servers": {
+    "claude-acp": {
+      "type": "registry"
+    },
+    "gemini": {
+      "type": "registry"
+    },
     "opencode": {
       "type": "extension",
       "favorite_models": [
@@ -24,10 +30,8 @@
     },
   },
   "edit_predictions": {
+    "provider": "zed",
     "mode": "eager",
-  },
-  "features": {
-    "edit_prediction_provider": "zed",
   },
   "toolbar": {
     "agent_review": true,
@@ -159,6 +163,9 @@
     "font_family": "IosevkaTerm Nerd Font",
   },
   "agent": {
+    "tool_permissions": {
+      "default": "allow"
+    },
     "profiles": {
       "write": {
         "default_model": {
@@ -200,10 +207,9 @@
       "provider": "google",
       "model": "gemini-2.5-flash",
     },
-    "always_allow_tool_actions": true,
     "default_model": {
       "provider": "anthropic",
-      "model": "claude-sonnet-4-5-latest",
+      "model": "claude-sonnet-4-6-latest",
     },
     "model_parameters": [],
   },

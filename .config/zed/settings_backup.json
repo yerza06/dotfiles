@@ -10,25 +10,44 @@
   // "prettier": {
   //   "allowed": true
   // },
+  "agent_servers": {
+    "opencode": {
+      "type": "extension",
+      "favorite_models": [
+        "opencode/big-pickle",
+        "opencode/grok-code",
+        "opencode/minimax-m2.1-free",
+        "opencode/glm-4.7-free",
+      ],
+      "default_config_options": {},
+      "favorite_config_option_values": {},
+    },
+  },
+  "edit_predictions": {
+    "mode": "eager",
+  },
+  "features": {
+    "edit_prediction_provider": "zed",
+  },
   "toolbar": {
     "agent_review": true,
-    "code_actions": false
+    "code_actions": false,
   },
   "scrollbar": {
-    "git_diff": true
+    "git_diff": true,
   },
   "icon_theme": {
     "mode": "dark",
     "light": "Zed (Default)",
-    "dark": "Zed (Default)"
+    "dark": "Material Icon Theme",
   },
   "languages": {
     "YAML": {
       "tab_size": 2,
-      "format_on_save": "on"
+      "format_on_save": "on",
     },
     "TypeScript": {
-      "format_on_save": "on"
+      "format_on_save": "on",
     },
     "Python": {
       "format_on_save": "on",
@@ -36,17 +55,17 @@
         "coloring": "fixed",
         "background_coloring": "disabled",
         "active_line_width": 2,
-        "line_width": 1
+        "line_width": 1,
       },
-      "language_servers": ["basedpyright", "!ty"]
+      "language_servers": ["basedpyright", "!ty"],
     },
     "Markdown": {
-      "format_on_save": "on"
-    }
+      "format_on_save": "on",
+    },
   },
   "preview_tabs": {},
   "centered_layout": {
-    "left_padding": null
+    "left_padding": null,
   },
   "bottom_dock_layout": "contained",
   "use_system_window_tabs": false,
@@ -54,27 +73,27 @@
   "pane_split_direction_horizontal": "down",
   "tabs": {
     "file_icons": true,
-    "git_status": true
+    "git_status": true,
   },
   "tab_bar": {
-    "show": true
+    "show": true,
   },
   "title_bar": {
     "show_menus": false,
     "show_branch_name": true,
-    "show_branch_icon": true
+    "show_branch_icon": true,
   },
   "git": {
     "inline_blame": {
-      "show_commit_summary": false
+      "show_commit_summary": false,
     },
     "blame": {
-      "show_avatar": true
-    }
+      "show_avatar": true,
+    },
   },
   "enable_language_server": true,
   "audio": {
-    "experimental.auto_microphone_volume": false
+    "experimental.auto_microphone_volume": false,
   },
   "buffer_font_family": "IosevkaTerm Nerd Font",
   "ui_font_family": "IosevkaTerm Nerd Font",
@@ -83,7 +102,7 @@
     "sort_by_path": false,
     "dock": "left",
     "status_style": "label_color",
-    "button": true
+    "button": true,
   },
   "project_panel": {
     "dock": "left",
@@ -93,80 +112,58 @@
     "file_icons": true,
     "folder_icons": true,
     "git_status": true,
-    "hide_gitignore": false
+    "hide_gitignore": false,
   },
   "debugger": {
-    "dock": "bottom"
+    "dock": "bottom",
   },
   "ssh_connections": [
     {
       "host": "github.com",
       "args": [],
-      "projects": []
+      "projects": [],
     },
     {
       "host": "gitlab.com",
       "args": [],
-      "projects": []
-    }
+      "projects": [],
+    },
   ],
   "outline_panel": {
     "file_icons": true,
-    "dock": "left"
+    "dock": "left",
   },
   "context_servers": {
-    "mcp-server-context7": {
-      "source": "extension",
+    "postgres-context-server": {
+      "enabled": true,
+      "remote": false,
+      "settings": {
+        "database_url": "postgresql://taskanline_user:1234RFJ)(#SDF4JHSS@localhost:5432/taskanline_db"
+      }
+    },
+    "mcp-server-exa-search": {
       "enabled": true,
       "settings": {
-        "context7_api_key": "ctx7sk-fc4a16a7-8318-4da7-9909-e09de00f856e"
+        "exa_api_key": "b5c09127-0dd8-40a6-998c-dd4c665fd681"
       }
-    }
+    },
+    "mcp-server-context7": {
+      "enabled": true,
+      "settings": {
+        "context7_api_key": "ctx7sk-0eed24d5-c2d6-4b2e-9e6c-caff78a9d9b6",
+      },
+    },
   },
   "terminal": {
     "font_size": 15.0,
-    "font_family": "IosevkaTerm Nerd Font"
+    "font_family": "IosevkaTerm Nerd Font",
   },
   "agent": {
     "profiles": {
-      "ai-hahhaaa": {
-        "name": "AI hahhaaa",
-        "tools": {
-          "copy_path": true,
-          "create_directory": true,
-          "delete_path": true,
-          "diagnostics": true,
-          "edit_file": true,
-          "fetch": true,
-          "list_directory": true,
-          "project_notifications": false,
-          "move_path": true,
-          "now": true,
-          "find_path": true,
-          "read_file": true,
-          "open": true,
-          "grep": true,
-          "terminal": true,
-          "thinking": true,
-          "web_search": true
-        },
-        "enable_all_context_servers": true,
-        "context_servers": {
-          "mcp-server-context7": {
-            "tools": {
-              "get-library-docs": true
-            }
-          }
-        },
-        "default_model": {
-          "provider": "google",
-          "model": "gemini-2.5-pro"
-        }
-      },
       "write": {
         "default_model": {
           "provider": "google",
-          "model": "gemini-2.5-pro"
+          "model": "gemini-2.5-pro",
         },
         "name": "Write",
         "tools": {
@@ -186,33 +183,33 @@
           "grep": true,
           "terminal": true,
           "thinking": true,
-          "web_search": true
+          "web_search": true,
         },
         "enable_all_context_servers": true,
         "context_servers": {
           "mcp-server-context7": {
             "tools": {
-              "get-library-docs": true
-            }
-          }
-        }
-      }
+              "get-library-docs": true,
+            },
+          },
+        },
+      },
     },
-    "default_profile": "write",
+    "default_profile": "minimal",
     "inline_assistant_model": {
       "provider": "google",
-      "model": "gemini-2.5-flash"
+      "model": "gemini-2.5-flash",
     },
     "always_allow_tool_actions": true,
     "default_model": {
-      "provider": "google",
-      "model": "gemini-2.5-pro"
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-6-latest",
     },
-    "model_parameters": []
+    "model_parameters": [],
   },
   "vim_mode": true,
   "vim": {
-    "use_system_clipboard": "never"
+    "use_system_clipboard": "never",
   },
   "relative_line_numbers": "enabled",
   "base_keymap": "VSCode",
@@ -221,52 +218,52 @@
   "theme": {
     "mode": "dark",
     "light": "Flexoki Light",
-    "dark": "Flexoki Dark"
+    "dark": "Flexoki Dark",
   },
   "theme_overrides": {
     "Flexoki Dark": {
       "syntax": {
         "comment": {
-          "font_style": "italic"
+          "font_style": "italic",
         },
         "constant.comment.todo": {
           "color": "#100F0F",
           "background_color": "#3AA99F",
           "font_weight": 700,
-          "font_style": "italic"
+          "font_style": "italic",
         },
         "string.comment.info": {
           "color": "#100F0F",
           "background_color": "#879A39",
           "font_weight": 700,
-          "font_style": "italic"
+          "font_style": "italic",
         },
         "keyword.comment.warn": {
           "color": "#100F0F",
           "background_color": "#D0A215",
           "font_weight": 700,
-          "font_style": "italic"
+          "font_style": "italic",
         },
         "property.comment.error": {
           "color": "#100F0F",
           "background_color": "#D14D41",
           "font_weight": 700,
-          "font_style": "italic"
+          "font_style": "italic",
         },
         "property.comment.user.text": {
           "color": "#100F0F",
           "background_color": "#8B7EC8",
           "font_weight": 700,
-          "font_style": "italic"
-        }
-      }
+          "font_style": "italic",
+        },
+      },
     },
     "Flexoki Light": {
       "syntax": {
         "comment": {
-          "font_style": "italic"
-        }
-      }
-    }
-  }
+          "font_style": "italic",
+        },
+      },
+    },
+  },
 }

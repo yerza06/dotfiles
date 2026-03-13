@@ -112,12 +112,18 @@ source $ZSH/oh-my-zsh.sh
 alias ls="exa --icons"
 alias ll="exa --icons -l"
 alias la="exa --icons -la"
+alias tree="exa --icons -T"
 alias cat="bat"
 alias nvimr="nvim README.md"
 alias zed="zeditor"
 
-alias tmux-new "tmux new-session -s"
-alias tmux-att "tmux attach -t"
+alias tmux-new="tmux new-session -s"
+alias tmux-att="tmux attach -t"
+alias ggraph="git log --all --decorate --oneline --graph"
+
+alias uvg="uv init --git"
+alias uvar="uv install -r requirements.txt"
+alias uver="uv export --no-hashes > requirements.txt"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -128,6 +134,7 @@ alias tmux-att "tmux attach -t"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="/home/yerza/.npm-global/bin:$PATH"
 
 # opencode
 export PATH=/home/yerza/.opencode/bin:$PATH

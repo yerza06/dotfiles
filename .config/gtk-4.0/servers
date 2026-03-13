@@ -3,22 +3,32 @@
       xmlns:bookmark="http://www.freedesktop.org/standards/desktop-bookmarks"
       xmlns:mime="http://www.freedesktop.org/standards/shared-mime-info"
 >
-  <bookmark href="sftp://91.201.215.53/" added="2026-01-27T10:12:31.989197Z" modified="2026-01-27T10:12:31.989200Z" visited="2026-01-27T10:12:31.989198Z">
-    <title>/ на 91.201.215.53</title>
+  <bookmark href="sftp://projectbox_root/" added="2026-02-26T07:35:08.029478Z" modified="2026-02-26T07:35:08.029481Z" visited="2026-02-26T07:35:08.029479Z">
+    <title>/ на projectbox_root</title>
     <info>
       <metadata owner="http://freedesktop.org">
         <bookmark:applications>
-          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2026-01-27T10:12:31.989199Z" count="1"/>
+          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2026-02-26T07:35:08.029480Z" count="1"/>
         </bookmark:applications>
       </metadata>
     </info>
   </bookmark>
-  <bookmark href="ftp://78.40.108.104/" added="2026-02-05T12:16:59.375903Z" modified="2026-02-05T12:16:59.375905Z" visited="2026-02-05T12:16:59.375903Z">
-    <title>/ на 78.40.108.104</title>
+  <bookmark href="sftp://experimentum/" added="2026-02-26T07:55:52.081468Z" modified="2026-02-26T07:55:52.081471Z" visited="2026-02-26T07:55:52.081469Z">
+    <title>/ на experimentum</title>
     <info>
       <metadata owner="http://freedesktop.org">
         <bookmark:applications>
-          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2026-02-05T12:16:59.375904Z" count="1"/>
+          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2026-02-26T07:55:52.081469Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="sftp://experimentum_root/" added="2026-02-26T08:00:59.045777Z" modified="2026-02-26T08:00:59.045781Z" visited="2026-02-26T08:00:59.045778Z">
+    <title>/ на experimentum_root</title>
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <bookmark:applications>
+          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2026-02-26T08:00:59.045779Z" count="1"/>
         </bookmark:applications>
       </metadata>
     </info>
