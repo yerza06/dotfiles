@@ -8,29 +8,9 @@ window-rule {
 
 window-rule {
     match app-id="firefox"
-
-    open-maximized true
-}
-
-window-rule {
     match app-id="Claude"
-
-    open-maximized true
-}
-
-window-rule {
     match app-id="obsidian"
-
-    open-maximized true
-}
-
-window-rule {
     match app-id="org.telegram.desktop"
-
-    open-maximized true
-}
-
-window-rule {
     match app-id="spotify"
 
     open-maximized true
