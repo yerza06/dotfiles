@@ -1,0 +1,15 @@
+// includes/layer-rules.kdl
+
+layer-rule {
+    match namespace="waybar"
+    match namespace="swww"
+    match at-startup=true
+    geometry-corner-radius 12
+
+    place-within-backdrop true
+}
+
+layer-rule {
+    match namespace="rofi"
+    opacity 0.95
+}

@@ -1,0 +1,16 @@
+// includes/outputs.kdl
+
+output "eDP-1" {
+    focus-at-startup
+
+    // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
+
+    mode "2560x1600"
+    // mode "2560x1600@60.029"
+    // mode "2560x1600@165.040"
+
+    scale 1.5
+
+    transform "normal"
+    position x=0 y=0
+}

@@ -1,0 +1,48 @@
+// includes/layout.kdl
+
+layout {
+    gaps 10
+    center-focused-column "never"
+    background-color "transparent"
+
+    preset-column-widths {
+        proportion 0.20
+        proportion 0.40
+        proportion 0.60
+        proportion 0.80
+        proportion 1.0
+    }
+
+    preset-window-heights {
+        proportion 0.25
+        proportion 0.50
+        proportion 0.75
+        proportion 1.0
+    }
+
+    default-column-width { proportion 0.9; }
+
+    focus-ring {
+        // off
+        width 2
+        active-gradient from="#3AA99F" to="#8B7EC8" angle=45 relative-to="workspace-view"
+        urgent-color "#D14D41"
+    }
+
+    border {
+        off
+        width 2
+        active-gradient from="#3AA99F" to="#8B7EC8" angle=45 relative-to="workspace-view"
+        inactive-gradient from="#DAD8CE" to="#575653" angle=45 relative-to="workspace-view"
+        urgent-color "#D14D41"
+    }
+}
+
+overview {
+    zoom 0.50
+    workspace-shadow { 
+        on;
+        color "#000000FF"
+    }
+    backdrop-color "transparent"
+}

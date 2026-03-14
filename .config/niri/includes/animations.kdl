@@ -1,0 +1,21 @@
+// includes/animations.kdl
+
+animations {
+    // off
+
+    slowdown 0.9
+
+    window-open {
+        duration-ms 200
+        curve "ease-out-expo"
+    }
+
+    window-close {
+        duration-ms 200
+        curve "ease-out-expo"
+    }
+
+    workspace-switch {
+        spring damping-ratio=1.0 stiffness=1000 epsilon=0.00001
+    }
+}
