@@ -9,7 +9,6 @@
   {
     "context": "Workspace",
     "bindings": {
-      // "ctrl-alt-g": ["agent::NewExternalAgentThread", { "agent": "gemini" }],
       "ctrl-shift-t": "terminal_panel::Toggle",
       "alt-g j": "git::Pull",
       "alt-g k": "git::Push",

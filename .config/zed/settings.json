@@ -18,16 +18,8 @@
       "type": "registry"
     },
     "opencode": {
-      "type": "extension",
-      "favorite_models": [
-        "opencode/big-pickle",
-        "opencode/grok-code",
-        "opencode/minimax-m2.1-free",
-        "opencode/glm-4.7-free",
-      ],
-      "default_config_options": {},
-      "favorite_config_option_values": {},
-    },
+      "type": "registry"
+    }
   },
   "edit_predictions": {
     "provider": "zed",
@@ -163,6 +155,11 @@
     "font_family": "IosevkaTerm Nerd Font",
   },
   "agent": {
+    "default_model": {
+      "provider": "google",
+      "model": "gemini-2.5-flash",
+      "enable_thinking": true
+    },
     "tool_permissions": {
       "default": "allow"
     },
@@ -202,16 +199,6 @@
         },
       },
     },
-    "default_profile": "minimal",
-    "inline_assistant_model": {
-      "provider": "google",
-      "model": "gemini-2.5-flash",
-    },
-    "default_model": {
-      "provider": "anthropic",
-      "model": "claude-sonnet-4-6-latest",
-    },
-    "model_parameters": [],
   },
   "vim_mode": true,
   "vim": {
@@ -222,7 +209,7 @@
   "ui_font_size": 16,
   "buffer_font_size": 15,
   "theme": {
-    "mode": "dark",
+    "mode": "system",
     "light": "Flexoki Light",
     "dark": "Flexoki Dark",
   },
