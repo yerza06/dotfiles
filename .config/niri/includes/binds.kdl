@@ -20,7 +20,7 @@ binds {
     Mod+Shift+Return hotkey-overlay-title="Open a Terminal tmux: Alacritty" { spawn "alacritty" "--command" "tmux" "a"; }
     // Mod+Shift+Return { spawn "alacritty" "-e tmux a"; }
     // Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-    Mod+S hotkey-overlay-title="Run an Application: rofi" { spawn "rofi" "-show" "drun"; }
+    Mod+S hotkey-overlay-title="Run an Application: rofi" { spawn "rofi" "-show" "drun" "-config" "~/.config/rofi/config-drun.rasi"; }
     Mod+Z { spawn "zeditor"; }
     Mod+B { spawn "firefox"; }
     Mod+N { spawn "obsidian"; }
@@ -290,7 +290,7 @@ binds {
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
     Mod+Shift+E { quit; }
-    Ctrl+Alt+Delete { quit; }
+    Mod+Delete { spawn-sh "~/.config/rofi/scripts/powermenu.sh"; }
 
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.

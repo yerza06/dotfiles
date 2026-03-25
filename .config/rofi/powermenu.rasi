@@ -1,0 +1,101 @@
+* {
+    font:             "IosevkaTermNerdFont 20";
+
+    bg:               #100F0F;
+    bg-alt:           #1a1917;
+    border-c:         #282726;
+    border-hover:     #444444;
+    fg:               #FFFCF0;
+    fg-muted:         #888888;
+    hl-bg:            #282726;
+    hl-fg:            #FFFCF0;
+
+    col-shutdown:     #e06c75;
+    col-reboot:       #e5c07b;
+    col-suspend:      #FFFCF0;
+    col-hibernate:    #61afef;
+    col-lock:         #98c379;
+    col-logout:       #c678dd;
+}
+
+window {
+    transparency:     "real";
+    width:            700px;
+    border-radius:    8px;
+    background-color: @bg;
+    border:           2px solid;
+    border-color:     @border-c;
+    padding:          14px;
+}
+
+mainbox {
+    spacing:          12px;
+    children:         ["message", "listview"];
+    background-color: transparent;
+}
+
+/* ── uptime + профиль питания ── */
+message {
+    background-color: @bg-alt;
+    border-radius:    5px;
+    padding:          10px 14px;
+    border:           0px solid;
+}
+
+textbox {
+    background-color: transparent;
+    text-color:       @fg-muted;
+    horizontal-align: 0;
+    font:             "IosevkaTermNerdFont 12";
+}
+
+/* ── Сетка 2×3 ── */
+listview {
+    columns:          2;
+    lines:            3;
+    fixed-height:     true;
+    fixed-columns:    true;
+    cycle:            false;
+    scrollbar:        false;
+    spacing:          8px;
+    border:           0px solid;
+    background-color: transparent;
+}
+
+element {
+    orientation:      horizontal;
+    padding:          14px 8px;
+    border-radius:    5px;
+    background-color: @bg-alt;
+    text-color:       @fg;
+    border:           1px solid;
+    border-color:     @border-c;
+    spacing:          8px;
+    cursor:           pointer;
+}
+
+element selected.normal {
+    background-color: @hl-bg;
+    border-color:     @border-hover;
+    text-color:       @hl-fg;
+}
+
+element-icon {
+    size:             0;
+    background-color: transparent;
+}
+
+element-text {
+    horizontal-align: 0.5;
+    vertical-align:   0.5;
+    text-color:       inherit;
+    background-color: transparent;
+    font:             "IosevkaTermNerdFont 20";
+    expand:           true;
+}
+
+/* ── Скрыть ненужные элементы ── */
+inputbar   { enabled: false; }
+prompt     { enabled: false; }
+entry      { enabled: false; }
+mode-switcher { enabled: false; }
