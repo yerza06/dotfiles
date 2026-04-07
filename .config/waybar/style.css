@@ -1,3 +1,5 @@
+@import "flexoki-dark.css";
+
 * {
 	/* font-family: JetBrainsMonoNerdFontPropo; */
 	font-family: "IosevkaTerm Nerd Font Propo";
@@ -13,13 +15,10 @@ window {
 }
 
 window#waybar {
-    /* background: #100F0F; */
-    background: rgba(16, 15, 15, 0.3);
+    margin-top: 10px;
+    background: rgba(16, 15, 15, 0);
 	margin: 20px 30px;
-    color: #fff;
-    transition-property: background-color;
     transition-duration: .5s;
-	padding: 10px;
 }
 
 window#waybar.hidden {
@@ -57,7 +56,7 @@ button {
     padding: 0 1px;
 	margin: 2px;
     color: #FFFCF0;
-    background: #100F0F;
+    background: #1C1B1A;
 }
 
 #workspaces button:hover {
@@ -69,9 +68,9 @@ button {
 #workspaces button.active {
 	font-weight: 900;
     background: #FFFCF0;
-    color: #040812;
+    color: #100F0F;
     border-radius: 5px;
-    border: 1px solid #1F1F28;
+    border: 1px solid #100F0F;
 }
 
 #workspaces button.urgent {
@@ -128,8 +127,7 @@ button {
 }
 
 #custom-logo:hover {
-    background: #1F1F28;
-    color: #0d0c0c;
+    color: #100F0F;
     background: #F0EBDD;
 }
 
@@ -180,7 +178,7 @@ button {
 }
 
 #battery {
-    border-radius: 0 5px 5px 0;
+    border-radius: 0px 0px 0px 5px;
 }
 
 /* you can set a style on hover for any module like this */
@@ -200,6 +198,7 @@ button {
 
 #battery.charging, #battery.plugged {
     background: #879A39;
+    border: #879A39 2px solid;
     color: #100F0F;
 	font-weight: 800;
 }
@@ -220,6 +219,7 @@ button {
 
 /* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
+    border: #D14D41 2px solid;
     color: #D14D41;
     animation-name: blink-critical;
     animation-duration: 0.3s;
@@ -231,6 +231,7 @@ button {
 
 #battery.warning:not(.charging) {
     color: #DA702C;
+    border: #DA702C 2px solid;
     animation-name: blink-warning;
     animation-duration: 0.5s;
     animation-timing-function: steps(12);
@@ -281,46 +282,14 @@ label:focus {
     color: #3AA99F;
 }
 
-
-#mpris.spotify {
-    color: #1F1F28;
-    background-color: #1ED760;
-    border: #1ED760 2px solid;
+#mpris.playing {
+    /* border-bottom: #d1bc79 3px solid; */
+    border: #d1bc79 2px solid;
 }
-
-#custom-spotify {
-    padding: 0 10px;
-    border: #0d0c0c 2px solid;
-    border-radius: 5px;
-    color: #1F1F28;
-    background-color: #1ED760;
-    border: #1ED760 2px solid;
-}
-
-#mpris.chromium {
-    color: #1F1F28;
-    background-color: #4285F4;
-    border: #4285F4 2px solid;
-}
-
-#mpris.firefox {
-    color: #1F1F28;
-    background-color: #FF7139;
-    border: #FF7139 2px solid;
-}
-
-#mpris.vlc {
-    color: #1F1F28;
-    background-color: #FF8800;
-    border: #FF8800 2px solid;
-}
-
-/* #mpris.playing { */
-/*     border: #DCD7BA 2px solid; */
-/* } */
 
 #temperature.critical {
-    background-color: #eb4d4b;
+    background-color: #D14D41;
+    color: #261312;
 }
 
 #tray > .passive {
@@ -329,5 +298,6 @@ label:focus {
 
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
-    background-color: #eb4d4b;
+    background-color: #D14D41;
+    color: #261312;
 }

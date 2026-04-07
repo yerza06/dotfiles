@@ -23,16 +23,17 @@ layout {
     default-column-width { proportion 0.9; }
 
     focus-ring {
-        // off
+        off
         width 2
         active-gradient from="#3AA99F" to="#8B7EC8" angle=45 relative-to="workspace-view"
         urgent-color "#D14D41"
     }
 
     border {
-        off
+        // off
+        on
         width 2
-        active-gradient from="#3AA99F" to="#8B7EC8" angle=45 relative-to="workspace-view"
+        active-gradient from="#d1bc79" to="#b08c34" angle=45 relative-to="workspace-view"
         inactive-gradient from="#DAD8CE" to="#575653" angle=45 relative-to="workspace-view"
         urgent-color "#D14D41"
     }

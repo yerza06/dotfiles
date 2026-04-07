@@ -63,6 +63,7 @@ binds {
     // You can also move the mouse into the top-left hot corner,
     // or do a four-finger swipe up on a touchpad.
     Mod+O repeat=false { toggle-overview; }
+    Mod+Alt+P repeat=false { "spawn-sh" "hyprpicker -a -n"; }
 
     Mod+Q repeat=false { close-window; }
 

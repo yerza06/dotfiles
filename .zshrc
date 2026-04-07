@@ -150,6 +150,8 @@ export PATH="$HOME/.local/bin:$PATH"
 eval "$(fzf --zsh)"
 # export POWERLEVEL9K_INSTANT_PROMPT=off
 # export PATH="$HOME/.npm-global/bin:$PATH"
+#
+export EDITOR="nvim"
 
 # OpenClaw Completion
 # source <(openclaw completion --shell zsh)

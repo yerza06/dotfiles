@@ -15,7 +15,7 @@
         "clock"
 	],
     "modules-right": [
-        "group/info",
+        // "group/info",
         "niri/language",
         "tray",
         "group/connection",
@@ -28,11 +28,11 @@
 		"orientation": "horizontal",
         "modules": [
             "custom/logo",
-            "custom/power",
-            "custom/reboot",
-            "custom/suspend",
-            "power-profiles-daemon",
+            // "custom/power",
+            // "custom/reboot",
+            // "custom/suspend",
             "user",
+            "power-profiles-daemon",
         ],
         "drawer": {
             "transition-duration": 500,
@@ -75,39 +75,39 @@
          // "format": " {icon} ",
          "format": " {} ",
          "format-icons": {
-             "1": "1",
-             "2": "2",
-             "3": "3",
-             "4": "4",
-             "5": "5",
-             "6": "6",
-             "7": "7",
-             "8": "8",
-             "9": "9",
-             "10": "10",
-             "urgent": "",
+             "1": "",
+             "2": "",
+             "3": "",
+             "4": "󰭹",
+             "5": "󰎄",
+             // "6": "6",
+             // "7": "7",
+             // "8": "8",
+             // "9": "9",
+             // "10": "10",
+             // "urgent": "",
+             "default": "",
              // "focused": "",
          }
      },
      "mpris": {
          "format": "{player_icon} {artist} -> {title}",
+         "interval": 1,
          "format-paused": "{player_icon} {artist} -> {title}",
          "player-icons": {
-             "default": "",
+             "default": "",
              "mpv": "󰎇",
              "spotify": "",
              "chromium": "",
              "firefox": "󰈹",
              "vlc": "󰕼",
+             "TelegramDesktop": ""
          },
          "dynamic-order": ["title", "artist"],
          "status-icons": {
              "playing": "󰐊",
              "paused": "󰏤",
          },
-         // "ignored-players": ["firefox", "chromium"],
-         // "ignored-players": ["firefox"],
-         "interval": 1,
          "max-length": 50,
      },
 	"niri/window": {
@@ -145,7 +145,7 @@
         "format-icons": ["", "", ""]
     },
     "disk": {
-        "interval": 1,
+        "interval": 5,
         "format": "󰋊 {percentage_used}%",
         "path": "/",
         "tooltip-format": "Used: {percentage_used}% | {used}\nFree: {percentage_free}% | {free}"

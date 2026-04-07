@@ -8,4 +8,4 @@
 spawn-sh-at-startup "wl-paste --type text --watch cliphist store &"
 spawn-sh-at-startup "wl-paste --type image --watch cliphist store &"
 spawn-sh-at-startup "awww-daemon"
-spawn-sh-at-startup "awww img --transition-step 15 ~/.config/wallpapers/flexoki-dark-orb.png"
+spawn-sh-at-startup "awww img --transition-step 15 ~/.config/wallpapers/philipp-urlich-valley.jpg"
