@@ -1,7 +1,7 @@
 [general]
 import = [
-    "themes/flexoki-dark.toml"
-    # "themes/flexoki-light.toml"
+ "themes/flexoki-dark.toml"
+#"themes/flexoki-light.toml"
 ]
 
 [window]

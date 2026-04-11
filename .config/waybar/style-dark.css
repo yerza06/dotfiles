@@ -1,0 +1,238 @@
+@import "flexoki-dark.css";
+
+* {
+	font-family: "IosevkaTerm Nerd Font Propo";
+    font-weight: 500;
+    font-size: 15;
+    margin: 0;
+    padding: 0;
+    transition: .2s;
+}
+
+window {
+	margin: 0px;
+}
+
+window#waybar {
+    margin-top: 10px;
+    /* background: rgba(255, 252, 240, 0.7); */
+    background: rgba(16, 15, 15, 0.7);
+	margin: 20px 30px;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+
+window#waybar.termite {
+    background-color: #3F3F3F;
+}
+
+window#waybar.chromium {
+    background-color: #000000;
+    border: none;
+}
+
+button {
+    box-shadow: inset 0 -3px transparent;
+    border: none;
+    border-radius: 0;
+}
+
+
+
+#workspaces {
+    background-color: rgba(16, 15, 15, 0);
+	border: 0;
+    border-radius: 5px;
+    padding: 0 2px;
+}
+
+#workspaces button {
+    padding: 0 1px;
+    color: #FFFCF0;
+    /* background: #1C1B1A; */
+    border-radius: 5px;
+}
+
+#workspaces button:hover {
+    color: #343331;
+    background: #B7B5AC;
+    border-radius: 5px;
+}
+
+#workspaces button.active {
+	font-weight: 900;
+    background: #FFFCF0;
+    color: #100F0F;
+    padding: 0 5px;
+    border-radius: 5px;
+}
+
+#workspaces button.urgent {
+    background-color: #D14D41;
+    color: #261312;
+    border-radius: 5px;
+}
+
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#custom-hardware,
+#backlight,
+#network,
+#bluetooth,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#language,
+#scratchpad,
+#mpris,
+#mpd {
+    padding: 0 8px;
+    color: #FFFCF0;
+    background: rgba(16, 15, 15, 0);
+    /* border-radius: 5px; */
+}
+
+#custom-logo,
+#user,
+#power-profiles-daemon {
+    padding: 0 10px;
+    color: #FFFCF0;
+    background: rgba(16, 15, 15, 0);
+}
+
+#custom-logo {
+    border-radius: 5px;
+}
+
+#custom-logo:hover {
+    color: #100F0F;
+    background: #F0EBDD;
+}
+
+#mpris.playing {
+    color: #879A39;
+}
+
+#mpris.stopped {
+    background: #D14D41;
+    color: #261312;
+}
+
+#window,
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+
+#battery.charging, #battery.plugged {
+    background: #879A39;
+    color: #100F0F;
+	font-weight: 800;
+}
+
+@keyframes blink-critical {
+    to {
+        background-color: #D14D41;
+        color: #100F0F;
+    }
+}
+
+@keyframes blink-warning {
+    to {
+        background-color: #DA702C;
+        color: #100F0F;
+    }
+}
+
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+    color: #D14D41;
+    animation-name: blink-critical;
+    animation-duration: 0.3s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+
+#battery.warning:not(.charging) {
+    color: #DA702C;
+    animation-name: blink-warning;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#power-profiles-daemon.performance {
+    border-bottom: #D14D41 2px solid;
+    color: #D14D41;
+}
+
+#power-profiles-daemon.balanced {
+    border-bottom: #4385BE 2px solid;
+    color: #4385BE;
+}
+
+#power-profiles-daemon.power-saver {
+    border-bottom: #879A39 2px solid;
+    color: #879A39;
+}
+
+#power-profiles-daemon.performance:hover {
+    background: #D14D41;
+    color: #261312
+}
+
+#power-profiles-daemon.balanced:hover {
+    background: #4385BE;
+    color: #101A24
+}
+
+#power-profiles-daemon.power-saver:hover {
+    background: #879A39;
+    color: #1A1E0C
+}
+
+label:focus {
+    background-color: #000000;
+}
+
+
+#network.disconnected {
+    background-color: #D14D41;
+}
+
+#temperature.critical {
+    background-color: #D14D41;
+    color: #261312;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #D14D41;
+    color: #261312;
+}

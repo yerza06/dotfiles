@@ -51,6 +51,9 @@ binds {
     XF86AudioPrev allow-when-locked=true { spawn "playerctl" "previous"; }   
     XF86AudioStop allow-when-locked=true { spawn "playerctl" "stop"; }
 
+    Ctrl+XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "playerctl next"; }
+    Ctrl+XF86AudioLowerVolume allow-when-locked=true { spawn-sh "playerctl previous"; }
+    Ctrl+XF86AudioMicMute     allow-when-locked=true { spawn-sh "playerctl play-pause"; }
 
     // Example brightness key mappings for brightnessctl.
     // You can use regular spawn with multiple arguments too (to avoid going through "sh"),
@@ -274,6 +277,10 @@ binds {
     // since it will switch twice upon pressing the hotkey (once by xkb, once by niri).
     Mod+Space       { switch-layout "next"; }
     Mod+Shift+Space { switch-layout "prev"; }
+
+    XF86Launch4 { spawn-sh "bash ~/.local/bin/toggle-power.sh"; }
+    XF86Launch3 { spawn "spotify-launcher"; }
+    XF86Launch1 { spawn "steam"; }
 
     Mod+Shift+S { screenshot; }
     Mod+Ctrl+Shift+S { screenshot-screen; }

@@ -2,9 +2,9 @@
 {
     "layer": "top", // Waybar at top layer
     "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 5, // Waybar height (to be removed for auto height)
+    "height": 1, // Waybar height (to be removed for auto height)
     // "width": 2560, // Waybar width
-    "spacing": 6, // Gaps between modules (4px)
+    "spacing": 1, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
         "group/logo",
@@ -15,10 +15,10 @@
         "clock"
 	],
     "modules-right": [
-        // "group/info",
+        "group/info",
+        "power-profiles-daemon",
         "niri/language",
-        "tray",
-        "group/connection",
+        // "group/connection",
         "pulseaudio",
         "battery",
         "battery#bat2",
@@ -28,11 +28,7 @@
 		"orientation": "horizontal",
         "modules": [
             "custom/logo",
-            // "custom/power",
-            // "custom/reboot",
-            // "custom/suspend",
-            "user",
-            "power-profiles-daemon",
+            "user"
         ],
         "drawer": {
             "transition-duration": 500,
@@ -43,11 +39,12 @@
     "group/info": {
         "orientation": "inherit",
         "modules": [
+            "tray",
 			"temperature",
-            "backlight",
 			"cpu",
 			"memory",
-            "disk"
+            "disk",
+            "backlight"
         ],
         "drawer": {
             "transition-duration": 500,
@@ -63,7 +60,7 @@
         ]
     },
 	"user": {
-		"format": "󱎫 {work_H}:{work_M}:{work_S} 󰌢",
+		"format": " {work_H}:{work_M}:{work_S}",
 		"interval": 1,
         "open-on-click": false
 	},
@@ -75,25 +72,15 @@
          // "format": " {icon} ",
          "format": " {} ",
          "format-icons": {
-             "1": "",
-             "2": "",
-             "3": "",
-             "4": "󰭹",
-             "5": "󰎄",
-             // "6": "6",
-             // "7": "7",
-             // "8": "8",
-             // "9": "9",
-             // "10": "10",
-             // "urgent": "",
-             "default": "",
-             // "focused": "",
+             "urgent": "",
+             "default": "",
+             "focused": "",
          }
      },
      "mpris": {
-         "format": "{player_icon} {artist} -> {title}",
+         "format": "{player_icon} {title}",
+         "tooltip-format": "[ {status_icon} ] {artist} => {title}",
          "interval": 1,
-         "format-paused": "{player_icon} {artist} -> {title}",
          "player-icons": {
              "default": "",
              "mpv": "󰎇",
@@ -108,7 +95,7 @@
              "playing": "󰐊",
              "paused": "󰏤",
          },
-         "max-length": 50,
+         "max-length": 50
      },
 	"niri/window": {
 		"format": "{title}",
@@ -151,7 +138,6 @@
         "tooltip-format": "Used: {percentage_used}% | {used}\nFree: {percentage_free}% | {free}"
     },
     "backlight": {
-        // "device": "acpi_video1",
         "format": "{percent}% {icon}",
         "format-icons": ["", "", "", "", "", "", "", "", ""],
         "tooltip-format": "Display: {percent}%"
@@ -160,7 +146,10 @@
 		"format": "{}",
         "format-en": "<span color=\"#D14D41\">󰌌 US</span>",
         "format-ru": "<span color=\"#4385BE\">󰌌 RU</span>",
-        "format-kk": "<span color=\"#D0A215\">󰌌 KZ</span>"
+        "format-kk": "<span color=\"#D0A215\">󰌌 KZ</span>",
+        "on-click": "niri msg action switch-layout next",
+        "on-click-right": "niri msg action switch-layout prev",
+        "tooltip-format": "{long}"
 	},
     "battery": {
         // "bat": "BAT2",
@@ -184,6 +173,7 @@
     },
     "power-profiles-daemon": {
       "format": "{icon}",
+      "interval": 1,
       "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
       "tooltip": true,
       "format-icons": {
@@ -220,12 +210,11 @@
 },
     "pulseaudio": {
         "scroll-step": 1, // %, can be a float
+        // "max-length": 50,
         "format": "{icon} {volume}% {format_source}",
-        "format-bluetooth": " {icon} {volume}% {format_source}",
-        "format-bluetooth-muted": " {icon}",
-        "format-muted": " {format_source}",
-        "format-source": " {volume}%",
-        "format-source-muted": "",
+        "format-muted": "<span color=\"#D14D41\"> </span>{format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": "<span color=\"#D14D41\"></span>",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
@@ -235,33 +224,17 @@
             "car": "",
             "default": ["", "", ""]
         },
-        "on-click": "kitty pulsemixer",
-        "on-click-right": "pavucontrol",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "on-click-right": "kitty pulsemixer",
+        "on-click-middle": "pavucontrol",
         "tooltip": true,
-        "tooltip-format": "{desc}"
+        "tooltip-format": "Output: {desc}"
     },
     "custom/logo": {
         "format": "",
         "on-click": "rofi -show run",
         "on-click-right": "systemctl --user restart waybar.service",
-        "tooltip-format": " Yernaz Kenesbekov\n GitHub: yerza06\n GitLab: yerza06\n Telegram: yerza06"
+        "tooltip-format": " Yernaz Kengesbekov\n GitHub: yerza06\n GitLab: yerza06\n Telegram: yerza06"
     },
-    "custom/power": {
-        "interval": 1,
-        "format": "⏻",
-        "on-click": "shutdown now",
-        // "on-click-right": "shutdown 10",
-    },
-    "custom/reboot": {
-        "interval": 1,
-        "format": "󰑓",
-        "on-click": "shutdown -r now",
-        // "on-click-right": "shutdown -r 10",
-    },
-    "custom/suspend": {
-        "interval": 1,
-        "format": "󰖔",
-        "on-click-middle": "systemctl suspend",
-    }
     }
 }
