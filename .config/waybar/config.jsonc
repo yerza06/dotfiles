@@ -7,49 +7,46 @@
     "spacing": 1, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
-        "group/logo",
+        "group/drive",
         "niri/workspaces",
         "mpris"
     ],
     "modules-center": [
-        "clock"
+        "group/time"
 	],
     "modules-right": [
-        "group/info",
-        "power-profiles-daemon",
+        "tray",
         "niri/language",
-        // "group/connection",
         "pulseaudio",
         "battery",
-        "battery#bat2",
-        
+        "battery#bat2"
     ],
-    "group/logo": {
-		"orientation": "horizontal",
-        "modules": [
-            "custom/logo",
-            "user"
-        ],
-        "drawer": {
-            "transition-duration": 500,
-            "children-class": "not-power",
-            "transition-left-to-right": true
-        }
-    },
-    "group/info": {
+    "group/time": {
         "orientation": "inherit",
         "modules": [
-            "tray",
-			"temperature",
-			"cpu",
-			"memory",
-            "disk",
+            "clock",
+            "user",
             "backlight"
         ],
         "drawer": {
-            "transition-duration": 500,
-            "children-class": "drawer-child",
+            "transition-duration": 250,
+            "children-class": "not-power",
             "transition-left-to-right": false
+        }
+    },
+    "group/drive": {
+        "orientation": "inherit",
+        "modules": [
+            "power-profiles-daemon",
+            "cpu",
+            "memory",
+            "disk",
+            "temperature"
+        ],
+        "drawer": {
+            "transition-duration": 250,
+            "children-class": "drawer-child",
+            "transition-left-to-right": true
         }
     },
     "group/connection": {
@@ -64,23 +61,17 @@
 		"interval": 1,
         "open-on-click": false
 	},
-     //Modules configuration
      "niri/workspaces": {
-         // "disable-scroll": true,
-         // "all-outputs": true,
-         // "warp-on-scroll": false,
-         // "format": " {icon} ",
          "format": " {} ",
          "format-icons": {
              "urgent": "",
-             "default": "",
-             "focused": "",
+             "default": "󰧞",
+             "active": "󰮯",
          }
      },
      "mpris": {
          "format": "{player_icon} {title}",
          "tooltip-format": "[ {status_icon} ] {artist} => {title}",
-         "interval": 1,
          "player-icons": {
              "default": "",
              "mpv": "󰎇",
@@ -97,21 +88,15 @@
          },
          "max-length": 50
      },
-	"niri/window": {
-		"format": "{title}",
-		"tooltip": true,
-		"all-outputs": true		
-	},
     "tray": {
-        // "icon-size": 21,
         "spacing": 10
     },
     "clock": {
-		"format": " {:%d.%m.%Y   %H:%M:%S}",
+		"format": "{:%H:%M:%S}",
 		"interval": 1,
 		"max-length": 30,
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-		"format-alt": "{:%c}"
+		"format-alt": "{:%Y-%m-%d %H:%M:%S}"
     },
     "cpu": {
         "interval": 1,
@@ -132,7 +117,7 @@
         "format-icons": ["", "", ""]
     },
     "disk": {
-        "interval": 5,
+        // "interval": 5,
         "format": "󰋊 {percentage_used}%",
         "path": "/",
         "tooltip-format": "Used: {percentage_used}% | {used}\nFree: {percentage_free}% | {free}"
@@ -152,35 +137,27 @@
         "tooltip-format": "{long}"
 	},
     "battery": {
-        // "bat": "BAT2",
+        "bat": "BAT2",
+		"interval": 20,
+        "format": "{capacity}% {icon}",
         "states": {
             "warning": 30,
             "critical": 15
         },
-		"interval": 1,
-        "format": "{capacity}% {icon}",
-        "format-full": "{capacity}% {icon}",
-        "format-charging": "{capacity}% 󰂄",
-        "format-plugged": "{capacity}% 󱐋",
-        "format-alt": "{time} {icon}",
-        "format-warning": "{capacity}% 󰂃",
-        // "format-critical": "{capacity}% 󰂃",
-        "format-full": "{capacity}% 󱈑",
-        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
-    },
-    "battery#bat2": {
-        "bat": "BAT2"
+        "format-icons": {
+            "default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+            "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
+        },
     },
     "power-profiles-daemon": {
       "format": "{icon}",
-      "interval": 1,
       "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
       "tooltip": true,
       "format-icons": {
-        "default": "󱐋",
-        "performance": "󰠠",
+        "performance": "",
         "balanced": "",
         "power-saver": ""
+
       }
     },
     "network": {
@@ -229,12 +206,6 @@
         "on-click-middle": "pavucontrol",
         "tooltip": true,
         "tooltip-format": "Output: {desc}"
-    },
-    "custom/logo": {
-        "format": "",
-        "on-click": "rofi -show run",
-        "on-click-right": "systemctl --user restart waybar.service",
-        "tooltip-format": " Yernaz Kengesbekov\n GitHub: yerza06\n GitLab: yerza06\n Telegram: yerza06"
     },
     }
 }

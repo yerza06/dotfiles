@@ -15,24 +15,9 @@ window {
 
 window#waybar {
     margin-top: 10px;
-    /* background: rgba(255, 252, 240, 0.7); */
-    background: rgba(16, 15, 15, 0.7);
+    background: @bg;
 	margin: 20px 30px;
-    transition-duration: .5s;
-}
-
-window#waybar.hidden {
-    opacity: 0.2;
-}
-
-
-window#waybar.termite {
-    background-color: #3F3F3F;
-}
-
-window#waybar.chromium {
-    background-color: #000000;
-    border: none;
+    transition-duration: .2s;
 }
 
 button {
@@ -41,44 +26,39 @@ button {
     border-radius: 0;
 }
 
-
-
 #workspaces {
-    background-color: rgba(16, 15, 15, 0);
-	border: 0;
-    border-radius: 5px;
     padding: 0 2px;
 }
 
 #workspaces button {
-    padding: 0 1px;
-    color: #FFFCF0;
-    /* background: #1C1B1A; */
+    padding: 0 2px;
+    color: @tx;
     border-radius: 5px;
 }
 
 #workspaces button:hover {
-    color: #343331;
-    background: #B7B5AC;
+    color: @tx;
+    background: @ui-3;
     border-radius: 5px;
 }
 
 #workspaces button.active {
 	font-weight: 900;
-    background: #FFFCF0;
-    color: #100F0F;
+    background: @tx;
+    color: @bg;
     padding: 0 5px;
     border-radius: 5px;
 }
 
 #workspaces button.urgent {
-    background-color: #D14D41;
-    color: #261312;
+    background-color: @re;
+    color: @bg;
     border-radius: 5px;
 }
 
 
 #clock,
+#user,
 #battery,
 #cpu,
 #memory,
@@ -97,40 +77,43 @@ button {
 #language,
 #scratchpad,
 #mpris,
+#power-profiles-daemon,
 #mpd {
     padding: 0 8px;
-    color: #FFFCF0;
-    background: rgba(16, 15, 15, 0);
-    /* border-radius: 5px; */
-}
-
-#custom-logo,
-#user,
-#power-profiles-daemon {
-    padding: 0 10px;
-    color: #FFFCF0;
-    background: rgba(16, 15, 15, 0);
+    color: @tx;
+    background: @bg;
 }
 
 #custom-logo {
+    padding: 0 10px;
+    color: @tx;
+    background: @bg;
     border-radius: 5px;
 }
 
 #custom-logo:hover {
-    color: #100F0F;
-    background: #F0EBDD;
+    color: @bg;
+    background: @tx;
 }
 
 #mpris.playing {
-    color: #879A39;
+    border-bottom: #F0EBDD 1px solid;
+    border-top: #F0EBDD 1px solid;
+    border-right: rgba(0, 0, 0, 0) 1px solid;
+    border-left: rgba(0, 0, 0, 0) 1px solid;
+}
+
+#mpris.paused  {
+    border-bottom: rgba(0, 0, 0, 0) 1px solid;
+    border-top: rgba(0, 0, 0, 0) 1px solid;
+    border-right: #F0EBDD 1px solid;
+    border-left: #F0EBDD 1px solid;
 }
 
 #mpris.stopped {
     background: #D14D41;
     color: #261312;
 }
-
-#window,
 
 /* If workspaces is the leftmost module, omit left margin */
 .modules-left > widget:first-child > #workspaces {
@@ -144,28 +127,28 @@ button {
 
 
 #battery.charging, #battery.plugged {
-    background: #879A39;
-    color: #100F0F;
+    background: @gr;
+    color: @bg;
 	font-weight: 800;
 }
 
 @keyframes blink-critical {
     to {
-        background-color: #D14D41;
-        color: #100F0F;
+        background-color: @re;
+        color: @bg;
     }
 }
 
 @keyframes blink-warning {
     to {
-        background-color: #DA702C;
-        color: #100F0F;
+        background-color: @or;
+        color: @bg;
     }
 }
 
 /* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
-    color: #D14D41;
+    color: @re;
     animation-name: blink-critical;
     animation-duration: 0.3s;
     animation-timing-function: steps(12);
@@ -175,7 +158,7 @@ button {
 
 
 #battery.warning:not(.charging) {
-    color: #DA702C;
+    color: @or;
     animation-name: blink-warning;
     animation-duration: 0.5s;
     animation-timing-function: steps(12);
@@ -184,33 +167,30 @@ button {
 }
 
 #power-profiles-daemon.performance {
-    border-bottom: #D14D41 2px solid;
-    color: #D14D41;
+    color: @re;
 }
 
 #power-profiles-daemon.balanced {
-    border-bottom: #4385BE 2px solid;
-    color: #4385BE;
+    color: @tx;
 }
 
 #power-profiles-daemon.power-saver {
-    border-bottom: #879A39 2px solid;
-    color: #879A39;
+    color: @gr;
 }
 
 #power-profiles-daemon.performance:hover {
-    background: #D14D41;
-    color: #261312
+    background: @re;
+    color: @bg;
 }
 
 #power-profiles-daemon.balanced:hover {
-    background: #4385BE;
-    color: #101A24
+    background: @tx;
+    color: @bg;
 }
 
 #power-profiles-daemon.power-saver:hover {
-    background: #879A39;
-    color: #1A1E0C
+    background: @gr;
+    color: @bg;
 }
 
 label:focus {

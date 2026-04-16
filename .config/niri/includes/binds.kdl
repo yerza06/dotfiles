@@ -22,7 +22,7 @@ binds {
     // Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+S hotkey-overlay-title="Run an Application: rofi" { spawn "rofi" "-show" "drun" "-config" "~/.config/rofi/config-drun.rasi"; }
     Mod+Z { spawn "zeditor"; }
-    Mod+B { spawn "firefox"; }
+    Mod+B { spawn "zen-browser"; }
     Mod+N { spawn "obsidian"; }
     Mod+M { spawn "claude-desktop"; }
     Mod+T { spawn "Telegram"; }
