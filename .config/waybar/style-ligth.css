@@ -11,8 +11,8 @@
 
 window#waybar {
     margin-top: 10px;
-    background: @black;
-    color: @base-200;
+    background: @paper;
+    color: @black;
 	margin: 20px 30px;
     transition-duration: .2s;
 }
@@ -25,53 +25,53 @@ button {
 
 #workspaces {
     padding: 0 2px;
-    background: @black;
+    background: @paper;
 }
 
 #workspaces button {
     padding: 0 2px;
-    color: @base-200;
-    background: @black;
+    color: @black;
+    background: @paper;
     border-radius: 5px;
 }
 
 #workspaces button:hover {
-    color: @paper;
-    background: @base-800;
+    color: @black;
+    background: @paper;
     border-radius: 5px;
 }
 
 #workspaces button.active {
 	font-weight: 900;
-    background: @base-800;
-    color: @paper;
+    background: @base-200;
+    color: @black;
     padding: 0 7px;
     border-radius: 5px;
 }
 
 #workspaces button.urgent {
-    background-color: @red-400;
-    color: @red-950;
+    background-color: @red-600;
+    color: @red-50;
     border-radius: 5px;
 }
 
 
 #mpris.spotify {
-    background: @green-400;
-    color: @green-950;
+    background: @green-600;
+    color: @green-50;
 }
 
 #mpris.firefox,
 #mpris.zen-browser,
 #mpris.vlc {
-    background: @orange-400;
-    color: @orange-950;
+    background: @orange-600;
+    color: @orange-50;
 }
 
 #mpris.TelegramDesktop, 
 #mpris.chromium {
-    background: @blue-400;
-    color: @blue-950;
+    background: @blue-600;
+    color: @blue-50;
 }
 
 
@@ -98,8 +98,8 @@ button {
 #power-profiles-daemon,
 #mpd {
     padding: 0 8px;
-    color: @base-200;
-    background: @black;
+    color: @black;
+    background: @paper;
     border-radius: 3px
 }
 
@@ -107,14 +107,14 @@ button {
 #custom-drive_line_right,
 #custom-drive_line_left {
     padding: 0 10px;
-    color: @base-200;
-    background: @black;
+    color: @black;
+    background: @paper;
     border-radius: 5px;
 }
 
 #custom-logo:hover {
-    color: @black;
-    background: @paper;
+    color: @paper;
+    background: @black;
 }
 
 #mpris.playing {
@@ -139,28 +139,28 @@ button {
 
 
 #battery.charging, #battery.plugged {
-    background: @green-400;
-    color: @green-950;
+    background: @green-600;
+    color: @green-50;
 	font-weight: 800;
 }
 
 @keyframes blink-critical {
     to {
-        background-color: @red-400;
-        color: @red-950;
+        background-color: @red-600;
+        color: @red-50;
     }
 }
 
 @keyframes blink-warning {
     to {
-        background-color: @orange-400;
-        color: @orange-950;
+        background-color: @orange-600;
+        color: @orange-50;
     }
 }
 
 /* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
-    color: @red-400;
+    color: @red-600;
     animation-name: blink-critical;
     animation-duration: 0.3s;
     animation-timing-function: steps(12);
@@ -170,7 +170,7 @@ button {
 
 
 #battery.warning:not(.charging) {
-    color: @orange-400;
+    color: @orange-600;
     animation-name: blink-warning;
     animation-duration: 0.5s;
     animation-timing-function: steps(12);
@@ -179,26 +179,26 @@ button {
 }
 
 #power-profiles-daemon.performance {
-    color: @red-400;
+    color: @red-600;
 }
 
 #power-profiles-daemon.power-saver {
-    color: @green-400;
+    color: @green-600;
 }
 
 #power-profiles-daemon.performance:hover {
-    background: @red-400;
-    color: @red-950;
+    background: @red-600;
+    color: @red-50;
 }
 
 #power-profiles-daemon.balanced:hover {
-    background: @paper;
-    color: @black;
+    background: @black;
+    color: @paper;
 }
 
 #power-profiles-daemon.power-saver:hover {
-    background: @green-400;
-    color: @green-950;
+    background: @green-600;
+    color: @green-50;
 }
 
 label:focus {
@@ -223,4 +223,8 @@ label:focus {
     -gtk-icon-effect: highlight;
     background-color: #D14D41;
     color: #261312;
+}
+
+tooltip label {
+    color: red
 }

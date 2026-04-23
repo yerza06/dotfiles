@@ -146,12 +146,6 @@
         "exa_api_key": "b5c09127-0dd8-40a6-998c-dd4c665fd681"
       }
     },
-    "mcp-server-context7": {
-      "enabled": true,
-      "settings": {
-        "context7_api_key": "ctx7sk-0eed24d5-c2d6-4b2e-9e6c-caff78a9d9b6",
-      },
-    },
   },
   "terminal": {
     "font_size": 15.0,

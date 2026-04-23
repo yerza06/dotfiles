@@ -57,8 +57,8 @@
          }
      },
      "mpris": {
-         "format": "{player_icon} {title}",
-         "tooltip-format": "[ {status_icon} ] {artist} => {title}",
+         "format": "{status_icon} {title}",
+         "tooltip-format": " Artist\t{artist}\n󰀥 Album\t{album}\n{player_icon} Title\t{title}",
          "player-icons": {
              "default": "",
              "mpv": "󰎇",
