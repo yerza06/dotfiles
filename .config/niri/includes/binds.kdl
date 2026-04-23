@@ -26,7 +26,7 @@ binds {
     Mod+N { spawn "obsidian"; }
     Mod+M { spawn "claude-desktop"; }
     Mod+T { spawn "Telegram"; }
-    Mod+E { spawn "nautilus"; }
+    Mod+E { spawn "thunar"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.

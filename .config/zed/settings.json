@@ -10,6 +10,9 @@
   // "prettier": {
   //   "allowed": true
   // },
+  "collaboration_panel": {
+    "dock": "left"
+  },
   "agent_servers": {
     "claude-acp": {
       "type": "registry"
@@ -155,6 +158,7 @@
     "font_family": "IosevkaTerm Nerd Font",
   },
   "agent": {
+    "dock": "right",
     "default_model": {
       "provider": "google",
       "model": "gemini-2.5-flash",

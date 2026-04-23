@@ -1,4 +1,5 @@
-@import "flexoki-dark.css";
+/* @import "flexoki-dark.css"; */
+@import "flexoki-full.css";
 
 * {
 	font-family: "IosevkaTerm Nerd Font Propo";
@@ -9,13 +10,10 @@
     transition: .2s;
 }
 
-window {
-	margin: 0px;
-}
-
 window#waybar {
     margin-top: 10px;
-    background: @bg;
+    background: @black;
+    color: @base-200;
 	margin: 20px 30px;
     transition-duration: .2s;
 }
@@ -28,32 +26,53 @@ button {
 
 #workspaces {
     padding: 0 2px;
+    background: @black;
 }
 
 #workspaces button {
     padding: 0 2px;
-    color: @tx;
+    color: @base-200;
+    background: @black;
     border-radius: 5px;
 }
 
 #workspaces button:hover {
-    color: @tx;
-    background: @ui-3;
+    color: @paper;
+    background: @base-800;
     border-radius: 5px;
 }
 
 #workspaces button.active {
 	font-weight: 900;
-    background: @tx;
-    color: @bg;
-    padding: 0 5px;
+    background: @base-800;
+    color: @paper;
+    padding: 0 7px;
     border-radius: 5px;
 }
 
 #workspaces button.urgent {
-    background-color: @re;
-    color: @bg;
+    background-color: @red-400;
+    color: @red-950;
     border-radius: 5px;
+}
+
+
+#mpris.spotify {
+    background: @green-400;
+    color: @green-950;
+}
+
+#mpris.firefox,
+#mpris.zen-browser,
+#mpris.vlc {
+    background: @orange-400;
+    color: @orange-950;
+}
+
+#mpris.TelegramDesktop, 
+#mpris.chromium {
+    background: @blue-400;
+    color: @blue-950;
 }
 
 
@@ -70,45 +89,39 @@ button {
 #bluetooth,
 #pulseaudio,
 #wireplumber,
-#custom-media,
 #tray,
 #mode,
 #idle_inhibitor,
 #language,
 #scratchpad,
 #mpris,
+#mpris.paused,
 #power-profiles-daemon,
 #mpd {
     padding: 0 8px;
-    color: @tx;
-    background: @bg;
+    color: @base-200;
+    background: @black;
+    border-radius: 3px
 }
 
-#custom-logo {
+#custom-logo,
+#custom-drive_line_right,
+#custom-drive_line_left {
     padding: 0 10px;
-    color: @tx;
-    background: @bg;
+    color: @base-200;
+    background: @black;
     border-radius: 5px;
 }
 
 #custom-logo:hover {
-    color: @bg;
-    background: @tx;
+    color: @black;
+    background: @paper;
 }
 
 #mpris.playing {
-    border-bottom: #F0EBDD 1px solid;
-    border-top: #F0EBDD 1px solid;
-    border-right: rgba(0, 0, 0, 0) 1px solid;
-    border-left: rgba(0, 0, 0, 0) 1px solid;
+    border-radius: 5px;
 }
 
-#mpris.paused  {
-    border-bottom: rgba(0, 0, 0, 0) 1px solid;
-    border-top: rgba(0, 0, 0, 0) 1px solid;
-    border-right: #F0EBDD 1px solid;
-    border-left: #F0EBDD 1px solid;
-}
 
 #mpris.stopped {
     background: #D14D41;
@@ -127,28 +140,28 @@ button {
 
 
 #battery.charging, #battery.plugged {
-    background: @gr;
-    color: @bg;
+    background: @green-400;
+    color: @green-950;
 	font-weight: 800;
 }
 
 @keyframes blink-critical {
     to {
-        background-color: @re;
-        color: @bg;
+        background-color: @red-400;
+        color: @red-950;
     }
 }
 
 @keyframes blink-warning {
     to {
-        background-color: @or;
-        color: @bg;
+        background-color: @orange-400;
+        color: @orange-950;
     }
 }
 
 /* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
-    color: @re;
+    color: @red-400;
     animation-name: blink-critical;
     animation-duration: 0.3s;
     animation-timing-function: steps(12);
@@ -158,7 +171,7 @@ button {
 
 
 #battery.warning:not(.charging) {
-    color: @or;
+    color: @orange-400;
     animation-name: blink-warning;
     animation-duration: 0.5s;
     animation-timing-function: steps(12);
@@ -167,30 +180,26 @@ button {
 }
 
 #power-profiles-daemon.performance {
-    color: @re;
-}
-
-#power-profiles-daemon.balanced {
-    color: @tx;
+    color: @red-400;
 }
 
 #power-profiles-daemon.power-saver {
-    color: @gr;
+    color: @green-400;
 }
 
 #power-profiles-daemon.performance:hover {
-    background: @re;
-    color: @bg;
+    background: @red-400;
+    color: @red-950;
 }
 
 #power-profiles-daemon.balanced:hover {
-    background: @tx;
-    color: @bg;
+    background: @paper;
+    color: @black;
 }
 
 #power-profiles-daemon.power-saver:hover {
-    background: @gr;
-    color: @bg;
+    background: @green-400;
+    color: @green-950;
 }
 
 label:focus {
