@@ -1,10 +1,42 @@
 // includes/layer-rules.kdl
 
 layer-rule {
-    match namespace="waybar"
     match namespace="awww"
     match at-startup=true
     geometry-corner-radius 12
 
     place-within-backdrop true
+
+    background-effect {
+        xray true
+        blur true
+        noise 0.05
+        saturation 3
+    }
+
+    popups {
+        opacity 0.5
+        geometry-corner-radius 6
+
+        background-effect {
+            xray true
+            blur true
+            noise 0.05
+            saturation 3
+        }
+    }
+
+}
+
+layer-rule {
+    match namespace="rofi"
+    match namespace="waybar"
+
+
+    background-effect {
+        xray true
+        blur true
+        // noise 0.05
+        // saturation 3
+    }
 }

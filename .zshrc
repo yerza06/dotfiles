@@ -142,6 +142,8 @@ export PATH=/home/yerza/.opencode/bin:$PATH
 # custom commands
 export PATH="$HOME/.local/bin:$PATH"
 
+export PATH="$HOME/.cargo/bin:$PATH"
+
 
 # Load Angular CLI autocompletion.
 # source <(ng completion script)

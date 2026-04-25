@@ -1,0 +1,228 @@
+@import "flexoki-full.css";
+@import "flexoki-dark.css";
+
+* {
+	font-family: "IosevkaTerm Nerd Font Propo";
+    font-weight: 500;
+    font-size: 15;
+    margin: 0;
+    padding: 0;
+    transition: .2s;
+}
+
+window#waybar {
+    margin-top: 10px;
+    background: @bg;
+    background: rgba(0, 0, 0, 0.5);
+    color: @tx;
+	margin: 20px 30px;
+    transition-duration: .2s;
+}
+
+button {
+    box-shadow: inset 0 -3px transparent;
+    border: none;
+    border-radius: 0;
+}
+
+#workspaces {
+    padding: 0 2px;
+    background: @black;
+}
+
+#workspaces button {
+    padding: 0 2px;
+    color: @base-200;
+    background: @black;
+    border-radius: 5px;
+}
+
+#workspaces button:hover {
+    color: @tx;
+    background: @ui-3;
+    border-radius: 5px;
+}
+
+#workspaces button.active {
+	font-weight: 900;
+    background: @ui-3;
+    color: @tx;
+    padding: 0 7px;
+    border-radius: 5px;
+}
+
+#workspaces button.urgent {
+    background-color: @re;
+    color: @red-950;
+    border-radius: 5px;
+}
+
+
+#mpris.spotify {
+    background: @green-400;
+    color: @green-950;
+}
+
+#mpris.firefox,
+#mpris.zen-browser,
+#mpris.vlc {
+    background: @orange-400;
+    color: @orange-950;
+}
+
+#mpris.TelegramDesktop, 
+#mpris.chromium {
+    background: @blue-400;
+    color: @blue-950;
+}
+
+
+#clock,
+#user,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#custom-hardware,
+#backlight,
+#network,
+#bluetooth,
+#pulseaudio,
+#wireplumber,
+#tray,
+#mode,
+#idle_inhibitor,
+#language,
+#scratchpad,
+#mpris,
+#mpris.paused,
+#power-profiles-daemon,
+#mpd {
+    padding: 0 8px;
+    color: @base-200;
+    background: @black;
+    border-radius: 3px
+}
+
+#custom-logo,
+#custom-drive_line_right,
+#custom-drive_line_left {
+    padding: 0 10px;
+    color: @base-200;
+    background: @black;
+    border-radius: 5px;
+}
+
+#custom-logo:hover {
+    color: @black;
+    background: @paper;
+}
+
+#mpris.playing {
+    border-radius: 5px;
+}
+
+
+#mpris.stopped {
+    background: #D14D41;
+    color: #261312;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+
+#battery.charging, #battery.plugged {
+    background: @green-400;
+    color: @green-950;
+	font-weight: 800;
+}
+
+@keyframes blink-critical {
+    to {
+        background-color: @red-400;
+        color: @red-950;
+    }
+}
+
+@keyframes blink-warning {
+    to {
+        background-color: @orange-400;
+        color: @orange-950;
+    }
+}
+
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+    color: @red-400;
+    animation-name: blink-critical;
+    animation-duration: 0.3s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+
+#battery.warning:not(.charging) {
+    color: @orange-400;
+    animation-name: blink-warning;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#power-profiles-daemon.performance {
+    color: @red-400;
+}
+
+#power-profiles-daemon.power-saver {
+    color: @green-400;
+}
+
+#power-profiles-daemon.performance:hover {
+    background: @red-400;
+    color: @red-950;
+}
+
+#power-profiles-daemon.balanced:hover {
+    background: @paper;
+    color: @black;
+}
+
+#power-profiles-daemon.power-saver:hover {
+    background: @green-400;
+    color: @green-950;
+}
+
+label:focus {
+    background-color: #000000;
+}
+
+
+#network.disconnected {
+    background-color: #D14D41;
+}
+
+#temperature.critical {
+    background-color: #D14D41;
+    color: #261312;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #D14D41;
+    color: #261312;
+}

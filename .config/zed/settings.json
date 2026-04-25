@@ -10,6 +10,7 @@
   // "prettier": {
   //   "allowed": true
   // },
+  "cli_default_open_behavior": "existing_window",
   "collaboration_panel": {
     "dock": "left"
   },
