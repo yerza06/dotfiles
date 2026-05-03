@@ -10,24 +10,31 @@
   // "prettier": {
   //   "allowed": true
   // },
+  "proxy": "",
+  "cli_default_open_behavior": "existing_window",
+  "collaboration_panel": {
+    "dock": "left",
+  },
   "agent_servers": {
+    "pi-acp": {
+      "type": "registry",
+    },
+    "codex-acp": {
+      "type": "registry",
+    },
+    "claude-acp": {
+      "type": "registry",
+    },
+    "gemini": {
+      "type": "registry",
+    },
     "opencode": {
-      "type": "extension",
-      "favorite_models": [
-        "opencode/big-pickle",
-        "opencode/grok-code",
-        "opencode/minimax-m2.1-free",
-        "opencode/glm-4.7-free",
-      ],
-      "default_config_options": {},
-      "favorite_config_option_values": {},
+      "type": "registry",
     },
   },
   "edit_predictions": {
+    "provider": "zed",
     "mode": "eager",
-  },
-  "features": {
-    "edit_prediction_provider": "zed",
   },
   "toolbar": {
     "agent_review": true,
@@ -81,7 +88,6 @@
   "title_bar": {
     "show_menus": false,
     "show_branch_name": true,
-    "show_branch_icon": true,
   },
   "git": {
     "inline_blame": {
@@ -134,23 +140,10 @@
     "dock": "left",
   },
   "context_servers": {
-    "postgres-context-server": {
-      "enabled": true,
-      "remote": false,
-      "settings": {
-        "database_url": "postgresql://taskanline_user:1234RFJ)(#SDF4JHSS@localhost:5432/taskanline_db"
-      }
-    },
     "mcp-server-exa-search": {
       "enabled": true,
       "settings": {
-        "exa_api_key": "b5c09127-0dd8-40a6-998c-dd4c665fd681"
-      }
-    },
-    "mcp-server-context7": {
-      "enabled": true,
-      "settings": {
-        "context7_api_key": "ctx7sk-0eed24d5-c2d6-4b2e-9e6c-caff78a9d9b6",
+        "exa_api_key": "b5c09127-0dd8-40a6-998c-dd4c665fd681",
       },
     },
   },
@@ -159,6 +152,21 @@
     "font_family": "IosevkaTerm Nerd Font",
   },
   "agent": {
+    "message_editor_min_lines": 4,
+    "show_turn_stats": false,
+    "notify_when_agent_waiting": "primary_screen",
+    "enable_feedback": true,
+    "single_file_review": false,
+    "sidebar_side": "right",
+    "dock": "right",
+    "default_model": {
+      "provider": "google",
+      "model": "gemini-2.5-flash",
+      "enable_thinking": true,
+    },
+    "tool_permissions": {
+      "default": "allow",
+    },
     "profiles": {
       "write": {
         "default_model": {
@@ -195,17 +203,6 @@
         },
       },
     },
-    "default_profile": "minimal",
-    "inline_assistant_model": {
-      "provider": "google",
-      "model": "gemini-2.5-flash",
-    },
-    "always_allow_tool_actions": true,
-    "default_model": {
-      "provider": "anthropic",
-      "model": "claude-sonnet-4-6-latest",
-    },
-    "model_parameters": [],
   },
   "vim_mode": true,
   "vim": {
@@ -216,7 +213,7 @@
   "ui_font_size": 16,
   "buffer_font_size": 15,
   "theme": {
-    "mode": "dark",
+    "mode": "system",
     "light": "Flexoki Light",
     "dark": "Flexoki Dark",
   },

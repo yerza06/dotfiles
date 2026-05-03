@@ -67,4 +67,9 @@
       "f8": "debugger::FocusTerminal",
     },
   },
+  {
+    "bindings": {
+      "ctrl-alt-g": "git_graph::Open"
+    }
+  }
 ]

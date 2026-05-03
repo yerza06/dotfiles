@@ -22,7 +22,7 @@ binds {
     Mod+Shift+Return hotkey-overlay-title="Open a Terminal tmux: kitty" { spawn "kitty" "tmux" "a"; }
     Mod+S hotkey-overlay-title="Run an Application: rofi" { spawn "rofi" "-show" "drun" "-config" "~/.config/rofi/config-drun.rasi"; }
     Mod+Z { spawn "zeditor"; }
-    Mod+B { spawn "zen-browser"; }
+    Mod+B { spawn "firefox"; }
     Mod+N { spawn "obsidian"; }
     Mod+M { spawn "claude-desktop"; }
     Mod+T { spawn "Telegram"; }

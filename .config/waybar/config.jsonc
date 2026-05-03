@@ -16,6 +16,7 @@
         "niri/language",
         "pulseaudio",
         "group/drive",
+        "group/connection",
         "battery"
     ],
     "group/drive": {
@@ -79,11 +80,11 @@
         "spacing": 10
     },
     "clock": {
-		"format": "{:%H:%M:%S}",
+		"format": "{:%Y-%m-%d %H:%M:%S}",
 		"interval": 1,
 		"max-length": 30,
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-		"format-alt": "{:%Y-%m-%d %H:%M:%S}"
+		"format-alt": "{:%H:%M:%S}",
     },
     "cpu": {
         "interval": 1,
@@ -112,10 +113,10 @@
         "tooltip-format": "Display: {percent}%"
     },
 	"niri/language": {
-		"format": "{}",
-        "format-en": "<span color=\"#D14D41\">󰌌 US</span>",
-        "format-ru": "<span color=\"#4385BE\">󰌌 RU</span>",
-        "format-kk": "<span color=\"#D0A215\">󰌌 KZ</span>",
+		"format": "󰌌 {}",
+        "format-en": "US",
+        "format-ru": "RU",
+        "format-kk": "KZ",
         "on-click": "niri msg action switch-layout next",
         "on-click-right": "niri msg action switch-layout prev",
         "tooltip-format": "{long}"
@@ -150,8 +151,8 @@
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected  ",
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
-		"on-click": "bash ~/.config/waybar/scripts/wifiscript.sh toggle",
-		"on-click-right": "kitty nmtui"
+		"on-click": "kitty nmtui",
+		"on-click-middle": "bash ~/.config/waybar/scripts/wifiscript.sh toggle",
     },
     "bluetooth": {
 	"format-on": " {status}",
@@ -161,8 +162,8 @@
 	"tooltip-format": "{controller_alias}\t{controller_address}",
 	"tooltip-format-connected": "󰥈{device_battery_percentage} | {controller_alias}\t{controller_address}\n\n{device_enumerate}",
 	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-    "on-click": "bash ~/.config/waybar/scripts/bluescript.sh toggle",
-    "on-click-right": "kitty bluetui"
+    "on-click": "kitty bluetui",
+    "on-click-middle": "bash ~/.config/waybar/scripts/bluescript.sh toggle",
 },
     "pulseaudio": {
         "scroll-step": 1, // %, can be a float
@@ -179,9 +180,9 @@
             "car": "",
             "default": ["", "", ""]
         },
-        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
-        "on-click-right": "kitty pulsemixer",
-        "on-click-middle": "pavucontrol",
+        "on-click": "kitty pulsemixer",
+        "on-click-middle": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "on-click-right": "pavucontrol",
         "tooltip": true,
         "tooltip-format": "Output: {desc}"
     },

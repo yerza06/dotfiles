@@ -11,8 +11,8 @@
 
 window#waybar {
     margin-top: 10px;
-    background: @paper;
-    color: @black;
+    background: @bg;
+    color: @tx;
 	margin: 20px 30px;
     transition-duration: .2s;
 }
@@ -25,53 +25,53 @@ button {
 
 #workspaces {
     padding: 0 2px;
-    background: @paper;
+    background: @bg;
 }
 
 #workspaces button {
     padding: 0 2px;
-    color: @black;
-    background: @paper;
+    color: @tx;
+    background: @bg;
     border-radius: 5px;
 }
 
 #workspaces button:hover {
-    color: @black;
-    background: @paper;
+    color: @tx;
+    background: @bg-2;
     border-radius: 5px;
 }
 
 #workspaces button.active {
 	font-weight: 900;
-    background: @base-200;
-    color: @black;
+    background: @bg-2;
+    color: @tx;
     padding: 0 7px;
     border-radius: 5px;
 }
 
 #workspaces button.urgent {
-    background-color: @red-600;
-    color: @red-50;
+    background-color: @re;
+    color: @bg;
     border-radius: 5px;
 }
 
 
 #mpris.spotify {
-    background: @green-600;
-    color: @green-50;
+    background: @gr;
+    color: @bg;
 }
 
 #mpris.firefox,
 #mpris.zen-browser,
 #mpris.vlc {
-    background: @orange-600;
-    color: @orange-50;
+    background: @or;
+    color: @bg;
 }
 
 #mpris.TelegramDesktop, 
 #mpris.chromium {
-    background: @blue-600;
-    color: @blue-50;
+    background: @bl;
+    color: @bg;
 }
 
 
@@ -98,23 +98,40 @@ button {
 #power-profiles-daemon,
 #mpd {
     padding: 0 8px;
-    color: @black;
-    background: @paper;
+    color: @tx;
+    background: @bg;
     border-radius: 3px
 }
+
+#language {
+    font-weight: 700;
+}
+
+#language.us {
+    color: @re;
+}
+
+#language.ru {
+    color: @bl;
+}
+
+#language.kz {
+    color: @ye;
+}
+
 
 #custom-logo,
 #custom-drive_line_right,
 #custom-drive_line_left {
     padding: 0 10px;
-    color: @black;
-    background: @paper;
+    color: @tx;
+    background: @bg;
     border-radius: 5px;
 }
 
 #custom-logo:hover {
-    color: @paper;
-    background: @black;
+    color: @bg;
+    background: @tx;
 }
 
 #mpris.playing {
@@ -123,8 +140,8 @@ button {
 
 
 #mpris.stopped {
-    background: #D14D41;
-    color: #261312;
+    background: @re;
+    color: @bg;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -139,28 +156,28 @@ button {
 
 
 #battery.charging, #battery.plugged {
-    background: @green-600;
-    color: @green-50;
+    background: @gr;
+    color: @bg;
 	font-weight: 800;
 }
 
 @keyframes blink-critical {
     to {
-        background-color: @red-600;
-        color: @red-50;
+        background-color: @re;
+        color: @bg;
     }
 }
 
 @keyframes blink-warning {
     to {
-        background-color: @orange-600;
-        color: @orange-50;
+        background-color: @or;
+        color: @bg;
     }
 }
 
 /* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
-    color: @red-600;
+    color: @re;
     animation-name: blink-critical;
     animation-duration: 0.3s;
     animation-timing-function: steps(12);
@@ -170,7 +187,7 @@ button {
 
 
 #battery.warning:not(.charging) {
-    color: @orange-600;
+    color: @or;
     animation-name: blink-warning;
     animation-duration: 0.5s;
     animation-timing-function: steps(12);
@@ -179,26 +196,26 @@ button {
 }
 
 #power-profiles-daemon.performance {
-    color: @red-600;
+    color: @re;
 }
 
 #power-profiles-daemon.power-saver {
-    color: @green-600;
+    color: @gr;
 }
 
 #power-profiles-daemon.performance:hover {
-    background: @red-600;
-    color: @red-50;
+    background: @re;
+    color: @bg;
 }
 
 #power-profiles-daemon.balanced:hover {
-    background: @black;
-    color: @paper;
+    background: @tx;
+    color: @bg;
 }
 
 #power-profiles-daemon.power-saver:hover {
-    background: @green-600;
-    color: @green-50;
+    background: @gr;
+    color: @bg;
 }
 
 label:focus {
@@ -207,12 +224,13 @@ label:focus {
 
 
 #network.disconnected {
-    background-color: #D14D41;
+    background-color: @re;
+    color: @bg;
 }
 
 #temperature.critical {
-    background-color: #D14D41;
-    color: #261312;
+    background-color: @re;
+    color: @bg;
 }
 
 #tray > .passive {
@@ -221,10 +239,18 @@ label:focus {
 
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
-    background-color: #D14D41;
-    color: #261312;
+    background-color: @re;
+    color: @bg;
+}
+
+tooltip {
+    border: 1px @tx-2 solid;
+    background-color: @bg-2;
+    color: @tx;
 }
 
 tooltip label {
-    color: red
+    background-color: @bg-2;
+    color: @tx;
+    box-shadow: none;
 }
