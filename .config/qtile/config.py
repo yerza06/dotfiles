@@ -194,7 +194,7 @@ screens = [
                     name_transform=lambda name: name.upper(),
                 ),
                 widget.TextBox("󱎫", foreground=color_in),
-                widget.Countdown(date=datetime.datetime(2025, 6, 25), format="{D}:{H}:{M}:{S}"),
+                widget.Countdown(date=datetime.datetime(2026, 5, 11), format="{D}:{H}:{M}:{S}"),
                 widget.TextBox(line, foreground=line_color),
                 widget.TextBox(" ", foreground=color_in),
                 widget.Backlight(

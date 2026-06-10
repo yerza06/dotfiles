@@ -21,6 +21,8 @@ background-color=#100F0F
 border-color=#343331
 text-color=#FCFCFA
 
+progress-color=over #3AA99F
+
 [urgency=low]
 background-color=#1A1E0C
 border-color=#879A39
@@ -35,3 +37,13 @@ default-timeout=5000
 background-color=#261312
 border-color=#D14D41
 default-timeout=0
+
+[category=black]
+background-color=#0000004D
+border-color=#ffffff
+text-color=#ffffff
+default-timeout=5000
+
+[app-name=Spotify]
+invisible=0
+default-timeout=2000

@@ -10,12 +10,24 @@
   // "prettier": {
   //   "allowed": true
   // },
+  "buffer_font_weight": 400.0,
+  "agent_buffer_font_size": 14.0,
+  "agent_ui_font_size": 18.0,
+  "language_models": {
+    "opencode": {
+      "show_zen_models": false,
+      "show_go_models": false
+    }
+  },
   "proxy": "",
   "cli_default_open_behavior": "existing_window",
   "collaboration_panel": {
-    "dock": "left",
+    "dock": "right",
   },
   "agent_servers": {
+    "stakpak": {
+      "type": "registry"
+    },
     "pi-acp": {
       "type": "registry",
     },
@@ -45,8 +57,8 @@
   },
   "icon_theme": {
     "mode": "dark",
-    "light": "Zed (Default)",
-    "dark": "Material Icon Theme",
+    "light": "Monospace Icon Theme - Light",
+    "dark": "Monospace Icon Theme - Dark",
   },
   "languages": {
     "YAML": {
@@ -157,12 +169,12 @@
     "notify_when_agent_waiting": "primary_screen",
     "enable_feedback": true,
     "single_file_review": false,
-    "sidebar_side": "right",
+    "sidebar_side": "left",
     "dock": "right",
     "default_model": {
-      "provider": "google",
-      "model": "gemini-2.5-flash",
-      "enable_thinking": true,
+      "provider": "opencode",
+      "model": "free/big-pickle",
+      "enable_thinking": false,
     },
     "tool_permissions": {
       "default": "allow",
@@ -210,12 +222,12 @@
   },
   "relative_line_numbers": "enabled",
   "base_keymap": "VSCode",
-  "ui_font_size": 16,
-  "buffer_font_size": 15,
+  "ui_font_size": 16.0,
+  "buffer_font_size": 16.0,
   "theme": {
     "mode": "system",
     "light": "Flexoki Light",
-    "dark": "Flexoki Dark",
+    "dark": "Flexoki Dark"
   },
   "theme_overrides": {
     "Flexoki Dark": {

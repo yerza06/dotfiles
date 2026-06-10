@@ -8,6 +8,16 @@ window-rule {
 
 window-rule {
     match app-id="kitty"
+    match app-id="Alacritty"
+
+    background-effect {
+        blur true
+    }
+}
+
+window-rule {
+    match app-id="dev.zed.Zed"
+    match app-id="obsidian"
 
     background-effect {
         blur true
@@ -22,14 +32,11 @@ window-rule {
     match app-id="org.telegram.desktop"
 
 
-    open-floating false
     open-maximized true
 }
 
 window-rule {
     match app-id="Bitwarden"
-    match app-id="obsidian"
-    match app-id="org.telegram.desktop"
 
     block-out-from "screencast"
 }

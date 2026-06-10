@@ -27,7 +27,7 @@ binds {
     Mod+M { spawn "claude-desktop"; }
     Mod+T { spawn "Telegram"; }
     Mod+E { spawn "thunar"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
@@ -278,7 +278,7 @@ binds {
     Mod+Space       { switch-layout "next"; }
     Mod+Shift+Space { switch-layout "prev"; }
 
-    XF86Launch4 { spawn-sh "bash ~/.local/bin/toggle-power.sh"; }
+    XF86Launch4 { spawn-sh ".local/bin/toggle-power.sh"; }
     XF86Launch3 { spawn "spotify-launcher"; }
     XF86Launch1 { spawn "steam"; }
 

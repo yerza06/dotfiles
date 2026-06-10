@@ -9,3 +9,16 @@ spawn-sh-at-startup "wl-paste --type text --watch cliphist store &"
 spawn-sh-at-startup "wl-paste --type image --watch cliphist store &"
 spawn-sh-at-startup "awww-daemon"
 spawn-sh-at-startup "awww img --transition-step 15 ~/.config/wallpapers/philipp-urlich-valley.jpg"
+
+// These are the default values:
+blur {
+    // off
+    passes 2
+    offset 10
+    noise 0.001
+    saturation 1.3
+}
+
+clipboard {
+    disable-primary
+}

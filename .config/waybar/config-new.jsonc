@@ -5,31 +5,31 @@
     "modules-left": [
         "custom/logo",
         "niri/workspaces",
+        "custom/drive_line_left",
         "mpris"
     ],
     "modules-center": [
-        "clock",
+        "clock"
 	],
     "modules-right": [
         "tray",
-        "cpu",
-        "memory",
-        "disk",
-        // "temperature",
         "niri/language",
         "pulseaudio",
-        "network",
-        "bluetooth",
         "group/drive",
+        "group/connection",
+        "power-profiles-daemon",
+        "battery"
     ],
     "group/drive": {
         "orientation": "horizontal",
         "modules": [
-            "battery",
             "custom/drive_line",
             "user",
             "backlight",
-            "power-profiles-daemon",
+            "cpu",
+            "memory",
+            "disk",
+            "temperature"
         ],
         "drawer": {
             "transition-duration": 250,
@@ -37,11 +37,9 @@
             "transition-left-to-right": false
         }
     },
-    "group/group1": {
+    "group/connection": {
         "orientation": "inherit",
         "modules": [
-            "niri/language",
-            "pulseaudio",
             "network",
             "bluetooth"
         ]
@@ -55,8 +53,8 @@
          "format": " {} ",
          "format-icons": {
              "urgent": "",
-             // "default": "󰧞",
-             "active": "",
+             "default": "󰧞",
+             "active": "󰮯",
          }
      },
      "mpris": {
@@ -76,30 +74,22 @@
              "playing": "󰐊",
              "paused": "󰏤",
          },
-         "max-length": 50,
-         "escape": true
+         "max-length": 50
      },
     "tray": {
-        "spacing": 10,
-        "interval": 10
+        "spacing": 10
     },
     "clock": {
-        "format": "{:%c}",
-		"format-alt": "{:%F %T}",
+		"format": "{:%Y-%m-%d %H:%M:%S}",
 		"interval": 1,
 		"max-length": 30,
-        // "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "timezones": [
-            "Asia/Almaty",
-            "Europe/Moscow",
-            "America/New_York",
-        ],
-        "tooltip-format": "{tz_list}"
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+		"format-alt": "{:%H:%M:%S}",
     },
     "cpu": {
         "interval": 1,
         "format": " {usage}%" ,
-        "tooltip": "{load}",
+        "tooltip": "{load}"
     },
     "memory": {
         "interval": 1,
@@ -112,7 +102,7 @@
         "format-icons": ["", "", ""]
     },
     "disk": {
-        "interval": 5,
+        // "interval": 5,
         "format": "󰋊 {percentage_used}%",
         "path": "/",
         "tooltip-format": "Used: {percentage_used}% | {used}\nFree: {percentage_free}% | {free}"
@@ -132,13 +122,8 @@
         "tooltip-format": "{long}"
 	},
     "battery": {
-		"interval": 10,
+		"interval": 20,
         "format": "{capacity}% {icon}",
-        "tooltip-format": "Battery: {capacity}%\nTime: {time}\nPower: {power}",
-        "format-charging": "{capacity}% {icon}",
-        "format-plugged": "{capacity}% {icon}",
-        "format-warning": "{capacity}% {icon}",
-        "format-critical": "{capacity}% {icon}",
         "states": {
             "warning": 30,
             "critical": 15
