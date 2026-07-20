@@ -47,11 +47,18 @@
       "ctrl-alt-b": "workspace::ToggleRightDock",
       "ctrl-alt-t": "workspace::OpenInTerminal",
       "ctrl-shift-t": "terminal_panel::Toggle",
-      "ctrl-alt-n": "pane::ActivateNextItem",
-      "ctrl-alt-p": "pane::ActivatePreviousItem",
+      "shift-l": "pane::ActivateNextItem",
+      "shift-h": "pane::ActivatePreviousItem",
       "alt-j": "editor::MoveLineDown",
       "alt-k": "editor::MoveLineUp",
-      "ctrl-shift-alt-enter": ["task::Spawn", { "task_name": "r/python/main" }],
+      "ctrl-t p": ["task::Spawn", { "task_name": "r/python/main" }],
+      "ctrl-shift-l": "workspace::ActivatePaneRight",
+      "ctrl-shift-h": "workspace::ActivatePaneLeft",
+      "ctrl-shift-j": "workspace::ActivatePaneDown",
+      "ctrl-shift-k": "workspace::ActivatePaneUp",
+      "space -": "pane::SplitVertical",
+      "space =": "pane::SplitHorizontal",
+      "space q": "pane::CloseActiveItem",
     },
   },
   {
@@ -60,6 +67,13 @@
       "ctrl-alt-n": "pane::ActivateNextItem",
       "ctrl-alt-p": "pane::ActivatePreviousItem",
       "ctrl-n": "workspace::NewTerminal",
+      "ctrl-shift-l": "workspace::ActivatePaneRight",
+      "ctrl-shift-h": "workspace::ActivatePaneLeft",
+      "ctrl-shift-j": "workspace::ActivatePaneDown",
+      "ctrl-shift-k": "workspace::ActivatePaneUp",
+      "ctrl-w q": "pane::CloseActiveItem",
+      "ctrl-w =": "pane::SplitVertical",
+      "ctrl-w -": "pane::SplitHorizontal",
     },
   },
   {
@@ -69,7 +83,7 @@
   },
   {
     "bindings": {
-      "ctrl-alt-g": "git_graph::Open"
-    }
-  }
+      "ctrl-alt-g": "git_graph::Open",
+    },
+  },
 ]

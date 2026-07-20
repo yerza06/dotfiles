@@ -5,7 +5,8 @@
     "modules-left": [
         "custom/logo",
         "niri/workspaces",
-        "mpris"
+        "mpris",
+        "niri/window"
     ],
     "modules-center": [
         "clock",
@@ -15,7 +16,6 @@
         "cpu",
         "memory",
         "disk",
-        // "temperature",
         "niri/language",
         "pulseaudio",
         "network",
@@ -55,13 +55,12 @@
          "format": " {} ",
          "format-icons": {
              "urgent": "",
-             // "default": "󰧞",
              "active": "",
          }
      },
      "mpris": {
-         "format": "{status_icon} {title}",
-         "tooltip-format": " Artist\t{artist}\n󰀥 Album\t{album}\n{player_icon} Title\t{title}",
+         "format": "{player_icon}",
+         "tooltip-format": "{player_icon} Title\t{title}\n Artist\t{artist}\n󰀥 Album\t{album}",
          "player-icons": {
              "default": "",
              "mpv": "󰎇",
@@ -77,7 +76,10 @@
              "paused": "󰏤",
          },
          "max-length": 50,
-         "escape": true
+     },
+     "niri/window": {
+         "format": "{app_id}: {title}",
+         // "icon": true
      },
     "tray": {
         "spacing": 10,
@@ -88,7 +90,6 @@
 		"format-alt": "{:%F %T}",
 		"interval": 1,
 		"max-length": 30,
-        // "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "timezones": [
             "Asia/Almaty",
             "Europe/Moscow",

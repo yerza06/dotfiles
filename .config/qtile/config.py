@@ -205,7 +205,7 @@ screens = [
                 ),
                 widget.TextBox(line, foreground=line_color),
                 widget.TextBox("󰕾", foreground=color_in),
-                widget.Volume(fmt="{volume}%", theme_path='/home/docs/checkouts/readthedocs.org/user_builds/qtile/checkouts/stable/test/data/ss_temp'),
+                widget.PulseVolume(fmt="{}"),
                 widget.TextBox(line, foreground=line_color),
 
                 widget.Battery(

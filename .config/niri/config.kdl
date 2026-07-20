@@ -17,3 +17,6 @@ hotkey-overlay {
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
+// debug {
+//     render-drm-device "/dev/dri/renderD129"
+// }

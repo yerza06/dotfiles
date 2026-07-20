@@ -1,9 +1,9 @@
 [Default Applications]
-text/html=zen.desktop;
-x-scheme-handler/http=helium.desktop;
-x-scheme-handler/https=helium.desktop;
-x-scheme-handler/about=firefox.desktop;
-x-scheme-handler/unknown=firefox.desktop;
+text/html=firefox.desktop
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
+x-scheme-handler/about=firefox.desktop
+x-scheme-handler/unknown=firefox.desktop
 application/pdf=org.gnome.Evince.desktop;
 image/png=org.gnome.Loupe.desktop;
 image/jpeg=org.gnome.Loupe.desktop;
@@ -12,15 +12,17 @@ application/x-desktop=thunar.desktop;
 image/svg+xml=firefox.desktop;
 x-scheme-handler/claude-cli=claude-code-url-handler.desktop;
 x-scheme-handler/chrome=firefox.desktop;
-application/x-extension-htm=helium.desktop;
-application/x-extension-html=helium.desktop;
-application/x-extension-shtml=helium.desktop;
+application/x-extension-htm=firefox.desktop;
+application/x-extension-html=firefox.desktop;
+application/x-extension-shtml=firefox.desktop;
 application/xhtml+xml=firefox.desktop;
 application/x-extension-xhtml=firefox.desktop;
 application/x-extension-xht=firefox.desktop;
 x-scheme-handler/inode/directory=thunar.desktop;
-x-scheme-handler/claude=com.anthropic.claude-desktop.desktop
+x-scheme-handler/claude=claude.desktop
 inode/directory=thunar.desktop;
+x-scheme-handler/antigravity=antigravity.desktop
+x-scheme-handler/t3code=t3code.desktop
 
 [Added Associations]
 application/pdf=org.gnome.Evince.desktop;

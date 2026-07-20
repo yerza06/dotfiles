@@ -10,9 +10,13 @@
   // "prettier": {
   //   "allowed": true
   // },
+  "active_pane_modifiers": {
+    "inactive_opacity": 1.0
+  },
+  "buffer_font_size": 20.0,
   "buffer_font_weight": 400.0,
-  "agent_buffer_font_size": 14.0,
-  "agent_ui_font_size": 18.0,
+  "agent_buffer_font_size": 18.0,
+  "agent_ui_font_size": 20.0,
   "language_models": {
     "opencode": {
       "show_zen_models": false,
@@ -29,12 +33,23 @@
       "type": "registry"
     },
     "pi-acp": {
+      "default_config_options": {
+        "model": "openai-codex/gpt-5.6-luna"
+      },
       "type": "registry",
     },
     "codex-acp": {
+      "default_config_options": {
+        "collaboration_mode": "plan",
+        "fast-mode": false,
+        "model": "gpt-5.6-sol"
+      },
       "type": "registry",
     },
     "claude-acp": {
+      "default_config_options": {
+        "mode": "auto"
+      },
       "type": "registry",
     },
     "gemini": {
@@ -98,6 +113,8 @@
     "show": true,
   },
   "title_bar": {
+    "show_project_items": true,
+    "show_branch_status_icon": true,
     "show_menus": false,
     "show_branch_name": true,
   },
@@ -117,12 +134,18 @@
   "ui_font_family": "IosevkaTerm Nerd Font",
   "disable_ai": false,
   "git_panel": {
+    "show_count_badge": false,
+    "commit_title_max_length": 0,
+    "file_icons": false,
+    "tree_view": true,
+    "default_width": 370.0,
     "sort_by_path": false,
     "dock": "left",
     "status_style": "label_color",
     "button": true,
   },
   "project_panel": {
+    "bold_folder_labels": true,
     "dock": "left",
     "button": true,
     "starts_open": true,
@@ -160,7 +183,7 @@
     },
   },
   "terminal": {
-    "font_size": 15.0,
+    "font_size": 20.0,
     "font_family": "IosevkaTerm Nerd Font",
   },
   "agent": {
@@ -169,7 +192,7 @@
     "notify_when_agent_waiting": "primary_screen",
     "enable_feedback": true,
     "single_file_review": false,
-    "sidebar_side": "left",
+    "sidebar_side": "right",
     "dock": "right",
     "default_model": {
       "provider": "opencode",
@@ -222,8 +245,7 @@
   },
   "relative_line_numbers": "enabled",
   "base_keymap": "VSCode",
-  "ui_font_size": 16.0,
-  "buffer_font_size": 16.0,
+  "ui_font_size": 18.0,
   "theme": {
     "mode": "system",
     "light": "Flexoki Light",

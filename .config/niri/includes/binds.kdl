@@ -278,8 +278,10 @@ binds {
     Mod+Space       { switch-layout "next"; }
     Mod+Shift+Space { switch-layout "prev"; }
 
-    XF86Launch4 { spawn-sh ".local/bin/toggle-power.sh"; }
-    XF86Launch3 { spawn "spotify-launcher"; }
+    // XF86Launch4 { spawn "kitty" "bash" "~/.local/bin/toggle-power.sh"; }
+    XF86Launch4 { spawn "alacritty"; }
+    // XF86Launch3 { spawn "spotify-launcher"; }
+    XF86Launch3 { spawn-sh "bash ~/.local/bin/toggle-power.sh"; }
     XF86Launch1 { spawn "steam"; }
 
     Mod+Shift+S { screenshot; }
@@ -299,8 +301,12 @@ binds {
     // The quit action will show a confirmation dialog to avoid accidental exits.
     Mod+Shift+E { quit; }
     Mod+Delete { spawn-sh "~/.config/rofi/scripts/powermenu.sh"; }
+    Mod+Backspace { spawn-sh "~/.local/bin/toggle-power.sh"; }
 
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
+
+    Mod+Alt+M { spawn "niri" "msg" "output" "eDP-1" "off"; }
+    Mod+Alt+N { spawn "niri" "msg" "output" "eDP-1" "on"; }
 }
