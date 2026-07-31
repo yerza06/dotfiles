@@ -40,7 +40,8 @@
     },
     "codex-acp": {
       "default_config_options": {
-        "collaboration_mode": "plan",
+        "mode": "agent-full-access",
+        "collaboration_mode": "default",
         "fast-mode": false,
         "model": "gpt-5.6-sol"
       },

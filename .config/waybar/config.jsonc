@@ -9,27 +9,29 @@
         "niri/window"
     ],
     "modules-center": [
-        "clock",
+        "clock"
 	],
     "modules-right": [
-        "tray",
+        "custom/claude-limit",
+        "custom/codex-limit",
         "cpu",
         "memory",
-        "disk",
         "niri/language",
         "pulseaudio",
         "network",
         "bluetooth",
         "group/drive",
+        "battery"
     ],
     "group/drive": {
         "orientation": "horizontal",
         "modules": [
-            "battery",
-            "custom/drive_line",
+            "power-profiles-daemon",
+            "custom/drive_line_right",
             "user",
             "backlight",
-            "power-profiles-daemon",
+            "disk",
+            "tray"
         ],
         "drawer": {
             "transition-duration": 250,
@@ -55,7 +57,7 @@
          "format": " {} ",
          "format-icons": {
              "urgent": "",
-             "active": "",
+             "active": ""
          }
      },
      "mpris": {
@@ -73,12 +75,12 @@
          "dynamic-order": ["title", "artist"],
          "status-icons": {
              "playing": "󰐊",
-             "paused": "󰏤",
+             "paused": "󰏤"
          },
-         "max-length": 50,
+         "max-length": 50
      },
      "niri/window": {
-         "format": "{app_id}: {title}",
+         "format": "{app_id}: {title}"
          // "icon": true
      },
     "tray": {
@@ -93,14 +95,14 @@
         "timezones": [
             "Asia/Almaty",
             "Europe/Moscow",
-            "America/New_York",
+            "America/New_York"
         ],
         "tooltip-format": "{tz_list}"
     },
     "cpu": {
         "interval": 1,
         "format": " {usage}%" ,
-        "tooltip": "{load}",
+        "tooltip": "{load}"
     },
     "memory": {
         "interval": 1,
@@ -147,7 +149,7 @@
         "format-icons": {
             "default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
             "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
-        },
+        }
     },
     "power-profiles-daemon": {
       "format": "{icon}",
@@ -168,7 +170,7 @@
         "format-disconnected": "Disconnected  ",
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
 		"on-click": "kitty nmtui",
-		"on-click-middle": "bash ~/.config/waybar/scripts/wifiscript.sh toggle",
+		"on-click-middle": "bash ~/.config/waybar/scripts/wifiscript.sh toggle"
     },
     "bluetooth": {
 	"format-on": " {status}",
@@ -179,7 +181,7 @@
 	"tooltip-format-connected": "󰥈{device_battery_percentage} | {controller_alias}\t{controller_address}\n\n{device_enumerate}",
 	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
     "on-click": "kitty bluetui",
-    "on-click-middle": "bash ~/.config/waybar/scripts/bluescript.sh toggle",
+    "on-click-middle": "bash ~/.config/waybar/scripts/bluescript.sh toggle"
 },
     "pulseaudio": {
         "scroll-step": 1, // %, can be a float
@@ -205,13 +207,27 @@
     "custom/logo": {
         "format": "",
         "on-click": "bash ~/.local/bin/toggle-theme-script.sh",
-        "on-click-right": "systemctl --user restart waybar.service",
+        "on-click-right": "systemctl --user restart waybar.service"
     },
     "custom/drive_line_right": {
-        "format": "",
+        "format": ""
     },
     "custom/drive_line_left": {
-        "format": "",
+        "format": ""
+    },
+    "custom/claude-limit": {
+        "exec": "~/.config/waybar/scripts/claude-limit.sh",
+        "return-type": "json",
+        "interval": 10,
+        "format": "{}",
+        "tooltip": true
+    },
+    "custom/codex-limit": {
+        "exec": "~/.config/waybar/scripts/codex-limit.sh",
+        "return-type": "json",
+        "interval": 10,
+        "format": "{}",
+        "tooltip": true
     }
 
 }

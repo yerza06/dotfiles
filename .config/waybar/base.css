@@ -3,8 +3,8 @@
 * {
 	font-family: "IosevkaTerm Nerd Font Propo";
     font-weight: 500;
-    font-size: 18;
-    margin: 1px 2px;
+    font-size: 15;
+    /* margin: 1px 2px; */
     padding: 0;
     transition: .2s;
 }
@@ -167,6 +167,8 @@ button {
 
 
 #custom-logo,
+#custom-claude-limit,
+#custom-codex-limit,
 #custom-drive_line_right,
 #custom-drive_line_left {
     padding: 0 10px;

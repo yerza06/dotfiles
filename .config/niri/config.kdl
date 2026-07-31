@@ -1,5 +1,4 @@
 // config.kdl
-
 include "includes/inputs.kdl"
 include "includes/outputs.kdl"
 include "includes/layout.kdl"
@@ -17,6 +16,6 @@ hotkey-overlay {
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
-// debug {
-//     render-drm-device "/dev/dri/renderD129"
-// }
+debug {
+    render-drm-device "/dev/dri/renderD129"
+}

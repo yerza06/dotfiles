@@ -27,12 +27,13 @@ binds {
     Mod+M { spawn "claude-desktop"; }
     Mod+T { spawn "Telegram"; }
     Mod+E { spawn "thunar"; }
+    Mod+R { spawn "~/.local/bin/rewrite-desktop"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
     // For example, this is a standard bind to toggle the screen reader (orca).
-    Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
+    // Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
@@ -224,10 +225,10 @@ binds {
     // Expel the bottom window from the focused column to the right.
     Mod+Period { expel-window-from-column; }
 
-    Mod+R { switch-preset-column-width; }
+    Mod+Alt+R { switch-preset-column-width; }
     // Cycling through the presets in reverse order is also possible.
     // Mod+R { switch-preset-column-width-back; }
-    Mod+Shift+R { switch-preset-window-height; }
+    Mod+Alt+Shift+R { switch-preset-window-height; }
     Mod+Ctrl+R { reset-window-height; }
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
