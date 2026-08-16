@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 
 Rectangle {
@@ -16,8 +17,16 @@ Rectangle {
     property bool microphoneMode: false
     property bool sliderEnabled: true
     property bool popupVisible: false
+    property color mutedTextColor: "#878580"
+    property color menuHoverColor: "#282726"
+    property color menuBorderColor: "#575653"
+    property color menuSeparatorColor: "#403e3c"
     // headphones | speaker | hdmi | unknown — приходит из scripts/audio-output.sh
     property string outputType: "speaker"
+
+    property bool menuVisible: false
+
+    readonly property bool menuChainHovered: buttonMouse.containsMouse || deviceMenu.chainHovered
 
     readonly property bool audioReady: audioNode !== null && audioNode.audio !== null
     readonly property real volumeValue: audioReady ? audioNode.audio.volume : 0
@@ -45,6 +54,18 @@ Rectangle {
         return value < 34 ? "" : (value < 67 ? "" : "")
     }
 
+    onMenuChainHoveredChanged: {
+        if (menuChainHovered)
+            menuCloseTimer.stop()
+        else if (menuVisible)
+            menuCloseTimer.restart()
+    }
+
+    function toggleMenu() {
+        menuCloseTimer.stop()
+        menuVisible = !menuVisible
+    }
+
     function openPopup() {
         closeTimer.stop()
         popupVisible = true
@@ -67,6 +88,17 @@ Rectangle {
         onTriggered: root.popupVisible = false
     }
 
+    // Меню закрывается, когда курсор ушёл и с виджета, и с самого меню.
+    Timer {
+        id: menuCloseTimer
+        interval: 400
+        repeat: false
+        onTriggered: {
+            if (!root.menuChainHovered)
+                root.menuVisible = false
+        }
+    }
+
     Text {
         id: label
         anchors.centerIn: parent
@@ -86,20 +118,42 @@ Rectangle {
         color: root.bottomBorderColor
     }
 
+    AudioDeviceMenu {
+        id: deviceMenu
+
+        visible: root.menuVisible
+        microphoneMode: root.microphoneMode
+        anchor.item: root
+        anchor.edges: Edges.Bottom
+        anchor.gravity: Edges.Bottom
+        backgroundColor: root.backgroundColor
+        hoverColor: root.menuHoverColor
+        textColor: root.textColor
+        mutedTextColor: root.mutedTextColor
+        borderColor: root.menuBorderColor
+        separatorColor: root.menuSeparatorColor
+        fontFamily: root.fontFamily
+        onCloseRequested: root.menuVisible = false
+    }
+
     PopupWindow {
         id: volumePopup
 
         anchor.item: root
         anchor.edges: Edges.Bottom
         anchor.gravity: Edges.Bottom
-        visible: root.popupVisible && root.audioReady
-        implicitWidth: 220
-        implicitHeight: 58
+        visible: root.popupVisible && root.audioReady && !root.menuVisible
+        implicitWidth: frame.implicitWidth
+        implicitHeight: frame.implicitHeight
         color: "transparent"
         grabFocus: false
 
         Rectangle {
+            id: frame
+
             anchors.fill: parent
+            implicitWidth: Math.max(220, Math.min(380, content.implicitWidth + 24))
+            implicitHeight: content.implicitHeight + 14
             color: root.backgroundColor
             border.width: 1
             border.color: root.popupBorderColor
@@ -114,71 +168,77 @@ Rectangle {
                 }
             }
 
-            Text {
-                anchors.top: parent.top
-                anchors.topMargin: 7
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: root.volumeIcon() + "  "
-                    + (root.microphoneMode ? "Микрофон" : "Громкость")
-                    + "  " + root.volumePercent() + "%"
-                color: root.muted ? root.mutedColor : root.textColor
-                font.family: root.fontFamily
-                font.pixelSize: 14
-                font.weight: Font.Medium
-                renderType: Text.NativeRendering
-            }
+            ColumnLayout {
+                id: content
 
-            Item {
-                id: sliderArea
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
+                anchors.fill: parent
+                anchors.topMargin: 7
+                anchors.bottomMargin: 7
                 anchors.leftMargin: 12
                 anchors.rightMargin: 12
-                anchors.bottomMargin: 5
-                height: 24
+                spacing: 0
 
-                Rectangle {
-                    id: volumeTrack
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.verticalCenter: parent.verticalCenter
-                    height: 6
-                    radius: 3
-                    color: root.trackColor
-
-                    Rectangle {
-                        anchors.left: parent.left
-                        anchors.top: parent.top
-                        anchors.bottom: parent.bottom
-                        width: Math.max(0, Math.min(parent.width, parent.width * root.volumeValue))
-                        radius: 3
-                        color: root.muted ? root.mutedColor : root.textColor
-                    }
-
-                    Rectangle {
-                        width: 12
-                        height: 12
-                        radius: 6
-                        anchors.verticalCenter: parent.verticalCenter
-                        x: Math.max(0, Math.min(parent.width - width,
-                            parent.width * root.volumeValue - width / 2))
-                        color: root.muted ? root.mutedColor : root.textColor
-                    }
+                Text {
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.bottomMargin: 3
+                    text: root.volumeIcon() + "  "
+                        + (root.microphoneMode ? "Микрофон" : "Громкость")
+                        + "  " + root.volumePercent() + "%"
+                    color: root.muted ? root.mutedColor : root.textColor
+                    font.family: root.fontFamily
+                    font.pixelSize: 14
+                    font.weight: Font.Medium
+                    renderType: Text.NativeRendering
                 }
 
-                MouseArea {
-                    anchors.fill: parent
-                    enabled: root.sliderEnabled
-                    acceptedButtons: Qt.LeftButton
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onEntered: root.openPopup()
-                    onExited: root.schedulePopupClose()
-                    onPressed: mouse => root.setVolumeFromPosition(mouse.x, width)
-                    onPositionChanged: mouse => {
-                        if (pressed)
-                            root.setVolumeFromPosition(mouse.x, width)
+                Item {
+                    id: sliderArea
+
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 22
+
+                    Rectangle {
+                        id: volumeTrack
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        height: 6
+                        radius: 3
+                        color: root.trackColor
+
+                        Rectangle {
+                            anchors.left: parent.left
+                            anchors.top: parent.top
+                            anchors.bottom: parent.bottom
+                            width: Math.max(0, Math.min(parent.width, parent.width * root.volumeValue))
+                            radius: 3
+                            color: root.muted ? root.mutedColor : root.textColor
+                        }
+
+                        Rectangle {
+                            width: 12
+                            height: 12
+                            radius: 6
+                            anchors.verticalCenter: parent.verticalCenter
+                            x: Math.max(0, Math.min(parent.width - width,
+                                parent.width * root.volumeValue - width / 2))
+                            color: root.muted ? root.mutedColor : root.textColor
+                        }
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        enabled: root.sliderEnabled
+                        acceptedButtons: Qt.LeftButton
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onEntered: root.openPopup()
+                        onExited: root.schedulePopupClose()
+                        onPressed: mouse => root.setVolumeFromPosition(mouse.x, width)
+                        onPositionChanged: mouse => {
+                            if (pressed)
+                                root.setVolumeFromPosition(mouse.x, width)
+                        }
                     }
                 }
             }
@@ -199,7 +259,7 @@ Rectangle {
             if (mouse.button === Qt.LeftButton)
                 Quickshell.execDetached(["kitty", "pulsemixer"])
             else if (mouse.button === Qt.RightButton)
-                Quickshell.execDetached(["pavucontrol"])
+                root.toggleMenu()
             else if (mouse.button === Qt.MiddleButton && root.audioReady)
                 root.audioNode.audio.muted = !root.audioNode.audio.muted
         }

@@ -452,6 +452,10 @@ PanelWindow {
                 trackColor: ui3
                 popupBorderColor: tx3
                 bottomBorderColor: ui3
+                mutedTextColor: bar.muted
+                menuHoverColor: ui
+                menuBorderColor: tx3
+                menuSeparatorColor: ui3
             }
 
             VolumeItem {
@@ -464,6 +468,10 @@ PanelWindow {
                 trackColor: ui3
                 popupBorderColor: tx3
                 bottomBorderColor: ui3
+                mutedTextColor: bar.muted
+                menuHoverColor: ui
+                menuBorderColor: tx3
+                menuSeparatorColor: ui3
             }
 
             StatusItem {
@@ -519,6 +527,11 @@ PanelWindow {
                         backgroundColor: bg
                         hoverColor: bg2
                         bottomBorderColor: ui3
+                        menuTextColor: bar.text
+                        menuHoverColor: ui
+                        menuDisabledColor: tx3
+                        menuBorderColor: tx3
+                        menuSeparatorColor: ui3
                     }
                 }
             }

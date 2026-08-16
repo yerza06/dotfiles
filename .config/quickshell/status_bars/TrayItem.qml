@@ -1,4 +1,5 @@
 import QtQuick
+import Quickshell
 
 Rectangle {
     id: root
@@ -8,16 +9,68 @@ Rectangle {
     property color backgroundColor: "#100f0f"
     property color hoverColor: "#1c1b1a"
     property color bottomBorderColor: "#403e3c"
+    property color menuTextColor: "#cecdc3"
+    property color menuHoverColor: "#282726"
+    property color menuDisabledColor: "#575653"
+    property color menuBorderColor: "#575653"
+    property color menuSeparatorColor: "#403e3c"
+
+    property bool menuVisible: false
+
+    readonly property bool hasMenu: trayItem !== null && trayItem.hasMenu
+    readonly property bool menuChainHovered: mouseArea.containsMouse || menu.chainHovered
 
     implicitWidth: 26
     implicitHeight: 28
-    color: mouseArea.containsMouse ? hoverColor : backgroundColor
+    color: mouseArea.containsMouse || menuVisible ? hoverColor : backgroundColor
+
+    onMenuChainHoveredChanged: {
+        if (menuChainHovered)
+            menuCloseTimer.stop()
+        else if (menuVisible)
+            menuCloseTimer.restart()
+    }
 
     function showMenu() {
-        if (!trayItem || !trayItem.hasMenu)
+        if (!hasMenu)
             return
-        const position = root.mapToItem(null, 0, root.height)
-        trayItem.display(parentWindow, Math.round(position.x), Math.round(position.y))
+        menuCloseTimer.stop()
+        menuVisible = true
+    }
+
+    function toggleMenu() {
+        if (menuVisible)
+            menuVisible = false
+        else
+            showMenu()
+    }
+
+    // Меню закрывается, когда курсор ушёл и с иконки, и со всей цепочки подменю.
+    Timer {
+        id: menuCloseTimer
+        interval: 400
+        repeat: false
+        onTriggered: {
+            if (!root.menuChainHovered)
+                root.menuVisible = false
+        }
+    }
+
+    TrayMenu {
+        id: menu
+
+        menuHandle: root.trayItem ? root.trayItem.menu : null
+        visible: root.menuVisible && root.hasMenu
+        anchor.item: root
+        anchor.edges: Edges.Bottom | Edges.Left
+        anchor.gravity: Edges.Bottom | Edges.Right
+        backgroundColor: root.backgroundColor
+        hoverColor: root.menuHoverColor
+        textColor: root.menuTextColor
+        disabledColor: root.menuDisabledColor
+        borderColor: root.menuBorderColor
+        separatorColor: root.menuSeparatorColor
+        onCloseRequested: root.menuVisible = false
     }
 
     Image {
@@ -52,12 +105,12 @@ Rectangle {
                 return
 
             if (mouse.button === Qt.LeftButton) {
-                if (root.trayItem.onlyMenu && root.trayItem.hasMenu)
-                    root.showMenu()
+                if (root.trayItem.onlyMenu && root.hasMenu)
+                    root.toggleMenu()
                 else
                     root.trayItem.activate()
             } else if (mouse.button === Qt.RightButton) {
-                root.showMenu()
+                root.toggleMenu()
             } else if (mouse.button === Qt.MiddleButton) {
                 root.trayItem.secondaryActivate()
             }
