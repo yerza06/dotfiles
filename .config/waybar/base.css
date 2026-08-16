@@ -3,7 +3,7 @@
 * {
 	font-family: "IosevkaTerm Nerd Font Propo";
     font-weight: 500;
-    font-size: 15;
+    font-size: 14;
     /* margin: 1px 2px; */
     padding: 0;
     transition: .2s;
@@ -62,6 +62,9 @@ button {
 
 
 #mpris.spotify {
+    padding: 0 6px;
+    border-left: 1px solid @gr;
+    border-right: 1px solid @gr;
     background: @gr;
     color: @bg;
 }
@@ -69,12 +72,18 @@ button {
 #mpris.firefox,
 #mpris.zen-browser,
 #mpris.vlc {
+    padding: 0 6px;
+    border-left: 1px solid @or;
+    border-right: 1px solid @or;
     background: @or;
     color: @bg;
 }
 
 #mpris.TelegramDesktop, 
 #mpris.chromium {
+    padding: 0 6px;
+    border-left: 1px solid @bl;
+    border-right: 1px solid @bl;
     background: @bl;
     color: @bg;
 }
@@ -103,13 +112,14 @@ button {
 #mpris.paused,
 #power-profiles-daemon,
 #mpd {
-    padding: 0 8px;
+    padding: 0 6px;
     color: @tx;
     background: @bg;
-    border-radius: 5px
+    border-radius: 3px
 }
 
 #mpris.paused {
+    padding: 0 6px;
     border-left: 1px solid @tx-3;
     border-right: 1px solid @tx-3;
     border-radius: 0

@@ -159,3 +159,4 @@ export EDITOR="nvim"
 # export NODE_OPTIONS="--disable-warnings"
 # typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 # typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+

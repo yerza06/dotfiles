@@ -1,0 +1,10 @@
+{
+    "FastAPI GET route": {
+        "prefix": "fastapi_get",
+        "description": "FastAPI GET route"
+        "body": [
+            "@app.get(\"/${1:}\")",
+            "async def main():\n    return {\"message\": \"Hello, World!\"}"
+        ],
+    }
+}

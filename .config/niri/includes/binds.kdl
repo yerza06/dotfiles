@@ -25,7 +25,7 @@ binds {
     Mod+B { spawn "firefox"; }
     Mod+N { spawn "obsidian"; }
     Mod+M { spawn "claude-desktop"; }
-    Mod+T { spawn "Telegram"; }
+    Mod+T { spawn "org.telegram.desktop"; }
     Mod+E { spawn "thunar"; }
     Mod+R { spawn "~/.local/bin/rewrite-desktop"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }

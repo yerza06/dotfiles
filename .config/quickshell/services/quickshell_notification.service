@@ -1,0 +1,16 @@
+[Unit]
+Description=Quickshell notification daemon
+Documentation=file:///home/yerza/.config/quickshell/notification/README.md
+After=graphical-session.target
+PartOf=graphical-session.target
+Conflicts=mako.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/qs -p /home/yerza/.config/quickshell/notification/shell.qml
+Restart=on-failure
+RestartSec=2s
+TimeoutStopSec=5s
+
+[Install]
+WantedBy=graphical-session.target

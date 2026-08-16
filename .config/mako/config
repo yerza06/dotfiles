@@ -42,6 +42,7 @@ default-timeout=0
 background-color=#0000004D
 border-color=#ffffff
 text-color=#ffffff
+anchor=bottom-center
 default-timeout=5000
 
 [app-name=Spotify]
