@@ -20,7 +20,8 @@ binds {
     // Mod+Shift+Return hotkey-overlay-title="Open a Terminal tmux: Alacritty" { spawn "alacritty" "--command" "tmux" "a"; }
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+Shift+Return hotkey-overlay-title="Open a Terminal tmux: kitty" { spawn "kitty" "tmux" "a"; }
-    Mod+S hotkey-overlay-title="Run an Application: rofi" { spawn "rofi" "-show" "drun" "-config" "~/.config/rofi/config-drun.rasi"; }
+    // Mod+S hotkey-overlay-title="Run an Application: rofi" { spawn "rofi" "-show" "drun" "-config" "~/.config/rofi/config-drun.rasi"; }
+    Mod+S hotkey-overlay-title="Run an Application: quickshell" { spawn "qs" "-c" "menu_applications" "ipc" "call" "launcher" "toggle"; }
     Mod+Z { spawn "zeditor"; }
     Mod+B { spawn "firefox"; }
     Mod+N { spawn "obsidian"; }
@@ -261,7 +262,8 @@ binds {
     // Move the focused window between the floating and the tiling layout.
     Mod+A       { toggle-window-floating; }
     Mod+Ctrl+A { switch-focus-between-floating-and-tiling; }
-    Mod+V { spawn-sh "cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
+    // Mod+V { spawn-sh "cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
+    Mod+V hotkey-overlay-title="Clipboard: quickshell" { spawn "qs" "-c" "buffermenu" "ipc" "call" "clipboard" "toggle"; }
 
     // Mod+Shift+S { spawn "~/.local/bin/screenshot.sh" "full"; }
     // Mod+Ctrl+S { spawn "~/.local/bin/screenshot.sh" "area"; }
@@ -301,7 +303,8 @@ binds {
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
     Mod+Shift+E { quit; }
-    Mod+Delete { spawn-sh "~/.config/rofi/scripts/powermenu.sh"; }
+    // Mod+Delete { spawn-sh "~/.config/rofi/scripts/powermenu.sh"; }
+    Mod+Delete hotkey-overlay-title="Power Menu: quickshell" { spawn "qs" "-c" "powermenu" "ipc" "call" "power" "toggle"; }
     Mod+Backspace { spawn-sh "~/.local/bin/toggle-power.sh"; }
 
     // Powers off the monitors. To turn them back on, do any input like

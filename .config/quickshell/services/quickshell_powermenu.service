@@ -1,0 +1,15 @@
+[Unit]
+Description=Quickshell power menu
+Documentation=file:///home/yerza/.config/quickshell/powermenu/README.md
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/qs -c powermenu
+Restart=on-failure
+RestartSec=2s
+TimeoutStopSec=5s
+
+[Install]
+WantedBy=graphical-session.target

@@ -1,0 +1,15 @@
+[Unit]
+Description=Quickshell application launcher
+Documentation=file:///home/yerza/.config/quickshell/menu_applications/README.md
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/qs -c menu_applications
+Restart=on-failure
+RestartSec=2s
+TimeoutStopSec=5s
+
+[Install]
+WantedBy=graphical-session.target

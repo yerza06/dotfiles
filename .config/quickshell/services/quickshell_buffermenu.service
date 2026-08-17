@@ -1,0 +1,15 @@
+[Unit]
+Description=Quickshell clipboard menu
+Documentation=file:///home/yerza/.config/quickshell/buffermenu/README.md
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/qs -c buffermenu
+Restart=on-failure
+RestartSec=2s
+TimeoutStopSec=5s
+
+[Install]
+WantedBy=graphical-session.target

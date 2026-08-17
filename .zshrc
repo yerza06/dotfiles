@@ -77,7 +77,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git tmux archlinux systemd uv zsh-autosuggestions zsh-syntax-highlighting fzf-tab)
+plugins=(git docker tmux archlinux systemd uv zsh-autosuggestions zsh-syntax-highlighting fzf-tab)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -116,6 +116,7 @@ alias tree="exa --icons auto -T"
 alias cat="bat"
 alias nvimr="nvim README.md"
 alias zed="zeditor"
+alias nv="nvim"
 
 alias tmux-new="tmux new-session -s"
 alias tmux-att="tmux attach -t"
