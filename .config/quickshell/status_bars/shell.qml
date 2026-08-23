@@ -14,6 +14,9 @@ ShellRoot {
     property int memoryUsedKiB: 0
     property int memoryTotalKiB: 0
     property string audioOutputType: "speaker"
+    // dbusName закреплённого MPRIS-плеера; пустая строка — автовыбор.
+    // Живёт здесь, а не в Bar, чтобы выбор был общим для всех мониторов.
+    property string pinnedMprisPlayerId: ""
 
     function updateTheme(value) {
         const setting = String(value).trim()
@@ -94,6 +97,8 @@ ShellRoot {
             memoryUsedKiB: root.memoryUsedKiB
             memoryTotalKiB: root.memoryTotalKiB
             audioOutputType: root.audioOutputType
+            pinnedMprisPlayerId: root.pinnedMprisPlayerId
+            onPinPlayerRequested: playerId => root.pinnedMprisPlayerId = playerId
         }
     }
 }

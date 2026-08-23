@@ -21,6 +21,11 @@ layer-rule {
 }
 
 layer-rule {
+    match namespace="awww"
+    place-within-backdrop true
+}
+
+layer-rule {
     match namespace="rofi"
     match namespace="waybar"
     match namespace="&mako^"

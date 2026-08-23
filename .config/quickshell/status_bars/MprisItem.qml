@@ -5,15 +5,27 @@ Rectangle {
     id: root
 
     property var player: null
+    property var players: []
+    property string pinnedPlayerId: ""
     property color backgroundColor: "#100f0f"
     property color hoverColor: "#1c1b1a"
     property color textColor: "#cecdc3"
+    property color mutedTextColor: "#878580"
     property color mutedBorderColor: "#575653"
     property color spotifyColor: "#879a39"
     property color browserColor: "#da702c"
     property color chromiumColor: "#4385be"
     property color bottomBorderColor: "#403e3c"
+    property color menuHoverColor: "#282726"
+    property color menuBorderColor: "#575653"
+    property color menuSeparatorColor: "#403e3c"
     property string fontFamily: "IosevkaTerm Nerd Font Propo"
+
+    property bool menuVisible: false
+
+    signal pinRequested(string playerId)
+
+    readonly property bool menuChainHovered: mouseArea.containsMouse || mprisMenu.chainHovered
 
     readonly property string playerKey: {
         if (!player)
@@ -61,11 +73,27 @@ Rectangle {
         return ""
     }
 
-    function tooltipText() {
-        if (!player)
-            return ""
-        return "  " + (player.trackTitle || "Неизвестная композиция")
-            + "\n  " + (player.trackArtist || "Неизвестный исполнитель")
+    function toggleMenu() {
+        menuCloseTimer.stop()
+        menuVisible = !menuVisible
+    }
+
+    onMenuChainHoveredChanged: {
+        if (menuChainHovered)
+            menuCloseTimer.stop()
+        else if (menuVisible)
+            menuCloseTimer.restart()
+    }
+
+    // Меню закрывается, когда курсор ушёл и с виджета, и с самого меню.
+    Timer {
+        id: menuCloseTimer
+        interval: 400
+        repeat: false
+        onTriggered: {
+            if (!root.menuChainHovered)
+                root.menuVisible = false
+        }
     }
 
     TextMetrics {
@@ -115,70 +143,42 @@ Rectangle {
         color: root.bottomBorderColor
     }
 
-    PopupWindow {
-        id: trackTooltip
+    MprisMenu {
+        id: mprisMenu
 
+        visible: root.menuVisible
+        anchor.item: root
+        anchor.edges: Edges.Bottom
+        anchor.gravity: Edges.Bottom
+        players: root.players
+        currentPlayer: root.player
+        pinnedPlayerId: root.pinnedPlayerId
+        backgroundColor: root.backgroundColor
+        hoverColor: root.menuHoverColor
+        textColor: root.textColor
+        mutedTextColor: root.mutedTextColor
+        borderColor: root.menuBorderColor
+        separatorColor: root.menuSeparatorColor
+        fontFamily: root.fontFamily
+        onPinRequested: playerId => root.pinRequested(playerId)
+        onCloseRequested: root.menuVisible = false
+    }
+
+    Tooltip {
+        visible: mouseArea.containsMouse && !root.menuVisible
         anchor.item: root
         anchor.edges: Edges.Bottom
         anchor.gravity: Edges.Bottom
         anchor.margins.bottom: 4
-        visible: mouseArea.containsMouse
-        implicitWidth: Math.min(Math.max(titleMetrics.advanceWidth, artistMetrics.advanceWidth) + 24, 420)
-        implicitHeight: 58
-        color: "transparent"
-        grabFocus: false
-
-        Rectangle {
-            anchors.fill: parent
-            color: root.backgroundColor
-            border.width: 1
-            border.color: root.mutedBorderColor
-            radius: 5
-
-            Column {
-                anchors.fill: parent
-                anchors.margins: 8
-                spacing: 4
-
-                Text {
-                    id: tooltipTitle
-                    width: parent.width
-                    text: "  " + (root.player && root.player.trackTitle
-                        ? root.player.trackTitle : "Неизвестная композиция")
-                    color: root.textColor
-                    font.family: root.fontFamily
-                    font.pixelSize: 14
-                    font.weight: Font.Medium
-                    elide: Text.ElideRight
-                    renderType: Text.NativeRendering
-                }
-
-                Text {
-                    id: tooltipArtist
-                    width: parent.width
-                    text: "  " + (root.player && root.player.trackArtist
-                        ? root.player.trackArtist : "Неизвестный исполнитель")
-                    color: root.textColor
-                    font.family: root.fontFamily
-                    font.pixelSize: 14
-                    font.weight: Font.Medium
-                    elide: Text.ElideRight
-                    renderType: Text.NativeRendering
-                }
-            }
-        }
-    }
-
-    TextMetrics {
-        id: titleMetrics
-        font: tooltipTitle.font
-        text: tooltipTitle.text
-    }
-
-    TextMetrics {
-        id: artistMetrics
-        font: tooltipArtist.font
-        text: tooltipArtist.text
+        title: "  " + (root.player && root.player.trackTitle
+            ? root.player.trackTitle : "Неизвестная композиция")
+        text: "  " + (root.player && root.player.trackArtist
+            ? root.player.trackArtist : "Неизвестный исполнитель")
+        backgroundColor: root.backgroundColor
+        borderColor: root.mutedBorderColor
+        titleColor: root.textColor
+        textColor: root.mutedTextColor
+        fontFamily: root.fontFamily
     }
 
     MouseArea {
@@ -189,16 +189,17 @@ Rectangle {
         cursorShape: Qt.PointingHandCursor
 
         onClicked: mouse => {
+            if (mouse.button === Qt.RightButton) {
+                root.toggleMenu()
+                return
+            }
             if (!root.player)
                 return
             if (mouse.button === Qt.LeftButton && root.player.canTogglePlaying)
                 root.player.togglePlaying()
             else if (mouse.button === Qt.MiddleButton && root.player.canGoPrevious)
                 root.player.previous()
-            else if (mouse.button === Qt.RightButton && root.player.canGoNext)
-                root.player.next()
         }
-
     }
 
     Behavior on color {

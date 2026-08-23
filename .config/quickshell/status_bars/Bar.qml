@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Bluetooth
 import Quickshell.Io
+import Quickshell.Networking
 import Quickshell.Services.Mpris
 import Quickshell.Services.Pipewire
 import Quickshell.Services.SystemTray
@@ -23,14 +24,22 @@ PanelWindow {
     required property int memoryTotalKiB
     required property string audioOutputType
     property var workspaceProjection: WindowManager.screenProjection(targetScreen)
-    property string networkName: "offline"
-    property bool networkConnected: false
     property string keyboardLayout: "--"
     property var keyboardLayoutNames: []
+    property string pinnedMprisPlayerId: ""
+    readonly property var mprisPlayers: Mpris.players ? Mpris.players.values : []
+    // Закреплённый плеер ищется по dbusName в живом списке, поэтому его выход
+    // сам собой возвращает автовыбор.
     property var activeMprisPlayer: {
-        const players = Mpris.players.values
+        const players = mprisPlayers
         if (!players || players.length === 0)
             return null
+        if (pinnedMprisPlayerId.length > 0) {
+            for (let i = 0; i < players.length; i++) {
+                if (players[i].dbusName === pinnedMprisPlayerId)
+                    return players[i]
+            }
+        }
         for (let i = 0; i < players.length; i++) {
             if (players[i].isPlaying)
                 return players[i]
@@ -38,6 +47,8 @@ PanelWindow {
         return players[0]
     }
     property date currentDate: new Date()
+
+    signal pinPlayerRequested(string playerId)
 
     // Flexoki Light/Dark — mirrors the user's Waybar palettes.
     readonly property color bg: lightTheme ? "#fffcf0" : "#100f0f"
@@ -146,26 +157,6 @@ PanelWindow {
         return muted
     }
 
-    function updateNetwork(rawText) {
-        const lines = rawText.trim().split("\n")
-        for (let i = 0; i < lines.length; i++) {
-            const fields = lines[i].split(":")
-            if ((fields[0] === "wifi" || fields[0] === "ethernet") && fields[1] === "connected") {
-                networkConnected = true
-                networkName = fields.slice(2).join(":") || fields[0]
-                return
-            }
-        }
-        networkConnected = false
-        networkName = "offline"
-    }
-
-    function networkIcon() {
-        if (!networkConnected)
-            return "󰤭"
-        return networkName === "ethernet" ? "" : ""
-    }
-
     function powerProfileIcon() {
         switch (PowerProfiles.profile) {
         case PowerProfile.Performance:
@@ -255,15 +246,6 @@ PanelWindow {
     }
 
     Process {
-        id: networkProcess
-        command: ["nmcli", "-t", "-f", "TYPE,STATE,CONNECTION", "device", "status"]
-        running: true
-        stdout: StdioCollector {
-            onStreamFinished: bar.updateNetwork(text)
-        }
-    }
-
-    Process {
         id: keyboardLayoutProcess
         command: ["niri", "msg", "--json", "event-stream"]
         running: true
@@ -271,14 +253,6 @@ PanelWindow {
             onRead: data => bar.updateKeyboardLayout(data)
         }
     }
-
-    Timer {
-        interval: 3000
-        repeat: true
-        running: true
-        onTriggered: networkProcess.running = true
-    }
-
 
     Timer {
         interval: 1000
@@ -343,14 +317,21 @@ PanelWindow {
 
             MprisItem {
                 player: bar.activeMprisPlayer
+                players: bar.mprisPlayers
+                pinnedPlayerId: bar.pinnedMprisPlayerId
                 backgroundColor: bg
                 hoverColor: bg2
                 textColor: bar.text
+                mutedTextColor: muted
                 mutedBorderColor: tx3
                 spotifyColor: green
                 browserColor: orange
                 chromiumColor: blue
                 bottomBorderColor: ui3
+                menuHoverColor: ui
+                menuBorderColor: tx3
+                menuSeparatorColor: ui3
+                onPinRequested: playerId => bar.pinPlayerRequested(playerId)
             }
         }
 
@@ -402,6 +383,7 @@ PanelWindow {
                 tooltipBackground: bg
                 tooltipBorderColor: tx3
                 tooltipTextColor: bar.text
+                tooltipMutedColor: bar.muted
                 onPressed: button => {
                     if (button === Qt.LeftButton)
                         Quickshell.execDetached(["kitty", "--start-as=fullscreen", "btop"])
@@ -422,6 +404,7 @@ PanelWindow {
                 tooltipBackground: bg
                 tooltipBorderColor: tx3
                 tooltipTextColor: bar.text
+                tooltipMutedColor: bar.muted
                 onPressed: button => {
                     if (button === Qt.LeftButton)
                         Quickshell.execDetached(["kitty", "--start-as=fullscreen", "btop"])
@@ -474,32 +457,30 @@ PanelWindow {
                 menuSeparatorColor: ui3
             }
 
-            StatusItem {
-                text: bar.networkIcon()
-                foreground: bar.networkConnected ? bar.text : bg
-                background: bar.networkConnected ? bg : red
-                hoverBackground: bar.networkConnected ? bg2 : red
+            NetworkItem {
+                backgroundColor: bg
+                tooltipBorderColor: tx3
+                hoverColor: bg2
+                textColor: bar.text
+                mutedTextColor: bar.muted
+                offlineColor: red
                 bottomBorderColor: ui3
-                onPressed: button => {
-                    if (button === Qt.LeftButton)
-                        Quickshell.execDetached(["kitty", "nmtui"])
-                }
+                menuHoverColor: ui
+                menuBorderColor: tx3
+                menuSeparatorColor: ui3
             }
 
-            StatusItem {
-                readonly property var adapter: Bluetooth.defaultAdapter
-                readonly property int connectedCount: adapter && adapter.devices ? adapter.devices.values.filter(device => device.connected).length : 0
-                text: adapter && adapter.enabled ? ("" + (connectedCount > 0 ? " " + connectedCount : "")) : "󰂲"
-                foreground: adapter && adapter.enabled ? blue : muted
-                background: bg
-                hoverBackground: bg2
+            BluetoothItem {
+                backgroundColor: bg
+                tooltipBorderColor: tx3
+                hoverColor: bg2
+                textColor: bar.text
+                mutedTextColor: bar.muted
+                activeColor: blue
                 bottomBorderColor: ui3
-                onPressed: button => {
-                    if (button === Qt.LeftButton)
-                        Quickshell.execDetached(["kitty", "bluetui"])
-                    else if (button === Qt.MiddleButton && adapter)
-                        adapter.enabled = !adapter.enabled
-                }
+                menuHoverColor: ui
+                menuBorderColor: tx3
+                menuSeparatorColor: ui3
             }
 
             StatusItem {

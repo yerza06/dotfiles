@@ -17,6 +17,7 @@ Rectangle {
     property color tooltipBackground: "#100f0f"
     property color tooltipBorderColor: "#575653"
     property color tooltipTextColor: foreground
+    property color tooltipMutedColor: "#878580"
     property string fontFamily: "IosevkaTerm Nerd Font Propo"
     property int horizontalPadding: 6
     property bool highlighted: false
@@ -54,49 +55,20 @@ Rectangle {
         color: root.bottomBorderColor
     }
 
-    PopupWindow {
+    Tooltip {
         anchor.item: root
         anchor.edges: Edges.Bottom
         anchor.gravity: Edges.Bottom
         anchor.margins.bottom: 4
         visible: (mouseArea.containsMouse || root.tooltipForceVisible)
             && root.tooltipText.length > 0
-        implicitWidth: 280
-        implicitHeight: 72
-        color: "transparent"
-        grabFocus: false
-
-        Rectangle {
-            anchors.fill: parent
-            color: root.tooltipBackground
-            border.width: 1
-            border.color: root.tooltipBorderColor
-            radius: 5
-
-            Column {
-                anchors.fill: parent
-                anchors.margins: 8
-                spacing: 4
-
-                Text {
-                    text: root.tooltipTitle
-                    color: root.tooltipTextColor
-                    font.family: root.fontFamily
-                    font.pixelSize: 14
-                    font.weight: Font.Bold
-                    renderType: Text.NativeRendering
-                }
-
-                Text {
-                    text: root.tooltipText
-                    color: root.tooltipTextColor
-                    font.family: root.fontFamily
-                    font.pixelSize: 14
-                    font.weight: Font.Medium
-                    renderType: Text.NativeRendering
-                }
-            }
-        }
+        title: root.tooltipTitle
+        text: root.tooltipText
+        backgroundColor: root.tooltipBackground
+        borderColor: root.tooltipBorderColor
+        titleColor: root.tooltipTextColor
+        textColor: root.tooltipMutedColor
+        fontFamily: root.fontFamily
     }
 
     MouseArea {

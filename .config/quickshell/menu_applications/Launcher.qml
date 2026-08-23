@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
+import "KeyNavigation.js" as KeyNavigation
 
 PanelWindow {
     id: win
@@ -67,20 +68,14 @@ PanelWindow {
     }
 
     function handleKey(event) {
-        // Ctrl+←/→ and the Vim-style Ctrl+h/l walk the category tabs; the bare
-        // arrows stay with the grid. Ctrl+h loses its readline "backspace"
-        // meaning inside the search field, which is the intended trade.
-        if (event.modifiers & Qt.ControlModifier) {
-            if (event.key === Qt.Key_Right || event.key === Qt.Key_L || event.key === Qt.Key_Tab) {
-                Apps.cycleCategory(1)
-                event.accepted = true
-                return
-            }
-            if (event.key === Qt.Key_Left || event.key === Qt.Key_H || event.key === Qt.Key_Backtab) {
-                Apps.cycleCategory(-1)
-                event.accepted = true
-                return
-            }
+        const navigation = KeyNavigation.actionFor(event.key, event.modifiers, grid.columns)
+        if (navigation !== null) {
+            if (navigation.kind === "category")
+                Apps.cycleCategory(navigation.delta)
+            else
+                move(navigation.delta)
+            event.accepted = true
+            return
         }
 
         switch (event.key) {
@@ -92,12 +87,6 @@ PanelWindow {
         case Qt.Key_KP_Enter:
             activate()
             break
-        case Qt.Key_Down:
-            move(grid.columns)
-            break
-        case Qt.Key_Up:
-            move(-grid.columns)
-            break
         case Qt.Key_PageDown:
             move(grid.columns * 2)
             break
@@ -108,18 +97,6 @@ PanelWindow {
             move(1)
             break
         case Qt.Key_Backtab:
-            move(-1)
-            break
-        case Qt.Key_Right:
-            // Only steal the arrow once the text cursor has nowhere left to go,
-            // so editing the query still works.
-            if (search.cursorPosition < search.text.length)
-                return
-            move(1)
-            break
-        case Qt.Key_Left:
-            if (search.cursorPosition > 0)
-                return
             move(-1)
             break
         default:
@@ -289,7 +266,7 @@ PanelWindow {
                     model: Apps.visibleCategories
                     boundsBehavior: Flickable.StopAtBounds
                     currentIndex: Apps.categoryIndex()
-                    // Keeps the active tab on screen when Ctrl+←/→ runs off the edge.
+                    // Keeps the active tab on screen when Ctrl+Shift+←/→ runs off the edge.
                     highlightRangeMode: ListView.ApplyRange
                     preferredHighlightBegin: 0
                     preferredHighlightEnd: width
@@ -433,14 +410,14 @@ PanelWindow {
                     spacing: 16
 
                     Text {
-                        text: "↑↓←→  выбор"
+                        text: "Ctrl+↑↓←→  выбор"
                         color: Theme.tx3
                         font.family: Theme.fontFamily
                         font.pixelSize: 11
                     }
 
                     Text {
-                        text: "Ctrl+h l  категория"
+                        text: "Ctrl+Shift+←→  категория"
                         color: Theme.tx3
                         font.family: Theme.fontFamily
                         font.pixelSize: 11

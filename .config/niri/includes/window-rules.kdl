@@ -9,10 +9,19 @@ window-rule {
 window-rule {
     match app-id="kitty"
     match app-id="Alacritty"
+    match app-id="com.mitchellh.ghostty"
 
     background-effect {
         blur true
     }
+}
+
+window-rule {
+    match app-id="terminalFloat"
+
+    open-floating true
+    default-column-width { fixed 1300; }
+    default-window-height { fixed 850; }
 }
 
 window-rule {
@@ -47,6 +56,7 @@ window-rule {
     match app-id="io.github.redddfoxxyy.samaya"
     match app-id="thunar"
     match title="Nautilus"
+
     open-floating true
     default-column-width { fixed 1300; }
     default-window-height { fixed 850; }
