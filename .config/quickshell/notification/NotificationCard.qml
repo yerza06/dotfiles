@@ -7,6 +7,7 @@ Rectangle {
     id: card
 
     required property var notification
+    required property bool globallyHovered
     required property bool lightTheme
     required property color bg
     required property color bg2
@@ -25,6 +26,8 @@ Rectangle {
                                     ? red
                                     : (notification.urgency === NotificationUrgency.Low ? tx2 : blue)
     readonly property string iconSource: resolveIcon(notification)
+
+    signal hoverStateChanged(var notification, bool hovered)
 
     function timeoutFor(item) {
         if (item.expireTimeout > 0)
@@ -221,12 +224,19 @@ Rectangle {
         id: cardHover
     }
 
+    onHoveredChanged: hoverStateChanged(notification, hovered)
+
+    Component.onDestruction: {
+        if (hovered)
+            hoverStateChanged(notification, false)
+    }
+
     Timer {
         interval: 100
         repeat: true
         running: card.notification && !card.notification.resident
         onTriggered: {
-            if (card.hovered)
+            if (card.globallyHovered)
                 return
             card.remainingMs -= interval
             if (card.remainingMs <= 0) {

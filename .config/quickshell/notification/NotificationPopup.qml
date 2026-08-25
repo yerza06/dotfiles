@@ -6,8 +6,12 @@ import Quickshell.Services.Notifications
 PanelWindow {
     id: popup
 
+    required property var targetScreen
     required property bool lightTheme
     required property var notifications
+    required property var hoveredNotifications
+
+    signal notificationHoverChanged(var notification, bool hovered)
 
     readonly property int cardWidth: 460
     readonly property int cardGap: 10
@@ -26,6 +30,7 @@ PanelWindow {
 
     anchors.top: true
     anchors.right: true
+    screen: targetScreen
     margins.top: outerMargin
     margins.right: outerMargin
     implicitWidth: cardWidth
@@ -48,6 +53,7 @@ PanelWindow {
                 required property var modelData
                 width: popup.cardWidth
                 notification: modelData
+                globallyHovered: popup.hoveredNotifications.indexOf(modelData) !== -1
                 lightTheme: popup.lightTheme
                 bg: popup.bg
                 bg2: popup.bg2
@@ -59,6 +65,8 @@ PanelWindow {
                 red: popup.red
                 orange: popup.orange
                 blue: popup.blue
+                onHoverStateChanged: (notification, hovered) =>
+                    popup.notificationHoverChanged(notification, hovered)
             }
         }
     }
