@@ -225,7 +225,8 @@ binds {
     // Consume one window from the right to the bottom of the focused column.
     Mod+Comma  { consume-window-into-column; }
     // Expel the bottom window from the focused column to the right.
-    Mod+Period { expel-window-from-column; }
+    // Mod+Period is taken by the emoji picker; expel moved one modifier over.
+    Mod+Shift+Period { expel-window-from-column; }
 
     Mod+Alt+R { switch-preset-column-width; }
     // Cycling through the presets in reverse order is also possible.
@@ -265,6 +266,7 @@ binds {
     Mod+Ctrl+A { switch-focus-between-floating-and-tiling; }
     // Mod+V { spawn-sh "cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
     Mod+V hotkey-overlay-title="Clipboard: quickshell" { spawn "qs" "-c" "buffermenu" "ipc" "call" "clipboard" "toggle"; }
+    Mod+Period hotkey-overlay-title="Emoji Picker: quickshell" { spawn "qs" "-c" "emojimenu" "ipc" "call" "emoji" "toggle"; }
 
     // Mod+Shift+S { spawn "~/.local/bin/screenshot.sh" "full"; }
     // Mod+Ctrl+S { spawn "~/.local/bin/screenshot.sh" "area"; }
