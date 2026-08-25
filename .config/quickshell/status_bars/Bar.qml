@@ -8,6 +8,7 @@ import Quickshell.Services.Mpris
 import Quickshell.Services.Pipewire
 import Quickshell.Services.SystemTray
 import Quickshell.Services.UPower
+import Quickshell.Wayland
 import Quickshell.WindowManager
 
 PanelWindow {
@@ -234,6 +235,13 @@ PanelWindow {
     implicitHeight: 28
     color: bg
 
+    // Клавиатура нужна панели, только пока открыт календарь: без фокуса до него
+    // не доходит Esc. OnDemand, а не Exclusive — панель не должна перехватывать
+    // ввод у окон.
+    WlrLayershell.keyboardFocus: clock.calendarVisible
+        ? WlrKeyboardFocus.OnDemand
+        : WlrKeyboardFocus.None
+
     PwObjectTracker {
         objects: {
             const nodes = []
@@ -335,31 +343,21 @@ PanelWindow {
             }
         }
 
-        Rectangle {
+        ClockItem {
+            id: clock
+
             anchors.centerIn: parent
-            implicitWidth: clockText.implicitWidth + 12
-            implicitHeight: 28
-            radius: 3
-            color: bg
-
-            Text {
-                id: clockText
-                anchors.centerIn: parent
-                text: Qt.formatDateTime(bar.currentDate, "ddd, dd MMM  ·  HH:mm:ss")
-                color: bar.text
-                font.family: "IosevkaTerm Nerd Font Propo"
-                font.pixelSize: 14
-                font.weight: Font.Medium
-                renderType: Text.NativeRendering
-            }
-
-            Rectangle {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
-                height: 1
-                color: ui3
-            }
+            currentDate: bar.currentDate
+            backgroundColor: bg
+            hoverColor: bg2
+            textColor: bar.text
+            mutedTextColor: muted
+            borderColor: tx3
+            separatorColor: ui3
+            bottomBorderColor: ui3
+            menuHoverColor: ui
+            accentColor: blue
+            weekendColor: red
         }
 
         RowLayout {
