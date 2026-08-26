@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Effects
 import Quickshell
 import Quickshell.Wayland
+import "DockLogic.js" as DockLogic
 
 PanelWindow {
     id: dock
@@ -41,8 +42,20 @@ PanelWindow {
     }
 
     function scheduleHide() {
-        if (!interactionLocked && !inputHover.hovered)
+        if (DockLogic.shouldHide(interactionLocked, inputHover.hovered, cardHover.hovered, hoveredIndex))
             hideTimer.restart()
+    }
+
+    function itemEntered(index) {
+        hoveredIndex = index
+        showDock()
+    }
+
+    function itemLeft(index) {
+        if (hoveredIndex !== index)
+            return
+        hoveredIndex = -1
+        scheduleHide()
     }
 
     function nearestPinnedIndex(centerX) {
@@ -77,7 +90,11 @@ PanelWindow {
         interval: 350
         repeat: false
         onTriggered: {
-            if (!dock.interactionLocked && !inputHover.hovered) {
+            if (DockLogic.shouldHide(
+                    dock.interactionLocked,
+                    inputHover.hovered,
+                    cardHover.hovered,
+                    dock.hoveredIndex)) {
                 dock.revealed = false
                 dock.hoveredIndex = -1
             }
@@ -128,6 +145,16 @@ PanelWindow {
         Behavior on y { NumberAnimation { duration: 200; easing.type: Easing.OutCubic } }
         Behavior on opacity { NumberAnimation { duration: 140 } }
 
+        HoverHandler {
+            id: cardHover
+            onHoveredChanged: {
+                if (hovered)
+                    dock.showDock()
+                else
+                    dock.scheduleHide()
+            }
+        }
+
         Row {
             id: dockRow
             anchors.centerIn: parent
@@ -147,8 +174,8 @@ PanelWindow {
                     pinnedIndex: index
                     hoveredIndex: dock.hoveredIndex
 
-                    onHoverRequested: value => dock.hoveredIndex = value
-                    onHoverReleased: dock.hoveredIndex = -1
+                    onHoverRequested: value => dock.itemEntered(value)
+                    onHoverReleased: value => dock.itemLeft(value)
                     onInteractionLockChanged: locked => {
                         dock.lockingItem = locked
                             ? pinnedItem
@@ -189,8 +216,8 @@ PanelWindow {
                     pinnedIndex: -1
                     hoveredIndex: dock.hoveredIndex
 
-                    onHoverRequested: value => dock.hoveredIndex = value
-                    onHoverReleased: dock.hoveredIndex = -1
+                    onHoverRequested: value => dock.itemEntered(value)
+                    onHoverReleased: value => dock.itemLeft(value)
                     onInteractionLockChanged: locked => {
                         dock.lockingItem = locked
                             ? runningItem

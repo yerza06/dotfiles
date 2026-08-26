@@ -138,3 +138,7 @@ function cleanCommand(command) {
     }
     return result
 }
+
+function shouldHide(interactionLocked, triggerHovered, cardHovered, hoveredIndex) {
+    return !interactionLocked && !triggerHovered && !cardHovered && hoveredIndex < 0
+}

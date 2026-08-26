@@ -18,7 +18,7 @@ Item {
     readonly property bool menuVisible: contextMenu.visible
 
     signal hoverRequested(int index)
-    signal hoverReleased()
+    signal hoverReleased(int index)
     signal interactionLockChanged(bool locked)
     signal dragStateChanged(bool active)
     signal reorderRequested(int fromIndex, real centerX)
@@ -195,7 +195,7 @@ Item {
         }
 
         onExited: {
-            root.hoverReleased()
+            root.hoverReleased(root.dockIndex)
             tooltipTimer.stop()
             root.tooltipReady = false
         }

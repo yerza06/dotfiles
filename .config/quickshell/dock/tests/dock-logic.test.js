@@ -6,7 +6,7 @@ const testDir = dirname(fileURLToPath(import.meta.url))
 const sourcePath = resolve(testDir, "../DockLogic.js")
 const source = readFileSync(sourcePath, "utf8")
 const api = new Function(
-    `${source.replace(/^\.pragma library\s*$/m, "")}\nreturn { restorePins, buildItems, movePin, nextWindowIndex, cleanCommand }`
+    `${source.replace(/^\.pragma library\s*$/m, "")}\nreturn { restorePins, buildItems, movePin, nextWindowIndex, cleanCommand, shouldHide }`
 )()
 
 function assertEqual(name, actual, expected) {
@@ -108,6 +108,27 @@ assertEqual(
     "desktop field codes are removed before terminal launch",
     api.cleanCommand(["tool", "--flag", "%U", "literal%value", "%f"]),
     ["tool", "--flag", "literal%value"]
+)
+
+assertEqual(
+    "moving from the reveal strip onto an icon keeps the dock open",
+    api.shouldHide(false, false, false, 2),
+    false
+)
+assertEqual(
+    "hovering the card gap keeps the dock open",
+    api.shouldHide(false, false, true, -1),
+    false
+)
+assertEqual(
+    "the dock hides only after every hover and interaction lock is gone",
+    api.shouldHide(false, false, false, -1),
+    true
+)
+assertEqual(
+    "an open popup keeps the dock visible",
+    api.shouldHide(true, false, false, -1),
+    false
 )
 
 console.log("dock logic tests passed")
