@@ -1,0 +1,15 @@
+[Unit]
+Description=Quickshell application dock
+Documentation=file://%h/.config/quickshell/dock/README.md
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/qs -c dock
+Restart=on-failure
+RestartSec=2s
+TimeoutStopSec=5s
+
+[Install]
+WantedBy=graphical-session.target

@@ -1,0 +1,6 @@
+singleton Theme 1.0 Theme.qml
+singleton DockModel 1.0 DockModel.qml
+Dock 1.0 Dock.qml
+DockItem 1.0 DockItem.qml
+DockMenu 1.0 DockMenu.qml
+DockTooltip 1.0 DockTooltip.qml
