@@ -27,8 +27,8 @@ Singleton {
     readonly property color magenta: light ? "#a02f6f" : "#ce5d97"
 
     readonly property color dockBackground: light
-        ? Qt.rgba(1.0, 0.988, 0.941, 0.94)
-        : Qt.rgba(0.063, 0.059, 0.059, 0.94)
+        ? Qt.rgba(1.0, 0.988, 0.941, 0.96)
+        : Qt.rgba(0.063, 0.059, 0.059, 0.96)
     readonly property color shadow: light
         ? Qt.rgba(0.063, 0.059, 0.059, 0.22)
         : Qt.rgba(0.0, 0.0, 0.0, 0.48)

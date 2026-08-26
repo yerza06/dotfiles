@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Effects
 import Quickshell
 import Quickshell.Wayland
 
@@ -16,12 +17,12 @@ PanelWindow {
     readonly property var pinnedItems: screenItems.pinned || []
     readonly property var runningItems: screenItems.running || []
     readonly property bool interactionLocked: dragging || lockingItem !== null
-    readonly property int panelPadding: 12
+    readonly property int panelPadding: 28
 
     screen: targetScreen
     anchors.bottom: true
-    implicitWidth: Math.max(160, dockCard.width + panelPadding * 2)
-    implicitHeight: 68
+    implicitWidth: Math.max(260, dockCard.width + panelPadding * 2)
+    implicitHeight: 100
     color: "transparent"
     exclusionMode: ExclusionMode.Ignore
     aboveWindows: true
@@ -87,7 +88,7 @@ PanelWindow {
         id: inputRegion
         x: dock.revealed ? dockCard.x : Math.round((dock.width - width) / 2)
         y: dock.revealed ? dockCard.y : dock.height - 2
-        width: dock.revealed ? dockCard.width : Math.max(160, dockCard.width + 24)
+        width: dock.revealed ? dockCard.width : Math.max(260, dockCard.width + 36)
         height: dock.revealed ? dock.height - dockCard.y : 2
 
         HoverHandler {
@@ -102,38 +103,35 @@ PanelWindow {
     }
 
     Rectangle {
-        id: dockShadow
-        x: dockCard.x
-        y: dockCard.y + 3
-        width: dockCard.width
-        height: dockCard.height
-        radius: dockCard.radius
-        color: Theme.shadow
-        opacity: dock.revealed ? 1 : 0
-
-        Behavior on y { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
-        Behavior on opacity { NumberAnimation { duration: 120 } }
-    }
-
-    Rectangle {
         id: dockCard
         x: Math.round((dock.width - width) / 2)
-        y: dock.revealed ? dock.height - height - 6 : dock.height - 2
-        width: dockRow.implicitWidth + 14
-        height: 50
-        radius: 12
+        y: dock.revealed ? dock.height - height - 12 : dock.height - 2
+        width: dockRow.implicitWidth + 24
+        height: 72
+        radius: 18
         color: Theme.dockBackground
         border.width: 1
         border.color: Theme.ui3
         opacity: dock.revealed ? 1 : 0
 
-        Behavior on y { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
-        Behavior on opacity { NumberAnimation { duration: 120 } }
+        layer.enabled: true
+        layer.effect: MultiEffect {
+            autoPaddingEnabled: true
+            shadowEnabled: true
+            shadowBlur: 0.78
+            shadowOpacity: Theme.light ? 0.32 : 0.52
+            shadowColor: Theme.light ? "#100f0f" : "#000000"
+            shadowVerticalOffset: 5
+            shadowScale: 1.015
+        }
+
+        Behavior on y { NumberAnimation { duration: 200; easing.type: Easing.OutCubic } }
+        Behavior on opacity { NumberAnimation { duration: 140 } }
 
         Row {
             id: dockRow
             anchors.centerIn: parent
-            spacing: 7
+            spacing: 10
 
             Repeater {
                 id: pinnedRepeater
@@ -167,13 +165,13 @@ PanelWindow {
 
             Item {
                 visible: dock.pinnedItems.length > 0 && dock.runningItems.length > 0
-                width: visible ? 5 : 0
-                height: 48
+                width: visible ? 7 : 0
+                height: 64
 
                 Rectangle {
                     anchors.centerIn: parent
                     width: 1
-                    height: 24
+                    height: 32
                     color: Theme.ui3
                 }
             }

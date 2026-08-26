@@ -13,7 +13,7 @@ Item {
     property bool tooltipReady: false
     property real dragOffset: 0
     readonly property int hoverDistance: hoveredIndex < 0 ? 99 : Math.abs(dockIndex - hoveredIndex)
-    readonly property int targetSize: hoverDistance === 0 ? 42 : (hoverDistance === 1 ? 39 : 36)
+    readonly property int targetSize: hoverDistance === 0 ? 58 : (hoverDistance === 1 ? 53 : 48)
     readonly property bool dragging: dragHandler.active
     readonly property bool menuVisible: contextMenu.visible
 
@@ -24,7 +24,7 @@ Item {
     signal reorderRequested(int fromIndex, real centerX)
 
     implicitWidth: targetSize
-    implicitHeight: 48
+    implicitHeight: 64
     z: dragging ? 10 : 0
 
     transform: Translate {
@@ -32,7 +32,7 @@ Item {
     }
 
     Behavior on implicitWidth {
-        NumberAnimation { duration: 150; easing.type: Easing.OutCubic }
+        NumberAnimation { duration: 170; easing.type: Easing.OutCubic }
     }
 
     Item {
@@ -42,10 +42,10 @@ Item {
         anchors.bottomMargin: 6
         width: root.targetSize
         height: root.targetSize
-        scale: root.dragging ? 1.06 : 1
+        scale: root.dragging ? 1.08 : 1
 
-        Behavior on width { NumberAnimation { duration: 150; easing.type: Easing.OutCubic } }
-        Behavior on height { NumberAnimation { duration: 150; easing.type: Easing.OutCubic } }
+        Behavior on width { NumberAnimation { duration: 170; easing.type: Easing.OutCubic } }
+        Behavior on height { NumberAnimation { duration: 170; easing.type: Easing.OutCubic } }
         Behavior on scale { NumberAnimation { duration: 100; easing.type: Easing.OutCubic } }
 
         Rectangle {
@@ -61,7 +61,7 @@ Item {
         IconImage {
             id: icon
             anchors.centerIn: parent
-            width: Math.max(22, parent.width - 8)
+            width: Math.max(32, parent.width - 10)
             height: width
             asynchronous: true
             mipmap: true
@@ -71,7 +71,7 @@ Item {
 
         Rectangle {
             anchors.centerIn: parent
-            width: Math.max(22, parent.width - 8)
+            width: Math.max(32, parent.width - 10)
             height: width
             radius: Math.round(width * 0.24)
             color: Theme.ui
@@ -82,7 +82,7 @@ Item {
                 text: String(root.item.name || "?").charAt(0).toUpperCase()
                 color: Theme.tx
                 font.family: Theme.fontFamily
-                font.pixelSize: 15
+                font.pixelSize: 18
                 font.weight: Font.DemiBold
                 renderType: Text.NativeRendering
             }
@@ -91,8 +91,8 @@ Item {
         Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.bottom
-            anchors.topMargin: 3
-            width: root.item.windows.length > 0 ? 5 : 0
+            anchors.topMargin: 4
+            width: root.item.windows.length > 0 ? 6 : 0
             height: width
             radius: width / 2
             color: Theme.blue
@@ -103,12 +103,12 @@ Item {
         Rectangle {
             visible: root.item.windows.length > 1
             anchors.right: parent.right
-            anchors.rightMargin: -3
+            anchors.rightMargin: -4
             anchors.top: parent.top
-            anchors.topMargin: -3
-            width: 16
-            height: 16
-            radius: 8
+            anchors.topMargin: -4
+            width: 19
+            height: 19
+            radius: 10
             color: Theme.ui3
             border.width: 1
             border.color: Theme.bg
@@ -118,7 +118,7 @@ Item {
                 text: root.item.windows.length > 9 ? "9+" : String(root.item.windows.length)
                 color: Theme.tx
                 font.family: Theme.fontFamily
-                font.pixelSize: 9
+                font.pixelSize: 10
                 font.weight: Font.DemiBold
                 renderType: Text.NativeRendering
             }
@@ -138,7 +138,7 @@ Item {
         anchor.item: root
         anchor.edges: Edges.Top
         anchor.gravity: Edges.Top
-        anchor.margins.top: 6
+        anchor.margins.top: 10
         title: root.item.name
         detail: root.item.windows.length === 0
             ? "Не запущено"
@@ -151,7 +151,7 @@ Item {
         anchor.item: root
         anchor.edges: Edges.Top
         anchor.gravity: Edges.Top
-        anchor.margins.top: 6
+        anchor.margins.top: 10
         item: root.item
         onCloseRequested: root.interactionLockChanged(false)
     }
