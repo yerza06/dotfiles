@@ -172,7 +172,6 @@ PanelWindow {
                     item: modelData
                     dockIndex: index
                     pinnedIndex: index
-                    hoveredIndex: dock.hoveredIndex
 
                     onHoverRequested: value => dock.itemEntered(value)
                     onHoverReleased: value => dock.itemLeft(value)
@@ -214,7 +213,6 @@ PanelWindow {
                     item: modelData
                     dockIndex: dock.pinnedItems.length + index
                     pinnedIndex: -1
-                    hoveredIndex: dock.hoveredIndex
 
                     onHoverRequested: value => dock.itemEntered(value)
                     onHoverReleased: value => dock.itemLeft(value)

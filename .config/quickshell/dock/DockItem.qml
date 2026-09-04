@@ -8,12 +8,10 @@ Item {
     required property var item
     required property int dockIndex
     required property int pinnedIndex
-    required property int hoveredIndex
 
     property bool tooltipReady: false
     property real dragOffset: 0
-    readonly property int hoverDistance: hoveredIndex < 0 ? 99 : Math.abs(dockIndex - hoveredIndex)
-    readonly property int targetSize: hoverDistance === 0 ? 58 : (hoverDistance === 1 ? 53 : 48)
+    readonly property int iconSize: 48
     readonly property bool dragging: dragHandler.active
     readonly property bool menuVisible: contextMenu.visible
 
@@ -23,7 +21,7 @@ Item {
     signal dragStateChanged(bool active)
     signal reorderRequested(int fromIndex, real centerX)
 
-    implicitWidth: targetSize
+    implicitWidth: iconSize
     implicitHeight: 64
     z: dragging ? 10 : 0
 
@@ -31,21 +29,15 @@ Item {
         x: root.dragOffset
     }
 
-    Behavior on implicitWidth {
-        NumberAnimation { duration: 170; easing.type: Easing.OutCubic }
-    }
-
     Item {
         id: iconFrame
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 6
-        width: root.targetSize
-        height: root.targetSize
+        width: root.iconSize
+        height: root.iconSize
         scale: root.dragging ? 1.08 : 1
 
-        Behavior on width { NumberAnimation { duration: 170; easing.type: Easing.OutCubic } }
-        Behavior on height { NumberAnimation { duration: 170; easing.type: Easing.OutCubic } }
         Behavior on scale { NumberAnimation { duration: 100; easing.type: Easing.OutCubic } }
 
         Rectangle {
