@@ -8,12 +8,19 @@ Item {
     required property var item
     required property int dockIndex
     required property int pinnedIndex
+    required property bool menuOpen
 
     property bool tooltipReady: false
     property real dragOffset: 0
     readonly property int iconSize: 48
     readonly property bool dragging: dragHandler.active
     readonly property bool menuVisible: contextMenu.visible
+
+    // Открытие отложено на проход цикла событий: см. обработчик ПКМ.
+    function openMenu() {
+        contextMenu.visible = true
+        lockGuard.restart()
+    }
 
     signal hoverRequested(int index)
     signal hoverReleased(int index)
@@ -118,6 +125,16 @@ Item {
     }
 
     Timer {
+        id: lockGuard
+        interval: 600
+        repeat: false
+        onTriggered: {
+            if (!contextMenu.visible)
+                root.interactionLockChanged(false)
+        }
+    }
+
+    Timer {
         id: tooltipTimer
         interval: 450
         repeat: false
@@ -126,7 +143,8 @@ Item {
 
     DockTooltip {
         id: tooltip
-        visible: root.tooltipReady && mouseArea.containsMouse && !root.menuVisible && !root.dragging
+        visible: root.tooltipReady && mouseArea.containsMouse
+            && !root.menuOpen && !root.menuVisible && !root.dragging
         anchor.item: root
         anchor.edges: Edges.Top
         anchor.gravity: Edges.Top
@@ -201,8 +219,18 @@ Item {
                 DockModel.launchNew(root.item)
             else if (mouse.button === Qt.RightButton) {
                 root.tooltipReady = false
-                contextMenu.visible = !contextMenu.visible
-                root.interactionLockChanged(contextMenu.visible)
+                tooltipTimer.stop()
+
+                if (contextMenu.visible) {
+                    contextMenu.visible = false
+                    return
+                }
+
+                // Захват меню требует, чтобы окно дока уже держало клавиатуру,
+                // а тултип-popup был уничтожен. Поэтому сначала лок, а показ —
+                // следующим проходом цикла событий, когда оба условия выполнены.
+                root.interactionLockChanged(true)
+                Qt.callLater(root.openMenu)
             }
         }
     }

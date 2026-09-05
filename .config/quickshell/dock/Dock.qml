@@ -18,6 +18,7 @@ PanelWindow {
     readonly property var pinnedItems: screenItems.pinned || []
     readonly property var runningItems: screenItems.running || []
     readonly property bool interactionLocked: dragging || lockingItem !== null
+    readonly property bool menuOpen: lockingItem !== null
     readonly property int panelPadding: 28
 
     screen: targetScreen
@@ -27,7 +28,6 @@ PanelWindow {
     color: "transparent"
     exclusionMode: ExclusionMode.Ignore
     aboveWindows: true
-    focusable: lockingItem !== null
     mask: Region { item: inputRegion }
 
     WlrLayershell.layer: WlrLayer.Top
@@ -172,6 +172,7 @@ PanelWindow {
                     item: modelData
                     dockIndex: index
                     pinnedIndex: index
+                    menuOpen: dock.menuOpen
 
                     onHoverRequested: value => dock.itemEntered(value)
                     onHoverReleased: value => dock.itemLeft(value)
@@ -213,6 +214,7 @@ PanelWindow {
                     item: modelData
                     dockIndex: dock.pinnedItems.length + index
                     pinnedIndex: -1
+                    menuOpen: dock.menuOpen
 
                     onHoverRequested: value => dock.itemEntered(value)
                     onHoverReleased: value => dock.itemLeft(value)
