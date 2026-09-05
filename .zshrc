@@ -126,6 +126,8 @@ alias uvg="uv init --git"
 alias uvar="uv install -r requirements.txt"
 alias uver="uv export --no-hashes > requirements.txt"
 
+alias niri_debug="cd .config/niri; nvim config.kdl; cd"
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 

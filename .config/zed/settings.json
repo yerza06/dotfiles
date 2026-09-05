@@ -57,7 +57,8 @@
     },
     "pi-acp": {
       "default_config_options": {
-        "model": "openai-codex/gpt-5.6-luna"
+        "thought_level": "high",
+        "model": "openai-codex/gpt-5.6-sol"
       },
       "type": "registry",
     },
