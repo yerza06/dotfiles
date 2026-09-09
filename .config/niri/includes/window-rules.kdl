@@ -35,6 +35,7 @@ window-rule {
 
 window-rule {
     match app-id="firefox"
+    match app-id="google-chrome"
     match app-id="zen-browser"
     match app-id="Claude"
     match app-id="obsidian"
@@ -55,7 +56,9 @@ window-rule {
     match app-id="org.gnome.Calculator"
     match app-id="io.github.redddfoxxyy.samaya"
     match app-id="thunar"
+    match app-id="pcmanfm"
     match title="Nautilus"
+    match app-id="xdg-desktop-portal-gtk"
 
     open-floating true
     default-column-width { fixed 1300; }

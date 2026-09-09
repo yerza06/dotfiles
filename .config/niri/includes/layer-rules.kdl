@@ -6,17 +6,6 @@ layer-rule {
     geometry-corner-radius 12
 
     place-within-backdrop true
-    // opacity 0.9
-
-    block-out-from "screencast"
-
-    background-effect {
-        xray true
-        blur true
-        noise 0.05
-        saturation 3
-    }
-
 
 }
 
@@ -25,19 +14,19 @@ layer-rule {
     place-within-backdrop true
 }
 
-layer-rule {
-    match namespace="rofi"
-    match namespace="waybar"
-    match namespace="&mako^"
-
-    // opacity 0.85
-
-    background-effect {
-        xray true
-        blur true
-        noise 0
-        saturation 1
-    }
-
-    geometry-corner-radius 10
-}
+// layer-rule {
+//     match namespace="rofi"
+//     match namespace="waybar"
+//     match namespace="&mako^"
+//
+//     // opacity 0.85
+//
+//     background-effect {
+//         xray true
+//         blur true
+//         noise 0
+//         saturation 1
+//     }
+//
+//     geometry-corner-radius 10
+// }
