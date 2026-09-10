@@ -172,6 +172,8 @@ PanelWindow {
     WlrLayershell.keyboardFocus: clock.calendarVisible
         || mprisItem.popupVisible
         || batteryItem.popupVisible
+        || volumeItem.popupVisible
+        || microphoneItem.popupVisible
         ? WlrKeyboardFocus.OnDemand
         : WlrKeyboardFocus.None
 
@@ -361,6 +363,8 @@ PanelWindow {
             }
 
             VolumeItem {
+                id: volumeItem
+
                 audioNode: Pipewire.defaultAudioSink
                 outputType: bar.audioOutputType
                 backgroundColor: bg
@@ -368,15 +372,17 @@ PanelWindow {
                 textColor: bar.text
                 mutedColor: red
                 trackColor: ui3
-                popupBorderColor: tx3
                 bottomBorderColor: ui3
                 mutedTextColor: bar.muted
-                menuHoverColor: ui
-                menuBorderColor: tx3
-                menuSeparatorColor: ui3
+                popupHoverColor: ui
+                popupBorderColor: tx3
+                popupSeparatorColor: ui3
+                accentColor: blue
             }
 
             VolumeItem {
+                id: microphoneItem
+
                 audioNode: Pipewire.defaultAudioSource
                 microphoneMode: true
                 backgroundColor: bg
@@ -384,12 +390,12 @@ PanelWindow {
                 textColor: bar.text
                 mutedColor: red
                 trackColor: ui3
-                popupBorderColor: tx3
                 bottomBorderColor: ui3
                 mutedTextColor: bar.muted
-                menuHoverColor: ui
-                menuBorderColor: tx3
-                menuSeparatorColor: ui3
+                popupHoverColor: ui
+                popupBorderColor: tx3
+                popupSeparatorColor: ui3
+                accentColor: blue
             }
 
             NetworkItem {
