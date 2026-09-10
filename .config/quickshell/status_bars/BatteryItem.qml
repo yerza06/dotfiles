@@ -120,6 +120,18 @@ StatusItem {
         return value <= 15 ? redColor : (value <= 30 ? orangeColor : textColor)
     }
 
+    // Порядок совпадает с кнопками в окне: Эконом → Баланс → Мощность.
+    function cycleProfile() {
+        if (PowerProfiles.profile === PowerProfile.PowerSaver)
+            PowerProfiles.profile = PowerProfile.Balanced
+        else if (PowerProfiles.profile === PowerProfile.Balanced)
+            PowerProfiles.profile = PowerProfiles.hasPerformanceProfile
+                ? PowerProfile.Performance
+                : PowerProfile.PowerSaver
+        else
+            PowerProfiles.profile = PowerProfile.PowerSaver
+    }
+
     function togglePopup() {
         if (!popup.visible && Date.now() - popupClosedAt < 200)
             return
@@ -141,9 +153,8 @@ StatusItem {
         if (popupVisible)
             return ""
         const degraded = degradationLabel()
-        return degraded.length > 0
-            ? degraded + "\nПКМ — подробности"
-            : "ПКМ — подробности"
+        const hint = "ЛКМ — сменить профиль\nПКМ — подробности"
+        return degraded.length > 0 ? degraded + "\n" + hint : hint
     }
 
     onAlertActiveChanged: {
@@ -158,7 +169,9 @@ StatusItem {
     }
 
     onPressed: button => {
-        if (button === Qt.RightButton)
+        if (button === Qt.LeftButton)
+            root.cycleProfile()
+        else if (button === Qt.RightButton)
             root.togglePopup()
     }
 
