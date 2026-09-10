@@ -16,12 +16,19 @@ Rectangle {
     property color menuBorderColor: "#575653"
     property color menuSeparatorColor: "#403e3c"
     property color tooltipBorderColor: "#575653"
+    property color accentColor: "#4385be"
+    property color greenColor: "#879a39"
     property string fontFamily: "IosevkaTerm Nerd Font Propo"
 
     property bool menuVisible: false
 
     // Quickshell.Networking отдаёт в device.address MAC, поэтому IP берём у `ip`.
     property string ipAddress: ""
+
+    // Момент последнего закрытия окна. Клик мимо, которым композитор снимает
+    // захват, долетает и до самого виджета — без этой отсечки окно тут же
+    // открылось бы снова.
+    property double popupClosedAt: 0
 
     readonly property bool menuChainHovered: buttonMouse.containsMouse || networkMenu.chainHovered
 
@@ -46,7 +53,23 @@ Rectangle {
         return null
     }
 
+    // Wi-Fi адаптер независимо от подключения: список точек и сканирование
+    // нужны и когда соединения нет.
+    readonly property var wifiHardware: {
+        for (let i = 0; i < devices.length; i++) {
+            const device = devices[i]
+            if (device.type === DeviceType.Wifi && device.nmManaged)
+                return device
+        }
+        return null
+    }
+
     readonly property bool connected: wiredDevice !== null || wifiDevice !== null
+
+    // Сканирование крутится, только пока открыто меню или окно, и управляется
+    // здесь, а не в каждом из них: иначе они спорили бы за одно свойство и
+    // сканер мог бы остаться включённым после закрытия.
+    readonly property bool scanRequested: menuVisible || popup.visible
 
     readonly property var activeWifiNetwork: {
         if (!wifiDevice || !wifiDevice.networks)
@@ -83,17 +106,6 @@ Rectangle {
         return "󰤭"
     }
 
-    function parseIp(rawText) {
-        try {
-            const data = JSON.parse(rawText)
-            if (data.length > 0 && data[0].addr_info && data[0].addr_info.length > 0)
-                return data[0].addr_info[0].local || ""
-        } catch (error) {
-            return ""
-        }
-        return ""
-    }
-
     // Команда задаётся здесь, а не биндингом: порядок пересчёта биндинга и
     // обработчика onActiveDeviceNameChanged не определён, и процесс успевал
     // стартовать со старым именем устройства.
@@ -108,27 +120,53 @@ Rectangle {
         const lines = []
         if (wiredDevice) {
             lines.push("Ethernet: " + wiredDevice.name)
-            const speed = networkMenu.speedLabel(wiredDevice)
+            const speed = NetworkFormat.speedLabel(wiredDevice)
             if (speed.length > 0)
                 lines.push("Скорость: " + speed)
         } else if (activeWifiNetwork) {
             lines.push("Wi-Fi: " + activeWifiNetwork.name)
-            lines.push("Сигнал: " + networkMenu.signalPercent(activeWifiNetwork) + "%")
-            const security = networkMenu.securityLabel(activeWifiNetwork)
+            lines.push("Сигнал: " + NetworkFormat.signalPercent(activeWifiNetwork) + "%")
+            const security = NetworkFormat.securityLabel(activeWifiNetwork)
             if (security.length > 0)
                 lines.push("Защита: " + security)
         } else {
-            return "Нет подключения"
+            return "Нет подключения\nЛКМ — подробности\nПКМ — выбор сети"
         }
         if (ipAddress.length > 0)
             lines.push("IP: " + ipAddress)
+        lines.push("ЛКМ — подробности")
+        lines.push("ПКМ — выбор сети")
         return lines.join("\n")
+    }
+
+    // Присваивание, а не Binding: Quickshell не применяет к scannerEnabled
+    // биндинг с target/property — свойство остаётся выключенным.
+    function applyScanner() {
+        if (wifiHardware)
+            wifiHardware.scannerEnabled = scanRequested
     }
 
     function toggleMenu() {
         menuCloseTimer.stop()
         menuVisible = !menuVisible
     }
+
+    function togglePopup() {
+        if (!popup.visible && Date.now() - popupClosedAt < 200)
+            return
+        // Меню и окно перекрыли бы друг друга: показываем что-то одно.
+        if (!popup.visible)
+            menuVisible = false
+        popup.visible = !popup.visible
+    }
+
+    // Устройства приходят по D-Bus асинхронно, но могут оказаться на месте уже
+    // к моменту создания виджета — тогда сигналов об изменении не будет.
+    Component.onCompleted: applyScanner()
+
+    onScanRequestedChanged: applyScanner()
+
+    onWifiHardwareChanged: applyScanner()
 
     // Устройство сменилось — прошлый адрес больше не относится к делу.
     onActiveDeviceNameChanged: {
@@ -158,8 +196,21 @@ Rectangle {
         id: ipProcess
 
         stdout: StdioCollector {
-            onStreamFinished: root.ipAddress = root.parseIp(text)
+            onStreamFinished: root.ipAddress = NetworkFormat.parseIp(text)
         }
+    }
+
+    // Сканер приходится взводить повторно: NetworkManager гасит его сам после
+    // очередного обхода эфира, и с одного присваивания список так и остался бы
+    // из одних известных сетей.
+    Timer {
+        // Реже, чем хотелось бы: непрерывное сканирование заметно поднимает
+        // пинг, а его же окно и показывает.
+        interval: 10000
+        repeat: true
+        running: root.scanRequested
+        triggeredOnStart: true
+        onTriggered: root.applyScanner()
     }
 
     // Меню закрывается, когда курсор ушёл и с виджета, и с самого меню.
@@ -210,8 +261,44 @@ Rectangle {
         onCloseRequested: root.menuVisible = false
     }
 
+    NetworkPopup {
+        id: popup
+
+        // visible выставляется только вручную: композитор закрывает окно сам,
+        // и биндинг после первого такого закрытия сломался бы.
+        visible: false
+        anchor.item: root
+        anchor.edges: Edges.Bottom
+        anchor.gravity: Edges.Bottom
+        anchor.margins.bottom: 4
+        wiredDevice: root.wiredDevice
+        wifiDevice: root.wifiHardware
+        activeWifiNetwork: root.activeWifiNetwork
+        activeName: root.connected ? root.activeName : "Нет сети"
+        interfaceName: root.activeDeviceName
+        icon: root.networkIcon()
+        connected: root.connected
+        backgroundColor: root.backgroundColor
+        hoverColor: root.menuHoverColor
+        textColor: root.textColor
+        mutedTextColor: root.mutedTextColor
+        borderColor: root.menuBorderColor
+        separatorColor: root.menuSeparatorColor
+        disabledColor: root.menuSeparatorColor
+        accentColor: root.accentColor
+        greenColor: root.greenColor
+        redColor: root.offlineColor
+        fontFamily: root.fontFamily
+
+        onVisibleChanged: {
+            if (!visible)
+                root.popupClosedAt = Date.now()
+        }
+        onCloseRequested: popup.visible = false
+    }
+
     Tooltip {
-        visible: buttonMouse.containsMouse && !root.menuVisible
+        visible: buttonMouse.containsMouse && !root.menuVisible && !popup.visible
         anchor.item: root
         anchor.edges: Edges.Bottom
         anchor.gravity: Edges.Bottom
@@ -236,7 +323,7 @@ Rectangle {
 
         onClicked: mouse => {
             if (mouse.button === Qt.LeftButton)
-                Quickshell.execDetached(["kitty", "nmtui"])
+                root.togglePopup()
             else if (mouse.button === Qt.RightButton)
                 root.toggleMenu()
         }
