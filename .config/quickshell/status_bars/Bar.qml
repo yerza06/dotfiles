@@ -454,6 +454,10 @@ PanelWindow {
                 orangeColor: orange
                 redColor: red
                 bottomBorderColor: ui3
+                tooltipBackground: bg
+                tooltipBorderColor: tx3
+                tooltipTextColor: bar.text
+                tooltipMutedColor: bar.muted
             }
         }
     }

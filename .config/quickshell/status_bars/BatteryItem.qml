@@ -78,6 +78,41 @@ StatusItem {
         return "󰂎"
     }
 
+    function profileGlyph() {
+        switch (PowerProfiles.profile) {
+        case PowerProfile.Performance:
+            return ""
+        case PowerProfile.PowerSaver:
+            return ""
+        default:
+            return ""
+        }
+    }
+
+    function profileLabel() {
+        switch (PowerProfiles.profile) {
+        case PowerProfile.Performance:
+            return "Мощность"
+        case PowerProfile.PowerSaver:
+            return "Эконом"
+        default:
+            return "Баланс"
+        }
+    }
+
+    // Демон сам роняет производительность при перегреве и «ноутбуке на
+    // коленях»: без подсказки об этом узнать неоткуда.
+    function degradationLabel() {
+        switch (PowerProfiles.degradationReason) {
+        case PerformanceDegradationReason.LapDetected:
+            return "Снижен: ноутбук на коленях"
+        case PerformanceDegradationReason.HighTemperature:
+            return "Снижен: перегрев"
+        default:
+            return ""
+        }
+    }
+
     function batteryColor() {
         if (batteryCharging())
             return greenColor
@@ -100,6 +135,16 @@ StatusItem {
     // когда цвет не занят зарядкой или миганием.
     hoverBackground: (batteryCharging() || alertActive) ? background : baseHoverBackground
     horizontalPadding: 6
+    tooltipTitle: profileGlyph() + "  Профиль: " + profileLabel()
+    // Пока окно открыто, подсказка не нужна — она бы легла поверх него.
+    tooltipText: {
+        if (popupVisible)
+            return ""
+        const degraded = degradationLabel()
+        return degraded.length > 0
+            ? degraded + "\nПКМ — подробности"
+            : "ПКМ — подробности"
+    }
 
     onAlertActiveChanged: {
         if (!alertActive)
