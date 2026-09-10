@@ -235,10 +235,10 @@ PanelWindow {
     implicitHeight: 28
     color: bg
 
-    // Клавиатура нужна панели, только пока открыт календарь: без фокуса до него
-    // не доходит Esc. OnDemand, а не Exclusive — панель не должна перехватывать
-    // ввод у окон.
-    WlrLayershell.keyboardFocus: clock.calendarVisible
+    // Клавиатура нужна панели, только пока открыт календарь или окно плеера:
+    // без фокуса до них не доходит Esc. OnDemand, а не Exclusive — панель
+    // не должна перехватывать ввод у окон.
+    WlrLayershell.keyboardFocus: clock.calendarVisible || mprisItem.popupVisible
         ? WlrKeyboardFocus.OnDemand
         : WlrKeyboardFocus.None
 
@@ -324,6 +324,8 @@ PanelWindow {
             }
 
             MprisItem {
+                id: mprisItem
+
                 player: bar.activeMprisPlayer
                 players: bar.mprisPlayers
                 pinnedPlayerId: bar.pinnedMprisPlayerId
@@ -339,6 +341,8 @@ PanelWindow {
                 menuHoverColor: ui
                 menuBorderColor: tx3
                 menuSeparatorColor: ui3
+                popupTrackColor: ui
+                popupSeparatorColor: ui3
                 onPinRequested: playerId => bar.pinPlayerRequested(playerId)
             }
         }

@@ -19,9 +19,18 @@ Rectangle {
     property color menuHoverColor: "#282726"
     property color menuBorderColor: "#575653"
     property color menuSeparatorColor: "#403e3c"
+    property color popupTrackColor: "#282726"
+    property color popupSeparatorColor: "#403e3c"
     property string fontFamily: "IosevkaTerm Nerd Font Propo"
 
     property bool menuVisible: false
+
+    readonly property bool popupVisible: mprisPopup.visible
+
+    // Момент последнего закрытия окна плеера. Клик мимо, которым композитор
+    // снимает захват, долетает и до самого виджета — без этой отсечки окно
+    // тут же открылось бы снова.
+    property double popupClosedAt: 0
 
     signal pinRequested(string playerId)
 
@@ -46,6 +55,10 @@ Rectangle {
             return chromiumColor
         return backgroundColor
     }
+    // У неизвестных плееров accentColor совпадает с фоном — на прогресс-баре
+    // и кнопке play такая заливка была бы невидимой.
+    readonly property color popupAccentColor: accentColor === backgroundColor
+        ? textColor : accentColor
     readonly property color sideBorderColor: playing
         ? (accentColor === backgroundColor ? "transparent" : accentColor)
         : mutedBorderColor
@@ -75,7 +88,22 @@ Rectangle {
 
     function toggleMenu() {
         menuCloseTimer.stop()
+        mprisPopup.visible = false
         menuVisible = !menuVisible
+    }
+
+    function togglePopup() {
+        if (!mprisPopup.visible && Date.now() - popupClosedAt < 200)
+            return
+        menuVisible = false
+        mprisPopup.visible = !mprisPopup.visible
+    }
+
+    // Плеер закрыли, пока окно открыто: сам виджет прячется (visible), поэтому
+    // окно осталось бы висеть с мёртвыми кнопками.
+    onPlayerChanged: {
+        if (!player)
+            mprisPopup.visible = false
     }
 
     onMenuChainHoveredChanged: {
@@ -164,8 +192,37 @@ Rectangle {
         onCloseRequested: root.menuVisible = false
     }
 
+    MprisPopup {
+        id: mprisPopup
+
+        // visible выставляется только вручную: композитор закрывает окно сам,
+        // и биндинг после первого такого закрытия сломался бы.
+        visible: false
+        anchor.item: root
+        anchor.edges: Edges.Bottom
+        anchor.gravity: Edges.Bottom
+        anchor.margins.bottom: 4
+        player: root.player
+        fallbackIcon: root.playerIcon()
+        accentColor: root.popupAccentColor
+        backgroundColor: root.backgroundColor
+        hoverColor: root.menuHoverColor
+        textColor: root.textColor
+        mutedTextColor: root.mutedTextColor
+        borderColor: root.menuBorderColor
+        separatorColor: root.popupSeparatorColor
+        trackColor: root.popupTrackColor
+        fontFamily: root.fontFamily
+
+        onVisibleChanged: {
+            if (!visible)
+                root.popupClosedAt = Date.now()
+        }
+        onCloseRequested: mprisPopup.visible = false
+    }
+
     Tooltip {
-        visible: mouseArea.containsMouse && !root.menuVisible
+        visible: mouseArea.containsMouse && !root.menuVisible && !root.popupVisible
         anchor.item: root
         anchor.edges: Edges.Bottom
         anchor.gravity: Edges.Bottom
@@ -193,12 +250,14 @@ Rectangle {
                 root.toggleMenu()
                 return
             }
+            if (mouse.button === Qt.MiddleButton) {
+                root.togglePopup()
+                return
+            }
             if (!root.player)
                 return
             if (mouse.button === Qt.LeftButton && root.player.canTogglePlaying)
                 root.player.togglePlaying()
-            else if (mouse.button === Qt.MiddleButton && root.player.canGoPrevious)
-                root.player.previous()
         }
     }
 
