@@ -47,71 +47,16 @@ PopupWindow {
         return null
     }
 
-    // Подключённая сверху, затем известные, затем по убыванию сигнала.
+    // Список ограничен десятью точками: меню не должно вырастать на весь экран.
     readonly property var wifiNetworks: {
         if (!wifiDevice || !wifiDevice.networks)
             return []
-        const result = wifiDevice.networks.values.slice()
-        result.sort((left, right) => {
-            if (left.connected !== right.connected)
-                return left.connected ? -1 : 1
-            if (left.known !== right.known)
-                return left.known ? -1 : 1
-            return signalPercent(right) - signalPercent(left)
-        })
-        return result.slice(0, 10)
-    }
-
-    function signalPercent(network) {
-        if (!network)
-            return 0
-        const value = network.signalStrength
-        return Math.round(value > 1 ? value : value * 100)
-    }
-
-    function isSecured(network) {
-        if (!network)
-            return false
-        return network.security !== WifiSecurityType.Open
-            && network.security !== WifiSecurityType.Owe
-    }
-
-    function securityLabel(network) {
-        if (!network)
-            return ""
-        switch (network.security) {
-        case WifiSecurityType.Wpa3SuiteB192:
-        case WifiSecurityType.Sae:
-            return "WPA3"
-        case WifiSecurityType.Wpa2Eap:
-        case WifiSecurityType.Wpa2Psk:
-            return "WPA2"
-        case WifiSecurityType.WpaEap:
-        case WifiSecurityType.WpaPsk:
-            return "WPA"
-        case WifiSecurityType.StaticWep:
-        case WifiSecurityType.DynamicWep:
-            return "WEP"
-        case WifiSecurityType.Leap:
-            return "LEAP"
-        case WifiSecurityType.Owe:
-            return "OWE"
-        case WifiSecurityType.Open:
-            return "Открытая"
-        default:
-            return ""
-        }
-    }
-
-    // linkSpeed приходит в Мбит/с.
-    function speedLabel(device) {
-        if (!device || !device.linkSpeed)
-            return ""
-        return device.linkSpeed + " Мбит/с"
+        return NetworkFormat.sortNetworks(wifiDevice.networks.values).slice(0, 10)
     }
 
     function networkDetail(network) {
-        return (isSecured(network) ? " " : "") + signalPercent(network) + "%"
+        return (NetworkFormat.isSecured(network) ? " " : "")
+            + NetworkFormat.signalPercent(network) + "%"
     }
 
     function activateNetwork(network) {
@@ -122,7 +67,7 @@ PopupWindow {
             network.disconnect()
             return
         }
-        if (network.known || !isSecured(network)) {
+        if (network.known || !NetworkFormat.isSecured(network)) {
             network.connect()
             return
         }
@@ -144,7 +89,7 @@ PopupWindow {
 
     function wiredDetail(device) {
         if (device.connected)
-            return speedLabel(device) || "подключено"
+            return NetworkFormat.speedLabel(device) || "подключено"
         return device.hasLink ? "кабель подключён" : "нет кабеля"
     }
 
@@ -160,14 +105,6 @@ PopupWindow {
     color: "transparent"
     // Клавиатура нужна только на время ввода пароля.
     grabFocus: menuRoot.pskActive
-
-    // Сканирование крутится, только пока меню открыто.
-    Binding {
-        target: menuRoot.wifiDevice
-        property: "scannerEnabled"
-        value: menuRoot.visible
-        when: menuRoot.wifiDevice !== null
-    }
 
     onVisibleChanged: {
         if (!visible)

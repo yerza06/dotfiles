@@ -409,6 +409,8 @@ PanelWindow {
                 menuHoverColor: ui
                 menuBorderColor: tx3
                 menuSeparatorColor: ui3
+                accentColor: blue
+                greenColor: green
             }
 
             BluetoothItem {
