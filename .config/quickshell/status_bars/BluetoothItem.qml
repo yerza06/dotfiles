@@ -11,15 +11,21 @@ Rectangle {
     property color mutedTextColor: "#878580"
     property color activeColor: "#4385be"
     property color bottomBorderColor: "#403e3c"
-    property color menuHoverColor: "#282726"
-    property color menuBorderColor: "#575653"
-    property color menuSeparatorColor: "#403e3c"
+    property color popupHoverColor: "#282726"
+    property color popupBorderColor: "#575653"
+    property color popupSeparatorColor: "#403e3c"
+    property color popupTrackColor: "#282726"
+    property color accentColor: "#4385be"
+    property color greenColor: "#879a39"
+    property color orangeColor: "#da702c"
+    property color redColor: "#d14d41"
     property color tooltipBorderColor: "#575653"
     property string fontFamily: "IosevkaTerm Nerd Font Propo"
 
-    property bool menuVisible: false
-
-    readonly property bool menuChainHovered: buttonMouse.containsMouse || bluetoothMenu.chainHovered
+    readonly property bool popupVisible: popup.visible
+    // Композитор закрывает окно сам по клику мимо, поэтому повторный ПКМ
+    // сразу после этого должен открывать окно, а не считаться вторым нажатием.
+    property real popupClosedAt: 0
 
     readonly property var adapter: Bluetooth.defaultAdapter
     readonly property bool adapterEnabled: adapter !== null && adapter.enabled
@@ -27,6 +33,10 @@ Rectangle {
         ? adapter.devices.values.filter(device => device.connected)
         : []
     readonly property int connectedCount: connectedDevices.length
+
+    // Глиф и цвет считаются здесь и передаются в окно — панель и окно
+    // всегда показывают одно и то же.
+    readonly property string glyph: adapterEnabled ? "" : "󰂲"
 
     function tooltipBody() {
         if (!adapter)
@@ -38,23 +48,23 @@ Rectangle {
         const lines = []
         for (let i = 0; i < connectedDevices.length; i++) {
             const device = connectedDevices[i]
-            const battery = bluetoothMenu.deviceDetail(device)
-            lines.push(bluetoothMenu.deviceLabel(device)
+            const battery = BluetoothFormat.batteryText(device)
+            lines.push(BluetoothFormat.deviceLabel(device)
                 + (battery.length > 0 ? " — " + battery : ""))
         }
         return lines.join("\n")
     }
 
-    function toggleMenu() {
-        menuCloseTimer.stop()
-        menuVisible = !menuVisible
+    // Адаптер может исчезнуть при открытом окне — показывать станет нечего.
+    onAdapterChanged: {
+        if (!adapter)
+            popup.visible = false
     }
 
-    onMenuChainHoveredChanged: {
-        if (menuChainHovered)
-            menuCloseTimer.stop()
-        else if (menuVisible)
-            menuCloseTimer.restart()
+    function togglePopup() {
+        if (!popup.visible && Date.now() - popupClosedAt < 200)
+            return
+        popup.visible = !popup.visible
     }
 
     implicitWidth: label.implicitWidth + 12
@@ -66,23 +76,12 @@ Rectangle {
         ColorAnimation { duration: 100 }
     }
 
-    // Меню закрывается, когда курсор ушёл и с виджета, и с самого меню.
-    Timer {
-        id: menuCloseTimer
-        interval: 400
-        repeat: false
-        onTriggered: {
-            if (!root.menuChainHovered)
-                root.menuVisible = false
-        }
-    }
-
     Text {
         id: label
         anchors.centerIn: parent
-        text: root.adapterEnabled
-            ? ("" + (root.connectedCount > 0 ? " " + root.connectedCount : ""))
-            : "󰂲"
+        text: root.glyph + (root.adapterEnabled && root.connectedCount > 0
+            ? " " + root.connectedCount
+            : "")
         color: root.adapterEnabled ? root.activeColor : root.mutedTextColor
         font.family: root.fontFamily
         font.pixelSize: 14
@@ -98,25 +97,40 @@ Rectangle {
         color: root.bottomBorderColor
     }
 
-    BluetoothMenu {
-        id: bluetoothMenu
+    BluetoothPopup {
+        id: popup
 
-        visible: root.menuVisible
+        // visible выставляется только вручную: композитор закрывает окно сам,
+        // и биндинг после первого такого закрытия сломался бы.
+        visible: false
         anchor.item: root
         anchor.edges: Edges.Bottom
         anchor.gravity: Edges.Bottom
+        anchor.margins.bottom: 4
+        adapter: root.adapter
+        icon: root.glyph
+        iconColor: root.activeColor
         backgroundColor: root.backgroundColor
-        hoverColor: root.menuHoverColor
+        hoverColor: root.popupHoverColor
         textColor: root.textColor
         mutedTextColor: root.mutedTextColor
-        borderColor: root.menuBorderColor
-        separatorColor: root.menuSeparatorColor
+        borderColor: root.popupBorderColor
+        separatorColor: root.popupSeparatorColor
+        trackColor: root.popupTrackColor
+        accentColor: root.accentColor
+        greenColor: root.greenColor
+        orangeColor: root.orangeColor
+        redColor: root.redColor
         fontFamily: root.fontFamily
-        onCloseRequested: root.menuVisible = false
+        onVisibleChanged: {
+            if (!visible)
+                root.popupClosedAt = Date.now()
+        }
+        onCloseRequested: popup.visible = false
     }
 
     Tooltip {
-        visible: buttonMouse.containsMouse && !root.menuVisible
+        visible: buttonMouse.containsMouse && !root.popupVisible
         anchor.item: root
         anchor.edges: Edges.Bottom
         anchor.gravity: Edges.Bottom
@@ -141,7 +155,7 @@ Rectangle {
             if (mouse.button === Qt.LeftButton)
                 Quickshell.execDetached(["kitty", "bluetui"])
             else if (mouse.button === Qt.RightButton)
-                root.toggleMenu()
+                root.togglePopup()
             else if (mouse.button === Qt.MiddleButton && root.adapter)
                 root.adapter.enabled = !root.adapter.enabled
         }

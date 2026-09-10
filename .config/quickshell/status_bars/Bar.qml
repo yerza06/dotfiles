@@ -167,13 +167,15 @@ PanelWindow {
     color: bg
 
     // Клавиатура нужна панели, только пока открыто «липкое» окно — календарь,
-    // плеер или батарея: без фокуса до них не доходит Esc. OnDemand, а не
-    // Exclusive — панель не должна перехватывать ввод у окон.
+    // плеер, батарея, звук или Bluetooth: без фокуса до них не доходит ни Esc,
+    // ни ввод текста (переименование устройства). OnDemand, а не Exclusive —
+    // панель не должна перехватывать ввод у окон.
     WlrLayershell.keyboardFocus: clock.calendarVisible
         || mprisItem.popupVisible
         || batteryItem.popupVisible
         || volumeItem.popupVisible
         || microphoneItem.popupVisible
+        || bluetoothItem.popupVisible
         ? WlrKeyboardFocus.OnDemand
         : WlrKeyboardFocus.None
 
@@ -414,6 +416,8 @@ PanelWindow {
             }
 
             BluetoothItem {
+                id: bluetoothItem
+
                 backgroundColor: bg
                 tooltipBorderColor: tx3
                 hoverColor: bg2
@@ -421,9 +425,14 @@ PanelWindow {
                 mutedTextColor: bar.muted
                 activeColor: blue
                 bottomBorderColor: ui3
-                menuHoverColor: ui
-                menuBorderColor: tx3
-                menuSeparatorColor: ui3
+                popupHoverColor: ui
+                popupBorderColor: tx3
+                popupSeparatorColor: ui3
+                popupTrackColor: ui
+                accentColor: blue
+                greenColor: green
+                orangeColor: orange
+                redColor: red
             }
 
             RowLayout {
