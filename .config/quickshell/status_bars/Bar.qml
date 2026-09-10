@@ -7,7 +7,6 @@ import Quickshell.Networking
 import Quickshell.Services.Mpris
 import Quickshell.Services.Pipewire
 import Quickshell.Services.SystemTray
-import Quickshell.Services.UPower
 import Quickshell.Wayland
 import Quickshell.WindowManager
 
@@ -158,74 +157,6 @@ PanelWindow {
         return muted
     }
 
-    function powerProfileIcon() {
-        switch (PowerProfiles.profile) {
-        case PowerProfile.Performance:
-            return ""
-        case PowerProfile.PowerSaver:
-            return ""
-        default:
-            return ""
-        }
-    }
-
-    function powerProfileColor() {
-        switch (PowerProfiles.profile) {
-        case PowerProfile.Performance:
-            return red
-        case PowerProfile.PowerSaver:
-            return green
-        default:
-            return text
-        }
-    }
-
-    function cyclePowerProfile() {
-        if (PowerProfiles.profile === PowerProfile.Performance)
-            PowerProfiles.profile = PowerProfile.PowerSaver
-        else if (PowerProfiles.profile === PowerProfile.PowerSaver)
-            PowerProfiles.profile = PowerProfile.Balanced
-        else if (PowerProfiles.hasPerformanceProfile)
-            PowerProfiles.profile = PowerProfile.Performance
-        else
-            PowerProfiles.profile = PowerProfile.PowerSaver
-    }
-
-    function batteryPercent() {
-        const battery = UPower.displayDevice
-        if (!battery || !battery.ready)
-            return 0
-        return Math.round(battery.percentage <= 1 ? battery.percentage * 100 : battery.percentage)
-    }
-
-    function batteryCharging() {
-        const battery = UPower.displayDevice
-        return battery && battery.iconName.indexOf("charging") !== -1
-    }
-
-    function batteryIcon() {
-        if (batteryCharging())
-            return "󰂄"
-        const value = batteryPercent()
-        if (value >= 90) return "󰁹"
-        if (value >= 80) return "󰂂"
-        if (value >= 70) return "󰂁"
-        if (value >= 60) return "󰂀"
-        if (value >= 50) return "󰁿"
-        if (value >= 40) return "󰁾"
-        if (value >= 30) return "󰁽"
-        if (value >= 20) return "󰁼"
-        if (value >= 10) return "󰁻"
-        return "󰂎"
-    }
-
-    function batteryColor() {
-        if (batteryCharging())
-            return green
-        const value = batteryPercent()
-        return value <= 15 ? red : (value <= 30 ? orange : text)
-    }
-
     screen: targetScreen
     anchors {
         top: true
@@ -235,10 +166,12 @@ PanelWindow {
     implicitHeight: 28
     color: bg
 
-    // Клавиатура нужна панели, только пока открыт календарь или окно плеера:
-    // без фокуса до них не доходит Esc. OnDemand, а не Exclusive — панель
-    // не должна перехватывать ввод у окон.
-    WlrLayershell.keyboardFocus: clock.calendarVisible || mprisItem.popupVisible
+    // Клавиатура нужна панели, только пока открыто «липкое» окно — календарь,
+    // плеер или батарея: без фокуса до них не доходит Esc. OnDemand, а не
+    // Exclusive — панель не должна перехватывать ввод у окон.
+    WlrLayershell.keyboardFocus: clock.calendarVisible
+        || mprisItem.popupVisible
+        || batteryItem.popupVisible
         ? WlrKeyboardFocus.OnDemand
         : WlrKeyboardFocus.None
 
@@ -485,18 +418,6 @@ PanelWindow {
                 menuSeparatorColor: ui3
             }
 
-            StatusItem {
-                text: bar.powerProfileIcon()
-                foreground: bar.powerProfileColor()
-                background: bg
-                hoverBackground: bg2
-                bottomBorderColor: ui3
-                onPressed: button => {
-                    if (button === Qt.LeftButton)
-                        bar.cyclePowerProfile()
-                }
-            }
-
             RowLayout {
                 spacing: 1
 
@@ -519,39 +440,24 @@ PanelWindow {
                 }
             }
 
-            StatusItem {
+            BatteryItem {
                 id: batteryItem
-                readonly property bool ready: UPower.displayDevice
-                    && UPower.displayDevice.ready
-                readonly property bool warning: ready && !bar.batteryCharging()
-                    && bar.batteryPercent() > 15
-                    && bar.batteryPercent() <= 30
-                readonly property bool critical: ready && !bar.batteryCharging()
-                    && bar.batteryPercent() >= 0
-                    && bar.batteryPercent() <= 15
-                readonly property bool alertActive: warning || critical
-                readonly property color alertColor: critical ? red : orange
-                property bool alertInverted: false
-                text: bar.batteryPercent() + "% " + bar.batteryIcon()
-                foreground: alertActive ? (alertInverted ? alertColor : "#100f0f")
-                    : (bar.batteryCharging() ? bg : bar.batteryColor())
-                background: bar.batteryCharging() ? green
-                    : (alertActive ? (alertInverted ? "#100f0f" : alertColor) : bg)
-                hoverBackground: background
+                baseBackground: bg
+                baseHoverBackground: bg2
+                textColor: bar.text
+                mutedTextColor: bar.muted
+                popupHoverColor: ui
+                popupBorderColor: tx3
+                popupSeparatorColor: ui3
+                popupTrackColor: ui
+                greenColor: green
+                orangeColor: orange
+                redColor: red
                 bottomBorderColor: ui3
-                horizontalPadding: 6
-
-                onAlertActiveChanged: {
-                    if (!alertActive)
-                        alertInverted = false
-                }
-
-                Timer {
-                    interval: batteryItem.critical ? 380 : 500
-                    repeat: true
-                    running: batteryItem.alertActive
-                    onTriggered: batteryItem.alertInverted = !batteryItem.alertInverted
-                }
+                tooltipBackground: bg
+                tooltipBorderColor: tx3
+                tooltipTextColor: bar.text
+                tooltipMutedColor: bar.muted
             }
         }
     }
