@@ -52,9 +52,6 @@
     "dock": "right",
   },
   "agent_servers": {
-    "stakpak": {
-      "type": "registry"
-    },
     "pi-acp": {
       "default_config_options": {
         "thought_level": "high",
@@ -78,9 +75,6 @@
       "type": "registry",
     },
     "gemini": {
-      "type": "registry",
-    },
-    "opencode": {
       "type": "registry",
     },
   },
@@ -201,13 +195,7 @@
     "dock": "left",
   },
   "context_servers": {
-    "mcp-server-exa-search": {
-      "enabled": true,
-      "settings": {
-        "exa_api_key": "b5c09127-0dd8-40a6-998c-dd4c665fd681",
-      },
     },
-  },
   "terminal": {
     "font_size": 20.0,
     "font_family": "IosevkaTerm Nerd Font",
