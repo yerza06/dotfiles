@@ -408,9 +408,9 @@ PanelWindow {
                 mutedTextColor: bar.muted
                 offlineColor: red
                 bottomBorderColor: ui3
-                menuHoverColor: ui
-                menuBorderColor: tx3
-                menuSeparatorColor: ui3
+                popupHoverColor: ui
+                popupBorderColor: tx3
+                popupSeparatorColor: ui3
                 accentColor: blue
                 greenColor: green
             }

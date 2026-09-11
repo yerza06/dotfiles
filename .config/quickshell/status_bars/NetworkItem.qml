@@ -12,15 +12,13 @@ Rectangle {
     property color mutedTextColor: "#878580"
     property color offlineColor: "#d14d41"
     property color bottomBorderColor: "#403e3c"
-    property color menuHoverColor: "#282726"
-    property color menuBorderColor: "#575653"
-    property color menuSeparatorColor: "#403e3c"
+    property color popupHoverColor: "#282726"
+    property color popupBorderColor: "#575653"
+    property color popupSeparatorColor: "#403e3c"
     property color tooltipBorderColor: "#575653"
     property color accentColor: "#4385be"
     property color greenColor: "#879a39"
     property string fontFamily: "IosevkaTerm Nerd Font Propo"
-
-    property bool menuVisible: false
 
     // Quickshell.Networking отдаёт в device.address MAC, поэтому IP берём у `ip`.
     property string ipAddress: ""
@@ -29,8 +27,6 @@ Rectangle {
     // захват, долетает и до самого виджета — без этой отсечки окно тут же
     // открылось бы снова.
     property double popupClosedAt: 0
-
-    readonly property bool menuChainHovered: buttonMouse.containsMouse || networkMenu.chainHovered
 
     readonly property var devices: Networking.devices ? Networking.devices.values : []
 
@@ -66,10 +62,8 @@ Rectangle {
 
     readonly property bool connected: wiredDevice !== null || wifiDevice !== null
 
-    // Сканирование крутится, только пока открыто меню или окно, и управляется
-    // здесь, а не в каждом из них: иначе они спорили бы за одно свойство и
-    // сканер мог бы остаться включённым после закрытия.
-    readonly property bool scanRequested: menuVisible || popup.visible
+    // Сканирование крутится, только пока открыто окно.
+    readonly property bool scanRequested: popup.visible
 
     readonly property var activeWifiNetwork: {
         if (!wifiDevice || !wifiDevice.networks)
@@ -117,6 +111,7 @@ Rectangle {
     }
 
     function tooltipBody() {
+        const clickHint = "ЛКМ — Wi-Fi вкл/выкл\nПКМ — окно сети\nСКМ — nmtui"
         const lines = []
         if (wiredDevice) {
             lines.push("Ethernet: " + wiredDevice.name)
@@ -130,12 +125,12 @@ Rectangle {
             if (security.length > 0)
                 lines.push("Защита: " + security)
         } else {
-            return "Нет подключения\nЛКМ — подробности\nПКМ — выбор сети"
+            return (Networking.wifiEnabled ? "Нет подключения" : "Wi-Fi выключен")
+                + "\n" + clickHint
         }
         if (ipAddress.length > 0)
             lines.push("IP: " + ipAddress)
-        lines.push("ЛКМ — подробности")
-        lines.push("ПКМ — выбор сети")
+        lines.push(clickHint)
         return lines.join("\n")
     }
 
@@ -146,17 +141,9 @@ Rectangle {
             wifiHardware.scannerEnabled = scanRequested
     }
 
-    function toggleMenu() {
-        menuCloseTimer.stop()
-        menuVisible = !menuVisible
-    }
-
     function togglePopup() {
         if (!popup.visible && Date.now() - popupClosedAt < 200)
             return
-        // Меню и окно перекрыли бы друг друга: показываем что-то одно.
-        if (!popup.visible)
-            menuVisible = false
         popup.visible = !popup.visible
     }
 
@@ -172,13 +159,6 @@ Rectangle {
     onActiveDeviceNameChanged: {
         ipAddress = ""
         refreshIp()
-    }
-
-    onMenuChainHoveredChanged: {
-        if (menuChainHovered)
-            menuCloseTimer.stop()
-        else if (menuVisible)
-            menuCloseTimer.restart()
     }
 
     implicitWidth: label.implicitWidth + 12
@@ -213,17 +193,6 @@ Rectangle {
         onTriggered: root.applyScanner()
     }
 
-    // Меню закрывается, когда курсор ушёл и с виджета, и с самого меню.
-    Timer {
-        id: menuCloseTimer
-        interval: 400
-        repeat: false
-        onTriggered: {
-            if (!root.menuChainHovered && !networkMenu.pskActive)
-                root.menuVisible = false
-        }
-    }
-
     Text {
         id: label
         anchors.centerIn: parent
@@ -241,24 +210,6 @@ Rectangle {
         anchors.bottom: parent.bottom
         height: 1
         color: root.bottomBorderColor
-    }
-
-    NetworkMenu {
-        id: networkMenu
-
-        visible: root.menuVisible
-        anchor.item: root
-        anchor.edges: Edges.Bottom
-        anchor.gravity: Edges.Bottom
-        backgroundColor: root.backgroundColor
-        hoverColor: root.menuHoverColor
-        textColor: root.textColor
-        mutedTextColor: root.mutedTextColor
-        borderColor: root.menuBorderColor
-        separatorColor: root.menuSeparatorColor
-        errorColor: root.offlineColor
-        fontFamily: root.fontFamily
-        onCloseRequested: root.menuVisible = false
     }
 
     NetworkPopup {
@@ -279,12 +230,12 @@ Rectangle {
         icon: root.networkIcon()
         connected: root.connected
         backgroundColor: root.backgroundColor
-        hoverColor: root.menuHoverColor
+        hoverColor: root.popupHoverColor
         textColor: root.textColor
         mutedTextColor: root.mutedTextColor
-        borderColor: root.menuBorderColor
-        separatorColor: root.menuSeparatorColor
-        disabledColor: root.menuSeparatorColor
+        borderColor: root.popupBorderColor
+        separatorColor: root.popupSeparatorColor
+        disabledColor: root.popupSeparatorColor
         accentColor: root.accentColor
         greenColor: root.greenColor
         redColor: root.offlineColor
@@ -298,7 +249,7 @@ Rectangle {
     }
 
     Tooltip {
-        visible: buttonMouse.containsMouse && !root.menuVisible && !popup.visible
+        visible: buttonMouse.containsMouse && !popup.visible
         anchor.item: root
         anchor.edges: Edges.Bottom
         anchor.gravity: Edges.Bottom
@@ -316,16 +267,18 @@ Rectangle {
         id: buttonMouse
         anchors.fill: parent
         hoverEnabled: true
-        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
         cursorShape: Qt.PointingHandCursor
 
         onEntered: root.refreshIp()
 
         onClicked: mouse => {
             if (mouse.button === Qt.LeftButton)
-                root.togglePopup()
+                Networking.wifiEnabled = !Networking.wifiEnabled
             else if (mouse.button === Qt.RightButton)
-                root.toggleMenu()
+                root.togglePopup()
+            else if (mouse.button === Qt.MiddleButton)
+                Quickshell.execDetached(["kitty", "nmtui"])
         }
     }
 }
