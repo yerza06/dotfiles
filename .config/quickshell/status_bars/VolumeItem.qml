@@ -132,13 +132,15 @@ Rectangle {
         id: buttonMouse
         anchors.fill: parent
         hoverEnabled: true
-        acceptedButtons: Qt.LeftButton | Qt.MiddleButton
+        acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
         cursorShape: Qt.PointingHandCursor
 
         onClicked: mouse => {
-            if (mouse.button === Qt.LeftButton)
+            if (mouse.button === Qt.RightButton)
                 root.togglePopup()
-            else if (mouse.button === Qt.MiddleButton && root.audioReady)
+            else if (mouse.button === Qt.MiddleButton)
+                Quickshell.execDetached(["kitty", "pulsemixer"])
+            else if (root.audioReady)
                 root.audioNode.audio.muted = !root.audioNode.audio.muted
         }
 
