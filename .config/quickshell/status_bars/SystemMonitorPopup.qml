@@ -4,7 +4,7 @@ import Quickshell
 import Quickshell.Io
 
 // Окно мониторинга по ПКМ на SystemMonitorItem: загрузка CPU, памяти, диска и
-// видеокарт с полосами, скорость сети и load average.
+// видеокарт с полосами, скорость сети, аптайм и load average.
 // Данные собирает scripts/system-monitor.sh, и работает он, только пока окно
 // открыто: в самой пилюле цифр нет, опрашивать систему в фоне незачем.
 // Как окна сети и батареи, окно «липкое»: grabFocus отдаёт ему клавиатуру и
@@ -118,6 +118,22 @@ PopupWindow {
             return "—"
         return NetworkFormat.formatRate(stats.rx) + " ↓ | ↑ "
             + NetworkFormat.formatRate(stats.tx)
+    }
+
+    // Минуты — самая мелкая единица: секунды в аптайме только мельтешили бы.
+    function uptimeValue() {
+        if (!stats || !(stats.uptime >= 0))
+            return "—"
+        const days = Math.floor(stats.uptime / 86400)
+        const hours = Math.floor((stats.uptime % 86400) / 3600)
+        const minutes = Math.floor((stats.uptime % 3600) / 60)
+        const parts = []
+        if (days > 0)
+            parts.push(days + " д")
+        if (days > 0 || hours > 0)
+            parts.push(hours + " ч")
+        parts.push(minutes + " мин")
+        return parts.join(" ")
     }
 
     function loadLabel() {
@@ -298,6 +314,16 @@ PopupWindow {
                 glyph: "󰓢"
                 label: "NET"
                 value: popupRoot.netValue()
+                showBar: false
+                textColor: popupRoot.textColor
+                mutedTextColor: popupRoot.mutedTextColor
+                fontFamily: popupRoot.fontFamily
+            }
+
+            SystemMetricRow {
+                glyph: "󰅐"
+                label: "UPTIME"
+                value: popupRoot.uptimeValue()
                 showBar: false
                 textColor: popupRoot.textColor
                 mutedTextColor: popupRoot.mutedTextColor

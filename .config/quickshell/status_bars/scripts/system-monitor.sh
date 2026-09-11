@@ -174,6 +174,7 @@ while :; do
     { read -r _; read -r disk_size disk_used disk_avail; } < <(df -B1 --output=size,used,avail /)
 
     read -r load_one load_five load_fifteen _ < /proc/loadavg
+    read -r uptime _ < /proc/uptime
 
     # Счётчики обнуляются, когда интерфейс переподнимают.
     rx_rate=$(((net_rx - prev_net_rx) * 1000000 / elapsed))
@@ -187,10 +188,10 @@ while :; do
         gpus+=$(gpu_json "$i")
     done
 
-    printf '{"cpu":%d,"cpuTemp":%d,"memUsed":%d,"memTotal":%d,"diskSize":%d,"diskUsed":%d,"diskAvail":%d,"load":[%s,%s,%s],"rx":%d,"tx":%d,"gpus":[%s]}\n' \
+    printf '{"cpu":%d,"cpuTemp":%d,"memUsed":%d,"memTotal":%d,"diskSize":%d,"diskUsed":%d,"diskAvail":%d,"load":[%s,%s,%s],"uptime":%d,"rx":%d,"tx":%d,"gpus":[%s]}\n' \
         "$cpu" "$cpu_temp" "$((mem_total - mem_available))" "$mem_total" \
         "$disk_size" "$disk_used" "$disk_avail" \
-        "$load_one" "$load_five" "$load_fifteen" \
+        "$load_one" "$load_five" "$load_fifteen" "${uptime%.*}" \
         "$rx_rate" "$tx_rate" "$gpus"
 
     remember_sample
