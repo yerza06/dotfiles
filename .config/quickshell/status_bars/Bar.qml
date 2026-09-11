@@ -15,13 +15,6 @@ PanelWindow {
 
     required property var targetScreen
     required property bool lightTheme
-    required property int cpuUsage
-    required property int memoryUsage
-    required property real loadOne
-    required property real loadFive
-    required property real loadFifteen
-    required property int memoryUsedKiB
-    required property int memoryTotalKiB
     required property string audioOutputType
     property var workspaceProjection: WindowManager.screenProjection(targetScreen)
     property string keyboardLayout: "--"
@@ -85,10 +78,6 @@ PanelWindow {
         }
         result.sort((left, right) => workspaceNumber(left) - workspaceNumber(right))
         return result
-    }
-
-    function formatGiB(kibibytes) {
-        return (Math.max(0, kibibytes) / 1048576).toFixed(1)
     }
 
     function volumePercent() {
@@ -167,15 +156,16 @@ PanelWindow {
     color: bg
 
     // Клавиатура нужна панели, только пока открыто «липкое» окно — календарь,
-    // плеер, батарея, звук или Bluetooth: без фокуса до них не доходит ни Esc,
-    // ни ввод текста (переименование устройства). OnDemand, а не Exclusive —
-    // панель не должна перехватывать ввод у окон.
+    // плеер, батарея, звук, Bluetooth или мониторинг: без фокуса до них не
+    // доходит ни Esc, ни ввод текста (переименование устройства). OnDemand, а не
+    // Exclusive — панель не должна перехватывать ввод у окон.
     WlrLayershell.keyboardFocus: clock.calendarVisible
         || mprisItem.popupVisible
         || batteryItem.popupVisible
         || volumeItem.popupVisible
         || microphoneItem.popupVisible
         || bluetoothItem.popupVisible
+        || systemItem.popupVisible
         ? WlrKeyboardFocus.OnDemand
         : WlrKeyboardFocus.None
 
@@ -308,46 +298,22 @@ PanelWindow {
             anchors.verticalCenter: parent.verticalCenter
             spacing: 3
 
-            StatusItem {
-                text: " " + bar.cpuUsage + "%"
-                foreground: bar.text
-                background: bg
-                hoverBackground: bg2
-                bottomBorderColor: ui3
-                tooltipTitle: "  CPU"
-                tooltipText: "Использование: " + bar.cpuUsage + "%"
-                    + "\nLoad average: " + bar.loadOne.toFixed(2)
-                    + " · " + bar.loadFive.toFixed(2)
-                    + " · " + bar.loadFifteen.toFixed(2)
-                tooltipBackground: bg
-                tooltipBorderColor: tx3
-                tooltipTextColor: bar.text
-                tooltipMutedColor: bar.muted
-                onPressed: button => {
-                    if (button === Qt.LeftButton)
-                        Quickshell.execDetached(["kitty", "--start-as=fullscreen", "btop"])
-                }
-            }
+            SystemMonitorItem {
+                id: systemItem
 
-            StatusItem {
-                text: " " + bar.memoryUsage + "%"
-                foreground: bar.text
-                background: bg
-                hoverBackground: bg2
-                bottomBorderColor: ui3
-                tooltipTitle: "  RAM"
-                tooltipText: "Использовано: " + bar.formatGiB(bar.memoryUsedKiB)
-                    + " / " + bar.formatGiB(bar.memoryTotalKiB) + " GiB"
-                    + "\nДоступно: "
-                    + bar.formatGiB(bar.memoryTotalKiB - bar.memoryUsedKiB) + " GiB"
-                tooltipBackground: bg
+                backgroundColor: bg
                 tooltipBorderColor: tx3
-                tooltipTextColor: bar.text
-                tooltipMutedColor: bar.muted
-                onPressed: button => {
-                    if (button === Qt.LeftButton)
-                        Quickshell.execDetached(["kitty", "--start-as=fullscreen", "btop"])
-                }
+                hoverColor: bg2
+                textColor: bar.text
+                mutedTextColor: bar.muted
+                bottomBorderColor: ui3
+                popupHoverColor: ui
+                popupBorderColor: tx3
+                popupSeparatorColor: ui3
+                popupTrackColor: ui
+                accentColor: blue
+                orangeColor: orange
+                redColor: red
             }
 
             StatusItem {
