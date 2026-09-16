@@ -1,0 +1,33 @@
+# Этот файл заменяет стандартный список игнора stow,
+# поэтому дефолты (из Stow.pm) повторены здесь.
+
+RCS
+.+,v
+
+CVS
+\.\#.+       # CVS conflict files / emacs lock files
+\.cvsignore
+
+\.svn
+_darcs
+\.hg
+
+\.git
+\.gitignore
+\.gitmodules
+
+.+~          # emacs backup files
+\#.*\#       # emacs autosave files
+
+^/README.*
+^/LICENSE.*
+^/COPYING
+
+# Свои исключения
+^/\.stow-local-ignore
+^/pyinfra
+
+# Жёсткие ссылки: их ставит pyinfra/deploy.py, а не stow
+^/\.config/mimeapps\.list
+^/\.config/user-dirs\.dirs
+^/\.config/user-dirs\.locale
