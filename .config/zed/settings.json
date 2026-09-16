@@ -47,6 +47,7 @@
     "proxy": "",
     "cli_default_open_behavior": "existing_window",
     "collaboration_panel": {
+        "default_width": 240.0,
         "dock": "right",
     },
     "agent_servers": {
@@ -195,6 +196,8 @@
         "font_family": "IosevkaTerm Nerd Font",
     },
     "agent": {
+        "max_content_width": 1000.0,
+        "default_height": 320.0,
         "message_editor_min_lines": 4,
         "show_turn_stats": false,
         "notify_when_agent_waiting": "primary_screen",
