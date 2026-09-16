@@ -3,10 +3,12 @@ current=$(gsettings get org.gnome.desktop.interface color-scheme)
 
 if [ "$current" = "'prefer-dark'" ]; then
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
+    kitten themes --reload-in=all "Flexoki (Light)"
     awww img --transition-step 15 ~/.config/wallpapers/secluded-grove-pixel-light.png
     notify-send "Тема изменена" "Включён светлый режим"
 else
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+    kitten themes --reload-in=all "Flexoki (Dark)"
     awww img --transition-step 15 ~/.config/wallpapers/secluded-grove-pixel-dark.png
     notify-send "Тема изменена" "Включён тёмный режим"
 fi
