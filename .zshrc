@@ -151,6 +151,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # source <(ng completion script 2>/dev/null)
 # source <(NODE_OPTIONS="" node --disable-warnings $(which ng) completion script 2>/dev/null)
 eval "$(fzf --zsh)"
+eval "$(zoxide init zsh)"
 # export POWERLEVEL9K_INSTANT_PROMPT=off
 # export PATH="$HOME/.npm-global/bin:$PATH"
 #
