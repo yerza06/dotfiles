@@ -1,12 +1,12 @@
 [Unit]
-Description=Quickshell status bars
-Documentation=file:///home/yerza/.config/quickshell/switch_lang/README.md
+Description=Quickshell language switch notification
+Documentation=file://%h/.config/quickshell/lang_switch/README.md
 After=graphical-session.target
 PartOf=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/qs -p /home/yerza/.config/quickshell/switch_lang/shell.qml
+ExecStart=/usr/bin/qs -c lang_switch
 Restart=on-failure
 RestartSec=2s
 TimeoutStopSec=5s
