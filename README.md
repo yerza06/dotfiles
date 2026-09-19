@@ -17,6 +17,8 @@ stow .
   (отличающаяся копия из `~/.config` сохраняется как `*.pyinfra-bak.<дата>`);
 - ставит oh-my-zsh с плагинами и powerlevel10k, делает zsh оболочкой по умолчанию;
 - ставит tpm и плагины tmux из `.config/tmux/core/plugins.conf`;
+- раскладывает правила udev из `pyinfra/files/udev/` в `/etc/udev/rules.d/`
+  (доступ к hidraw для настраиваемой периферии);
 - линкует юниты из `.config/quickshell/services/` в `~/.config/systemd/user/`
   и запускает их вместе с `syncthing`.
 

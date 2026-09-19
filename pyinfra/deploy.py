@@ -1,4 +1,4 @@
-"""Установка пакетов, dotfiles, zsh/tmux и user-сервисов на локальную Arch-машину.
+"""Установка пакетов, dotfiles, zsh/tmux, правил udev и user-сервисов на локальную Arch-машину.
 
 Запуск (из графической сессии — юниты quickshell требуют Wayland):
 
@@ -16,7 +16,7 @@ from pathlib import Path
 # pyinfra исполняет deploy-файл через exec(), а не импортирует как модуль,
 # поэтому его каталог приходится добавлять в sys.path вручную.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from tasks import aur, dotfiles, flatpak, pacman, services, sudo, tmux, zsh  # noqa: E402
+from tasks import aur, dotfiles, flatpak, pacman, services, sudo, tmux, udev, zsh  # noqa: E402
 
 SUDO = sudo.prompt()
 
@@ -27,4 +27,5 @@ aur.install(SUDO)
 dotfiles.setup()
 zsh.setup(SUDO)
 tmux.setup()
+udev.setup(SUDO)
 services.setup()

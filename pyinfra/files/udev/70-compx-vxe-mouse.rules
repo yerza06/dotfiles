@@ -1,0 +1,2 @@
+# Compx VXE (беспроводная мышь) — доступ к hidraw для конфигуратора.
+KERNEL=="hidraw*", ATTRS{idVendor}=="3554", ATTRS{idProduct}=="f58a", MODE="0666", TAG+="uaccess"
