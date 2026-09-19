@@ -70,7 +70,7 @@
         "claude-acp": {
             "default_config_options": {
                 "fast": false,
-                "mode": "acceptEdits",
+                "mode": "auto",
             },
             "type": "registry",
         },
