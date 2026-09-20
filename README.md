@@ -19,6 +19,7 @@ stow .
 - ставит tpm и плагины tmux из `.config/tmux/core/plugins.conf`;
 - раскладывает правила udev из `pyinfra/files/udev/` в `/etc/udev/rules.d/`
   (доступ к hidraw для настраиваемой периферии);
+- включает `cronie` и ставит запись crontab для `.local/bin/battery-notify.sh`;
 - линкует юниты из `.config/quickshell/services/` в `~/.config/systemd/user/`
   и запускает их вместе с `syncthing`.
 

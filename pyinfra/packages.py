@@ -30,6 +30,7 @@ PACMAN = [
     "flatpak",
     # Системные утилиты
     "btop",
+    "cronie",  # демон cron для tasks/cron.py
     "cups",
     "curl",
     "htop",
