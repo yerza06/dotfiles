@@ -65,11 +65,17 @@ def _install_packages(password: str) -> None:
         dest=str(askpass),
         mode="700",
     )
+    # Askpass держит пароль открытым текстом, а операция ниже выполнится только
+    # если yay завершится успешно: pyinfra обрывает деплой на первой упавшей
+    # операции. Поэтому подчищаем файл trap'ом внутри самой команды.
+    trap = f"trap 'rm -f {shlex.quote(str(askpass))}' EXIT HUP INT TERM"
+    targets = " ".join(shlex.quote(pkg) for pkg in missing)
     server.shell(
         name="Установить пакеты AUR",
         commands=[
+            f"{trap}; "
             "yay -S --needed --noconfirm --answerclean None --answerdiff None "
-            f"--sudoflags=-A {' '.join(missing)}"
+            f"--sudoflags=-A {targets}"
         ],
         _env={"SUDO_ASKPASS": str(askpass)},
     )
