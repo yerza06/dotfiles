@@ -16,7 +16,19 @@ from pathlib import Path
 # pyinfra исполняет deploy-файл через exec(), а не импортирует как модуль,
 # поэтому его каталог приходится добавлять в sys.path вручную.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from tasks import aur, cron, dotfiles, flatpak, pacman, services, sudo, tmux, udev, zsh  # noqa: E402
+from tasks import (  # noqa: E402
+    agents,
+    aur,
+    cron,
+    dotfiles,
+    flatpak,
+    pacman,
+    services,
+    sudo,
+    tmux,
+    udev,
+    zsh,
+)
 
 SUDO = sudo.prompt()
 
@@ -27,6 +39,7 @@ aur.install(SUDO)
 dotfiles.setup()
 zsh.setup(SUDO)
 tmux.setup()
+agents.setup()
 udev.setup(SUDO)
 cron.setup(SUDO)
 services.setup()

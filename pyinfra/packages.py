@@ -18,6 +18,8 @@ PACMAN = [
     "rust",
     "uv",
     "zed",
+    "openai-codex",
+    "gemini-cli",
     # Терминалы
     "alacritty",
     "kitty",
@@ -90,4 +92,21 @@ FLATPAK = [
 AUR = [
     "helium-browser-bin",
     "android-studio",
+]
+
+# Глобальные npm-пакеты: агент pi и его плагины. Префикс — ~/.npm-global,
+# его задаёт tasks/agents.py.
+NPM = [
+    "@earendil-works/pi-coding-agent",
+    "@artale/pi-skills",
+    "@artale/pi-memory",
+    "@aliou/pi-guardrails",
+    "@tintinweb/pi-subagents",
+    "@narumitw/pi-chrome-devtools",
+    "@llblab/pi-codex-usage",
+    "@0xkobold/pi-ollama",
+    "@juicesharp/rpiv-todo",
+    "@juicesharp/rpiv-ask-user-question",
+    "@vkundapur/context-inspector",
+    "pi-web-access",
 ]

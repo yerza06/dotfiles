@@ -17,6 +17,8 @@ stow .
   (отличающаяся копия из `~/.config` сохраняется как `*.pyinfra-bak.<дата>`);
 - ставит oh-my-zsh с плагинами и powerlevel10k, делает zsh оболочкой по умолчанию;
 - ставит tpm и плагины tmux из `.config/tmux/core/plugins.conf`;
+- ставит терминальных агентов: claude code и herdr официальными
+  установщиками, pi с плагинами — глобальными npm-пакетами;
 - раскладывает правила udev из `pyinfra/files/udev/` в `/etc/udev/rules.d/`
   (доступ к hidraw для настраиваемой периферии);
 - включает `cronie` и ставит запись crontab для `.local/bin/battery-notify.sh`;
