@@ -33,6 +33,7 @@ PACMAN = [
     # Системные утилиты
     "baobab",  # анализатор занятого места на диске
     "btop",
+    "cliphist",  # история буфера обмена для quickshell buffermenu
     "cronie",  # демон cron для tasks/cron.py
     "cups",
     "curl",
