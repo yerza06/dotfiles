@@ -29,6 +29,7 @@ PACMAN = [
     "syncthing",
     "flatpak",
     # Системные утилиты
+    "baobab",  # анализатор занятого места на диске
     "btop",
     "cronie",  # демон cron для tasks/cron.py
     "cups",
@@ -46,6 +47,9 @@ PACMAN = [
     "bat",
     "fzf",
     "zoxide",
+    # Пароли
+    "pass",
+    "qtpass",  # GUI поверх pass
     # Файловые менеджеры
     "pcmanfm",
     # Браузер
@@ -56,6 +60,7 @@ PACMAN = [
     "inkscape",
     "kdenlive",
     "krita",
+    "obs-studio",
     # Игры и развлечения
     "discord",
     "modrinth-app",
@@ -63,6 +68,10 @@ PACMAN = [
     "steam",  # из [multilib]
     # Служебные
     "quickshell",  # нужен user-сервисам quickshell_*
+    "bluetui",  # открывается из панели quickshell по СКМ
+    "pulsemixer",  # открывается из панели quickshell по СКМ
+    "awww",  # обои, переключаются в toggle-theme-script.sh
+    "nwg-look",  # настройки GTK-темы для wlroots
     "base-devel",  # сборка AUR-пакетов
 ]
 
@@ -74,10 +83,11 @@ FLATPAK = [
     "org.pgadmin.pgadmin4",
     "io.httpie.Httpie",
     "com.bitwarden.desktop",
+    "it.mijorus.gearlever",
+    "app.xmcl.voxelum",
 ]
 
 AUR = [
     "helium-browser-bin",
-    "t3code-bin",
     "android-studio",
 ]
