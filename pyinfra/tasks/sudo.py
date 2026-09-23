@@ -19,6 +19,9 @@ def prompt() -> dict:
         capture_output=True,
     )
     if check.returncode != 0:
-        sys.exit("Неверный пароль sudo")
+        # Без stderr от sudo не отличить опечатку в пароле от отсутствия
+        # пользователя в wheel, requiretty и прочих настроек sudoers.
+        reason = check.stderr.strip() or f"sudo завершился с кодом {check.returncode}"
+        sys.exit(f"Проверка sudo не прошла:\n{reason}")
 
     return {"_sudo": True, "_sudo_password": password}
