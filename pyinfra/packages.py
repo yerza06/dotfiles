@@ -32,11 +32,14 @@ PACMAN = [
     "flatpak",
     # Системные утилиты
     "baobab",  # анализатор занятого места на диске
+    "brightnessctl",  # яркость по клавишам XF86MonBrightness* в binds.kdl
     "btop",
+    "cliphist",  # история буфера обмена для quickshell buffermenu
     "cronie",  # демон cron для tasks/cron.py
     "cups",
     "curl",
     "htop",
+    "jq",  # нужен скриптам панели quickshell status_bars
     "tar",
     "unzip",
     "wget",
@@ -75,6 +78,9 @@ PACMAN = [
     "pulsemixer",  # открывается из панели quickshell по СКМ
     "awww",  # обои, переключаются в toggle-theme-script.sh
     "nwg-look",  # настройки GTK-темы для wlroots
+    "hyprlock",  # блокировка экрана по Super+Alt+L
+    "hyprpicker",  # пипетка цвета по Mod+Alt+P
+    "xwayland-satellite",  # поддержка X11-приложений в niri
     "base-devel",  # сборка AUR-пакетов
 ]
 
