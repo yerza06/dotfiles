@@ -1,0 +1,100 @@
+onboarding = false
+
+[keys]
+# tmux-like keymap from ~/.config/tmux/tmux.conf
+prefix = "ctrl+q"
+detach = "prefix+q"
+reload_config = "prefix+r"
+settings = "prefix+."
+new_worktree = ""
+
+# tmux sessions -> Herdr workspaces
+workspace_picker = "prefix+w"
+previous_workspace = "ctrl+alt+i"
+next_workspace = "ctrl+alt+u"
+goto = ["prefix+e", "prefix+f", "alt+s"]
+new_workspace = "prefix+shift+s"
+rename_workspace = "prefix+shift+r"
+close_workspace = ""
+
+# tmux windows -> Herdr tabs
+new_tab = "ctrl+alt+enter"
+previous_tab = "ctrl+alt+p"
+next_tab = "ctrl+alt+n"
+switch_tab = "ctrl+alt+1..9"
+# close_tab = "prefix+x"
+
+# Panes
+split_vertical = ["prefix+="]
+split_horizontal = ["prefix+minus"]
+close_pane = "prefix+x"
+zoom = "prefix+m"
+copy_mode = "prefix+v"
+edit_scrollback = ""
+resize_mode = ""
+
+focus_pane_left = "ctrl+alt+h"
+focus_pane_down = "ctrl+alt+j"
+focus_pane_up = "ctrl+alt+k"
+focus_pane_right = "ctrl+alt+l"
+swap_pane_left = "prefix+ctrl+h"
+swap_pane_right = "prefix+ctrl+l"
+swap_pane_down = "prefix+ctrl+k"
+swap_pane_up = "prefix+ctrl+j"
+
+# tmux popup commands (temporary zoomed command panes in Herdr 0.6)
+[[keys.command]]
+key = "prefix+shift+b"
+type = "pane"
+command = "btop"
+
+[[keys.command]]
+key = "prefix+shift+h"
+type = "pane"
+command = "htop"
+
+[[keys.command]]
+key = "prefix+shift+g"
+type = "pane"
+command = "lazygit"
+
+[[keys.command]]
+key = "prefix+shift+d"
+type = "pane"
+command = "lazydocker"
+
+[[keys.command]]
+key = "prefix+shift+y"
+type = "pane"
+command = "spf"
+
+# Direct pane resizing, matching tmux's Alt+Shift+H/J/K/L
+[[keys.command]]
+key = "alt+shift+h"
+type = "shell"
+command = "\"$HERDR_BIN_PATH\" pane resize \"$HERDR_ACTIVE_PANE_ID\" --direction left"
+
+[[keys.command]]
+key = "alt+shift+j"
+type = "shell"
+command = "\"$HERDR_BIN_PATH\" pane resize \"$HERDR_ACTIVE_PANE_ID\" --direction down"
+
+[[keys.command]]
+key = "alt+shift+k"
+type = "shell"
+command = "\"$HERDR_BIN_PATH\" pane resize \"$HERDR_ACTIVE_PANE_ID\" --direction up"
+
+[[keys.command]]
+key = "alt+shift+l"
+type = "shell"
+command = "\"$HERDR_BIN_PATH\" pane resize \"$HERDR_ACTIVE_PANE_ID\" --direction right"
+
+[theme]
+name = "gruvbox"
+
+[ui]
+show_agent_labels_on_pane_borders = true
+
+[experimental]
+pane_history = false
+
