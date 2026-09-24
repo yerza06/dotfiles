@@ -44,7 +44,6 @@ PACMAN = [
     "unzip",
     "wget",
     "wl-clipboard",  # даёт wl-copy / wl-paste
-    "cliphist",  # история буфера для quickshell/buffermenu
     "yazi",
     "zip",
     "zstd",
