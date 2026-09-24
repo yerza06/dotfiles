@@ -28,6 +28,8 @@ PACMAN = [
     "docker-compose",
     "lazydocker",
     "nginx",
+    "net-tools",
+    "nmap",
     "syncthing",
     "flatpak",
     # Системные утилиты
